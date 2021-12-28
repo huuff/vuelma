@@ -5,9 +5,9 @@
         <p v-if="title" class="card-header-title">
           {{ title }}
         </p>
-        <div class="card-header-icon"> <!-- TODO: Integrate with FontAwesome -->
+        <div v-if="icon" class="card-header-icon"> <!-- TODO: Check whether it works with fontawesome -->
           <span class="icon">
-            <slot name="icon"></slot>
+            <font-awesome-icon :icon="icon"></font-awesome-icon>
           </span>
         </div>
       </slot>
@@ -31,5 +31,6 @@
 const props = defineProps<{
   title?: string;
   image?: string;
+  icon?: string | [string, string];
 }>();
 </script>
