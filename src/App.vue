@@ -1,7 +1,17 @@
 <template>
-<h1 class="has-text-primary">Test</h1>
+<div class="column is-2">
+  <base-card :title="'Title'">
+    <template #content>
+      Content text
+    </template>
+    <template #footer>
+      Footer text
+    </template>
+  </base-card>
+</div>
 </template>
 
 <script setup lang="ts">
-console.log("test");
+import BaseCard from '@/components/BaseCard.vue';
+
 </script>
