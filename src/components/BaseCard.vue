@@ -7,7 +7,7 @@
         </p>
         <div v-if="icon" class="card-header-icon"> <!-- TODO: Check whether it works with fontawesome -->
           <span class="icon">
-            <font-awesome-icon :icon="icon"></font-awesome-icon>
+            <font-awesome-icon :icon="icon" aria-hidden></font-awesome-icon>
           </span>
         </div>
       </slot>
