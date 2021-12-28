@@ -1,6 +1,6 @@
-<template> <!-- TODO: Use semantic html -->
+<template>
   <div class="card">
-    <div class="card-header">
+    <header class="card-header">
       <slot name="header">
         <p v-if="title" class="card-header-title">
           {{ title }}
@@ -11,7 +11,7 @@
           </span>
         </div>
       </slot>
-    </div>
+    </header>
     <div v-if="image" class="card-image">
       <figure class="image">
         <img :src="image">
@@ -20,10 +20,10 @@
     <div v-if="$slots.content" class="card-content">
       <slot name="content"></slot>
     </div>
-    <div v-if="$slots.footer" class="card-footer"> 
+    <footer v-if="$slots.footer" class="card-footer"> 
       <!-- TODO: How could I do card-footer-items? -->
       <slot name="footer"></slot>
-    </div>
+    </footer>
   </div>
 </template>
 
