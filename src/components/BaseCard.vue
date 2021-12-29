@@ -28,6 +28,7 @@
 </template>
 
 <script setup lang="ts">
+// TODO: Validations!
 import { useSlots, onMounted, onBeforeUpdate} from 'vue';
 
 const props = defineProps<{
