@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import BaseCard from '@/components/BaseCard.vue';
 
 describe('BaseCard.vue', () => {
-  it('contains the title', () => {
+  test('it contains the title', () => {
     const title = "TEST TITLE";
     const wrapper = mount(BaseCard, {
       props: { title },
@@ -13,7 +13,7 @@ describe('BaseCard.vue', () => {
     expect(wrapper.get('.card-header-title').text()).toBe(title);
   });
 
-  it('contains the content', () => {
+  test('it contains the content', () => {
     const content = `
     <section>
       <p>Test</p>
@@ -27,4 +27,18 @@ describe('BaseCard.vue', () => {
     expect(wrapper.find('.card-content').exists()).toBeTrue();
     expect(wrapper.get('.card-content').element.innerHTML).toEqualIgnoringWhitespace(content);
   });
+
+  // TODO: Triggering a warning! So there must be a better way
+  test('the footer items have the appropriate class', () => {
+    const wrapper = mount(BaseCard, {
+      global: { stubs: [ 'font-awesome-icon' ], },
+      slots: { footerItems: `
+          <a href="#">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+        `},
+    });
+
+    console.log(`Contents: ${wrapper.find('.card-footer a')}`)
+  }); 
 });
