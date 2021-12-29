@@ -4,8 +4,10 @@
       <template #content>
         Content text
       </template>
-      <template #footer>
-        Footer text
+      <template #footerItems>
+        <a href="#">item1</a>
+        <a href="#">item2</a>
+        <a href="#">item3</a>
       </template>
     </base-card>
   </div>
