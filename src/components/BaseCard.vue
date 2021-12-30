@@ -17,8 +17,8 @@
         <img :src="image">
       </figure>
     </div>
-    <div v-if="$slots.content" class="card-content">
-      <slot name="content"></slot>
+    <div v-if="$slots.default" class="card-content">
+      <slot></slot>
     </div>
     <footer v-if="$slots.footer || $slots.footerItems" class="card-footer"> 
       <slot name="footer"></slot>

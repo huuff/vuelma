@@ -26,7 +26,7 @@ describe('BaseCard.vue', () => {
     `;
     const wrapper = mount(BaseCard, {
       global: { stubs: [ 'font-awesome-icon' ], },
-      slots: { content },
+      slots: { default: content },
     });
 
     expect(wrapper.find('.card-content').exists()).toBeTrue();

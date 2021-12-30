@@ -1,7 +1,7 @@
 <template>
   <div class="column is-3 is-3-desktop">
     <base-card :title="'Title'" :icon="'angle-down'">
-      <template #content>
+      <template #default>
         Content text
       </template>
       <template #footerItems>
