@@ -1,22 +1,15 @@
-function recurseIntoFragments(element) {
-  if (element.type.toString() === 'Symbol(Fragment)'
-    && element.children[0].type.toString() === 'Symbol(Fragment)'
-  ) {
-    return recurseIntoFragments(element.children[0]);
-  } else {
-    return element;
-  }
-}
+import { cloneVNode } from 'vue';
 
-// TODO: Can I make a new element instead of modifying it?
-function appendClass(element, childrenClass) {
-  if (element.props?.class && !element.props?.class.includes(childrenClass)) {
-    element.props.class += ` ${childrenClass}`;
+function recursivelyAddClass(element, classToAdd) {
+  if (Array.isArray(element)) {
+    return element.map(el => recursivelyAddClass(el, classToAdd));
+  } else if (element.type.toString() === 'Symbol(Fragment)') {
+    const clone = cloneVNode(element);
+    clone.children = recursivelyAddClass(element.children, classToAdd)
+    return clone;
   } else {
-    element.props.class = childrenClass;
+    return cloneVNode(element, { class: classToAdd });
   }
-
-  return element;
 }
 
 export default {
@@ -24,18 +17,12 @@ export default {
     childrenClass: {
       type: String,
       required: true
-    }
+    },
   },
 
   render() {
     const slot = this.$slots.default();
 
-    if (slot[0]?.type?.toString() === 'Symbol(Fragment)') {
-      recurseIntoFragments(slot[0]).children.forEach(element => appendClass(element, this.$props.childrenClass));
-    } else if (Array.isArray(slot)) {
-      slot.forEach(element => appendClass(element, this.$props.childrenClass));
-    }
-
-    return slot;
+    return recursivelyAddClass(slot, this.$props.childrenClass);
   },
 };
