@@ -22,33 +22,20 @@
     </div>
     <footer v-if="$slots.footer || $slots.footerItems" class="card-footer"> 
       <slot name="footer"></slot>
-      <slot name="footerItems"></slot>
+      <classed-slot :children-class="'card-footer-item'">
+        <slot name="footerItems"></slot>
+      </classed-slot>
     </footer>
   </div>
 </template>
 
 <script setup lang="ts">
 // TODO: Validations!
-import { useSlots, onMounted, onBeforeUpdate} from 'vue';
+import ClassedSlot from '@/components/ClassedSlot.vue';
 
 const props = defineProps<{
   title?: string;
   image?: string;
   icon?: string | [string, string];
 }>();
-
-onBeforeUpdate(() => addClassToFooterItems());
-onMounted(() => addClassToFooterItems());
-
-// HACK: This feels hacky, at least, and also
-// the classes seem to go away when dev-server reloads the page
-function addClassToFooterItems() {
-  const slots = useSlots();
-
-  if (slots && slots.footerItems) {
-    for (const item of slots.footerItems()) {
-      item.el?.classList.add("card-footer-item");
-    }
-  }
-}
 </script>

@@ -39,6 +39,8 @@ describe('BaseCard.vue', () => {
         `},
     });
 
-    console.log(`Contents: ${wrapper.find('.card-footer a')}`)
+    for (const elem of wrapper.findAll('.card-footer a')) {
+      expect(elem.element.classList).toContain("card-footer-item");
+    }
   }); 
 });
