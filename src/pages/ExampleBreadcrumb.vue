@@ -1,5 +1,5 @@
 <template>
-<base-breadcrumb></base-breadcrumb>
+<base-breadcrumb :separator="'arrow'"></base-breadcrumb>
 </template>
 
 <script setup lang="ts">

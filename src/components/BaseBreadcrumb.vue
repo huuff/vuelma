@@ -1,5 +1,5 @@
 <template>
-<nav class="breadcrumb" aria-label="breadcrumbs">
+<nav class="breadcrumb" :class="separator ? `has-${separator}-separator` : null" aria-label="breadcrumbs">
   <ul>
     <li 
       v-for="part in pathParts" 
@@ -17,12 +17,16 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useRouter, RouteRecordNormalized } from 'vue-router';
+import { BreadcrumbSeparator } from '@/types/breadcrumb-separator';
 
 // FUTURE: building the path is done like 5 times for every element.
 // This could be solved if there was a way to have local variables in the templates
 // (local to an element and its children) but I found no way to do it except for using a v-for
-// TODO: Allow separators, sizes?
 const router = useRouter();
+
+const props = defineProps<{
+  separator?: BreadcrumbSeparator;
+}>();
 
 const pathParts = computed(() => {
   const allParts = router.currentRoute.value.path.split("/");
