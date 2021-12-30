@@ -28,7 +28,6 @@ describe('BaseCard.vue', () => {
     expect(wrapper.get('.card-content').element.innerHTML).toEqualIgnoringWhitespace(content);
   });
 
-  // TODO: Triggering a warning! So there must be a better way
   test('the footer items have the appropriate class', () => {
     const wrapper = mount(BaseCard, {
       global: { stubs: [ 'font-awesome-icon' ], },
