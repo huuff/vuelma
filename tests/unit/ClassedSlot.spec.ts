@@ -15,13 +15,9 @@ describe('ClassedSlot.js', () => {
         },
       });
 
-      // XXX: It would be great to just use a selector with `findAll`,
-      // but it does not work! The fact that I'm using a render function 
-      // with a fragment might be too much for test-utils
-      const html = wrapper.html();
-      const matches = html.match(new RegExp(`class="${childrenClass}"`, 'g'));
-      expect(matches).not.toBeNull();
-      expect(matches!.length).toBe(3);
+      for (const elem of wrapper.findAll('a')) {
+        expect(elem.classes()).toContain(childrenClass);
+      }
   });
 
   test('it works with only one child too', () => {
