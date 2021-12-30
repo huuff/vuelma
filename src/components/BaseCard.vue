@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-// TODO: Validations!
+import { useSlots } from 'vue';
 import ClassedSlot from '@/components/ClassedSlot.js';
 
 const props = defineProps<{
@@ -38,4 +38,14 @@ const props = defineProps<{
   image?: string;
   icon?: string | [string, string];
 }>();
+
+const slots = useSlots();
+
+if (slots.footer && slots.footerItems) {
+  throw new Error('The card component cannot be used with both a footer and footerItems!');
+}
+
+if (slots.header && (slots.title || slots.icon)) {
+  throw new Error('The card component cannot be used with both a header and a title or an icon!');
+}
 </script>
