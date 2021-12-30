@@ -23,6 +23,7 @@
 
 <script setup lang="ts">
 // TODO: Test it!
+// TODO: Some way to add dividers?
 import { useSlots, ref } from 'vue';
 import ClassedSlot from './ClassedSlot';
 
