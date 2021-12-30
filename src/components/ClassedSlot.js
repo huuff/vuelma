@@ -1,5 +1,6 @@
 import { cloneVNode } from 'vue';
 
+// FUTURE: Wish I could type this but it's extremely hard for me
 function recursivelyAddClass(element, classToAdd) {
   if (Array.isArray(element)) {
     return element.map(el => recursivelyAddClass(el, classToAdd));
