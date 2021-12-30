@@ -28,7 +28,6 @@ describe('BaseCard.vue', () => {
     expect(wrapper.get('.card-content').element.innerHTML).toEqualIgnoringWhitespace(content);
   });
   // TODO: Test that it contains the icon
-  // TODO: Test the validations
 
   test('footer elements have the card-footer-item class', () => {
     const wrapper = mount(BaseCard, {
@@ -43,6 +42,26 @@ describe('BaseCard.vue', () => {
     for (const item of wrapper.findAll('a')) {
       expect(item.classes()).toContain('card-footer-item');
     }
+  });
+
+  test('cannot create an instance with both a footer and footer items', () => {
+    expect(() => mount(BaseCard, {
+      global: { stubs: ['font-awesome-icon']},
+      slots: {
+        footer: 'test1',
+        footerItems: 'test2'
+      },
+    })).toThrow();
+  });
+
+  test('cannot create an instance with both a header and a title', () => {
+    expect(() => mount(BaseCard, {
+      global: { stubs: ['font-awesome-icon']},
+      slots: {
+        header: 'test1',
+        title: 'test2'
+      },
+    })).toThrow();
   });
 
 });
