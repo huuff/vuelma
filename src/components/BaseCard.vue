@@ -31,12 +31,11 @@
 
 <script setup lang="ts">
 // TODO: Validations!
-import ClassedSlot from '@/components/ClassedSlot.vue';
+import ClassedSlot from '@/components/ClassedSlot.js';
 
 const props = defineProps<{
   title?: string;
   image?: string;
   icon?: string | [string, string];
 }>();
-console.log("test");
 </script>

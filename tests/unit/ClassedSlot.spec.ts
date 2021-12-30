@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
-import ClassedSlot from '@/components/ClassedSlot.vue';
+import ClassedSlot from '@/components/ClassedSlot.js';
 
-describe('ClassedSlot.vue', () => {
+describe('ClassedSlot.js', () => {
   test('every child has the given class', () => {
       const childrenClass = 'test';
       const wrapper  = mount(ClassedSlot, {

@@ -7,5 +7,5 @@
 </template>
 
 <script setup lang="ts">
-import ClassedSlot from '@/components/ClassedSlot.vue';
+import ClassedSlot from '@/components/ClassedSlot.js';
 </script>
