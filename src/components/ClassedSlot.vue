@@ -14,7 +14,6 @@ import { useSlots } from 'vue';
 // HACK: This feels so hacky on so many levels I can't believe it works
 // TODO: At least test it until there are no issues I know of
 
-// TODO: This doesn't give the jest error but STILL fails when devserver rerenders. Maybe try cloning the slot's vNode instead of modifying it?
 const props = defineProps<{
   childrenClass: string;
 }>();
@@ -36,8 +35,8 @@ const render = () => {
 
   const slot = useSlots().default!();
   recurseIntoFragments(slot[0]).children.forEach((element: any) => {
-    if (element.props?.class) {
-      element.props.class += props.childrenClass;
+    if (element.props?.class && !element.props?.class.includes(props.childrenClass)) {
+      element.props.class += ` ${props.childrenClass}`;
     } else {
       element.props.class = props.childrenClass;
     }

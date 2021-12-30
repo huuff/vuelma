@@ -38,4 +38,5 @@ const props = defineProps<{
   image?: string;
   icon?: string | [string, string];
 }>();
+console.log("test");
 </script>
