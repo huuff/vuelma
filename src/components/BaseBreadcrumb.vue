@@ -15,24 +15,28 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useRouter, RouteRecordNormalized } from 'vue-router';
 
 // FUTURE: building the path is done like 5 times for every element.
 // This could be solved if there was a way to have local variables in the templates
 // (local to an element and its children) but I found no way to do it except for using a v-for
 // TODO: Allow separators, sizes?
-// TODO: Reactivity?
 const router = useRouter();
-const pathParts = router.currentRoute.value.path.split("/");
-pathParts[0] = "/";
+
+const pathParts = computed(() => {
+  const allParts = router.currentRoute.value.path.split("/");
+  allParts[0] = '/';
+  return allParts;
+});
 
 function buildPathTo(part: string): string {
-  const index = pathParts.findIndex((el) => el === part);
+  const index = pathParts.value.findIndex((el) => el === part);
   if (index === -1) {
     throw new Error(`${part} is not in the path`);
   }
 
-  return pathParts.slice(0, index+1).join("/").replaceAll("//","/");
+  return pathParts.value.slice(0, index+1).join("/").replaceAll("//","/");
 }
 
 function routeFromPath(path: string): RouteRecordNormalized {
