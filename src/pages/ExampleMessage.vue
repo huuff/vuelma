@@ -1,6 +1,6 @@
 <template>
 <div class="column is-3 is-centered">
-  <base-message title="test" closeable v-model:show="show">
+  <base-message title="test" closeable v-model:show="show" :color="'primary'">
     Test content
   </base-message>
 </div>

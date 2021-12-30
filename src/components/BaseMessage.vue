@@ -1,5 +1,5 @@
 <template>
-<article class="message" v-show="showModel">
+<article class="message" v-show="showModel" :class="`is-${color}`">
   <header class="message-header">
     <p v-if="title">{{ title }}</p>
     <slot name="header"></slot>
@@ -17,14 +17,17 @@
 
 <script setup lang="ts">
 import { useSlots, computed } from 'vue';
+import { BulmaColor } from '@/types/bulma-color';
 
 const props = withDefaults(defineProps<{
   title?: string;
   closeable?: boolean;
   show?: boolean;
+  color?: BulmaColor;
 }>(), {
   closeable: false,
   show: true,
+  color: 'dark',
 });
 
 const emit = defineEmits<{
