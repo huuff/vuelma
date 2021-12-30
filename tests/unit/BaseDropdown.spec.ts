@@ -26,4 +26,59 @@ describe('BaseDropdown.vue', () => {
 
     expect(wrapper.find('.dropdown-trigger').text()).toBe(triggerText);
   });
+
+  describe('when clicking', () => {
+    const wrapper = mount(BaseDropdown, {
+      props: { triggerText: 'Click here' },
+    });
+
+
+    async function trigger(event: string) {
+      const triggerButton = wrapper.find('.dropdown-trigger button');
+      await triggerButton.trigger(event);
+    }
+
+    function classlist() {
+      return wrapper.find('.dropdown').element.classList;
+    }
+
+    test('when clicked, it is opened', async () => {
+      expect(classlist()).not.toContain('is-active');
+      await trigger('click');
+      expect(classlist()).toContain('is-active');
+    });
+
+    test('it is closed when clicked again', async () => {
+      expect(classlist()).toContain('is-active');
+      await trigger('click');
+      expect(wrapper.find('.dropdown').element.classList).not.toContain('is-active');
+    });
+
+    test('it is closed when blurred', async () => {
+      await trigger('click');
+      expect(classlist()).toContain('is-active')
+
+      await trigger('blur');
+      expect(classlist()).not.toContain('is-active')
+    });
+
+
+  });
+
+  test.skip('trigerable with custom html', async () => {
+    const wrapper = mount(BaseDropdown, {
+      slots: { trigger: `<a id="target">CLICK</a>`},
+    })
+    
+    expect(wrapper.find('.dropdown').element.classList).not.toContain('is-active');
+    await wrapper.find('#target').trigger('click');
+    expect(wrapper.find('.dropdown').element.classList).toContain('is-active');
+  });
+
+  test("can't have both a triggerText and trigger slot", () => {
+    expect(() => mount(BaseDropdown, {
+      props: { triggerText: "test" },
+      slots: { trigger: "<div>slot</div>"}
+    })).toThrow();
+  });
 });
