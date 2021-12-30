@@ -65,11 +65,12 @@ describe('BaseDropdown.vue', () => {
 
   });
 
-  test.skip('trigerable with custom html', async () => {
+  test('trigerable with custom html', async () => {
     const wrapper = mount(BaseDropdown, {
       slots: { trigger: `<a id="target">CLICK</a>`},
     })
     
+    console.log(wrapper.html());
     expect(wrapper.find('.dropdown').element.classList).not.toContain('is-active');
     await wrapper.find('#target').trigger('click');
     expect(wrapper.find('.dropdown').element.classList).toContain('is-active');

@@ -11,7 +11,9 @@
       >
       {{ triggerText }}
     </button>
-    <slot name="trigger" @click="open = !open"></slot>
+    <clickable-slot v-if="$slots.trigger" :fn="() => open = !open">
+      <slot name="trigger"></slot>
+    </clickable-slot>
   </div>
   <div class="dropdown-menu">
     <classed-slot :childrenClass="'dropdown-item'">
@@ -25,6 +27,7 @@
 // TODO: Some way to add dividers?
 import { useSlots, ref } from 'vue';
 import ClassedSlot from './ClassedSlot';
+import ClickableSlot from './ClickableSlot';
 
 const props = defineProps<{
   triggerText?: string;
