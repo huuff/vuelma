@@ -1,8 +1,14 @@
 <template>
-<div class="dropdown">
+<div class="dropdown" :class="{ 'is-active': open }">
   <div class="dropdown-trigger">
     <!-- TODO: More resilient aria-controls -->
-    <button class="button" v-if="triggerText" aria-controls="dropdown-menu" aria-haspopup="true">
+    <button v-if="triggerText"
+      class="button"
+      aria-controls="dropdown-menu" 
+      aria-haspopup="true"
+      @click="open = !open"
+      @blur="open = false"
+      >
       {{ triggerText }}
     </button>
     <slot name="trigger"></slot>
@@ -17,13 +23,14 @@
 
 <script setup lang="ts">
 // TODO: Test it!
-// TODO: Actual opening logic!
-import { useSlots } from 'vue';
+import { useSlots, ref } from 'vue';
 import ClassedSlot from './ClassedSlot';
 
 const props = defineProps<{
   triggerText?: string;
 }>();
+
+const open = ref(false);
 
 const slots = useSlots();
 
