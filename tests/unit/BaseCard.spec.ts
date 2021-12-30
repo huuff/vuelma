@@ -28,18 +28,4 @@ describe('BaseCard.vue', () => {
     expect(wrapper.get('.card-content').element.innerHTML).toEqualIgnoringWhitespace(content);
   });
 
-  test('the footer items have the appropriate class', () => {
-    const wrapper = mount(BaseCard, {
-      global: { stubs: [ 'font-awesome-icon' ], },
-      slots: { footerItems: `
-          <a href="#">1</a>
-          <a href="#">2</a>
-          <a href="#">3</a>
-        `},
-    });
-
-    for (const elem of wrapper.findAll('.card-footer a')) {
-      expect(elem.element.classList).toContain("card-footer-item");
-    }
-  }); 
 });
