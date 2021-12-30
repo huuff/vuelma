@@ -21,8 +21,7 @@ import { useRouter, RouteRecordNormalized } from 'vue-router';
 // This could be solved if there was a way to have local variables in the templates
 // (local to an element and its children) but I found no way to do it except for using a v-for
 // TODO: Allow separators, sizes?
-// TODO: Test that the route is correctly shown
-// TODO: Test that it correctly has the current one marked
+// TODO: Reactivity?
 const router = useRouter();
 const pathParts = router.currentRoute.value.path.split("/");
 pathParts[0] = "/";
