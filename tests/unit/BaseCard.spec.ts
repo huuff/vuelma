@@ -1,5 +1,10 @@
 import { mount } from '@vue/test-utils';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core';
 import BaseCard from '@/components/BaseCard.vue';
+
+library.add(faHeart);
 
 describe('BaseCard.vue', () => {
   test('it contains the title', () => {
@@ -27,7 +32,6 @@ describe('BaseCard.vue', () => {
     expect(wrapper.find('.card-content').exists()).toBeTrue();
     expect(wrapper.get('.card-content').element.innerHTML).toEqualIgnoringWhitespace(content);
   });
-  // TODO: Test that it contains the icon
 
   test('footer elements have the card-footer-item class', () => {
     const wrapper = mount(BaseCard, {
@@ -62,6 +66,21 @@ describe('BaseCard.vue', () => {
         title: 'test2'
       },
     })).toThrow();
+  });
+
+  test('it contains the icon', () => {
+    const wrapper = mount(BaseCard, {
+      props: {
+        icon: 'heart',
+      },
+      global: {
+        components: {
+          'font-awesome-icon': FontAwesomeIcon,
+        },
+      },
+    }); 
+
+    expect(wrapper.findComponent(FontAwesomeIcon).props().icon).toBe('heart');
   });
 
 });
