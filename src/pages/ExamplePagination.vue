@@ -1,7 +1,7 @@
 <template>
   <base-pagination
     :pageNumber="10"
-    :currentPage="1"
+    :currentPage="5"
   />
 </template>
 
