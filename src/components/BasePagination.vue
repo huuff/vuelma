@@ -79,7 +79,7 @@ const showBackward = computed(() => {
 });
 
 const showForward = computed(() => {
-  const last = Math.min(props.pageNumber, props.currentPage + props.showAround + 1);
+  const last = Math.min(props.pageNumber, props.currentPage + props.showAround);
   const pagesToShow: number[] = [];
 
   for (let page = props.currentPage + 1; page <= last; page++)
