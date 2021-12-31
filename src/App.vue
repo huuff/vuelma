@@ -1,5 +1,5 @@
 <template>
-<base-navbar>
+<base-navbar class="is-fixed-top">
   <template #brandItems>
     <router-link to="/" class="has-text-weight-bold is-size-4">Vuelma</router-link>
   </template>
