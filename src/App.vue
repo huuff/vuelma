@@ -10,6 +10,7 @@
     <router-link to="/dropdown">Dropdown</router-link>
     <router-link to="/message">Message</router-link>
     <router-link to="/modal">Modal</router-link>
+    <router-link to="/pagination">Pagination</router-link>
   </template>
 </base-navbar>
 <main class="container">
@@ -18,6 +19,6 @@
 </template>
 
 <script setup lang="ts">
+// TODO: Autogenerate from router?
 import BaseNavbar from '@/components/BaseNavbar.vue';
-
 </script>
