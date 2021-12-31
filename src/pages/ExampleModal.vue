@@ -4,8 +4,13 @@
   @click="showNormal = true" 
   type="button"
   >Show normal modal</button>
-<base-modal closeable :show="showNormal" @close="showNormal = false">
-  <p class="has-text-white">Example modal content</p>
+<base-modal
+  closeable 
+  :show="showNormal"
+  @close="showNormal = false"
+  :backdropCloseable="false"
+>
+  <p class="has-text-white">Example modal content. This modal is not closeable by clicking on the backdrop</p>
 </base-modal>
 <button 
   class="button is-info mx-2"

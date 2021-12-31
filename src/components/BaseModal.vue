@@ -2,7 +2,7 @@
 <div class="modal" :class="{ 'is-active': show }">
   <div 
     class="modal-background"
-    @click="() => computedBackdropCloseable ? $emit('close') : {}"
+    @click="tryToCloseByBackdrop"
     ></div>
   <template v-if="$slots.default">
     <div class="modal-content">
@@ -50,6 +50,7 @@ const props = withDefaults(defineProps<{
 }>(), {
   show: true,
   closeable: true,
+  backdropCloseable: undefined,
 });
 
 // Sets a sensible default for backdropCloseable,
@@ -57,7 +58,7 @@ const props = withDefaults(defineProps<{
 // backdropCloseable if it's closeable. Otherwise,
 // we just use the provided prop
 const computedBackdropCloseable = computed(() => {
-  if (!props.backdropCloseable) {
+  if (props.backdropCloseable === undefined) {
     return props.closeable;
   } else {
     return props.backdropCloseable;
@@ -71,6 +72,12 @@ const emit = defineEmits<{
 const slots = useSlots();
 function isCard() {
   return slots.cardHeader || slots.cardFooter || slots.cardBody || props.cardTitle;
+}
+
+function tryToCloseByBackdrop() {
+  if (computedBackdropCloseable.value) {
+    emit('close');
+  }
 }
 
 if (slots.default && isCard()) {

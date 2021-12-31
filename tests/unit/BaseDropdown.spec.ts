@@ -70,7 +70,6 @@ describe('BaseDropdown.vue', () => {
       slots: { trigger: `<a id="target">CLICK</a>`},
     })
     
-    console.log(wrapper.html());
     expect(wrapper.find('.dropdown').element.classList).not.toContain('is-active');
     await wrapper.find('#target').trigger('click');
     expect(wrapper.find('.dropdown').element.classList).toContain('is-active');
