@@ -101,5 +101,17 @@ describe('BaseModal.vue', () => {
         expect(Object.keys(wrapper.emitted())).toContain("close");
       });
     });
+
+    test("can't be a card and normal modal at the same time", () => {
+      expect(() =>  mount(BaseModal, {
+        props: {
+          show: true,
+        },
+        slots: {
+          cardBody: "Test card body",
+          default: "Test default content",
+        }
+      })).toThrow();
+    });
   });
 });
