@@ -46,7 +46,6 @@
 
 <script setup lang="ts">
 // TODO: Use InjectionKey for the provides and inject?
-// TODO: Validation that current page must be between 1 and last page?
 // TODO: Test it!
 import { computed, provide } from 'vue';
 import BasePaginationLink from '@/components/BasePaginationLink.vue';
@@ -101,5 +100,9 @@ const backwardReachesFirst = computed(() => {
 const forwardReachesLast = computed(() => {
   return showForward.value.includes(props.pageNumber) || showForward.value.length === 0;
 });
+
+if (props.currentPage < 1 || props.currentPage > props.pageNumber) {
+  throw new Error(`Current page can't be over the pageNumber or under 1, current value: ${props.currentPage}`)
+}
 
 </script>
