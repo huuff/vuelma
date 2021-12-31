@@ -1,6 +1,5 @@
 import { mount } from '@vue/test-utils';
 import BaseMessage from '@/components/BaseMessage.vue';
-import BaseWrapper from '@vue/test-utils/dist/baseWrapper';
 
 describe('BaseMessage.vue', () => {
   test("it shows the title", () => {
@@ -43,18 +42,14 @@ describe('BaseMessage.vue', () => {
       },
     });
 
-    test("it is initially shown (sanity check)", () => {
-      expect(wrapper.find('.message').isVisible()).toBe(true);
-    })
-
     test("the close button is there", () => {
-      expect(wrapper.find('button.delete').exists()).toBe(true);
+      expect(wrapper.find('button.delete').exists()).toBeTrue();
     })
 
-    test("when clicked, it's not there anymore", async () => {
+    test("when clicked, it emits a close event", async () => {
       await(wrapper.get("button.delete").trigger('click'));
 
-      expect(wrapper.find('.message').isVisible()).toBe(false);
+      expect(Object.keys(wrapper.emitted())).toContain('close');
     });
   });
 });

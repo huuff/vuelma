@@ -1,12 +1,12 @@
 <template>
-<article class="message" v-show="showModel" :class="`is-${color}`">
+<article class="message" v-show="show" :class="`is-${color}`">
   <header class="message-header">
     <p v-if="title">{{ title }}</p>
     <slot name="header"></slot>
     <button v-if="closeable"
       class="delete"
       aria-label="delete"
-      @click="showModel = false"
+      @click="$emit('close')"
     ></button>
   </header>
   <div class="message-body">
@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { useSlots, computed } from 'vue';
+import { useSlots, } from 'vue';
 import { BulmaColor } from '@/types/bulma-color';
 
 const props = withDefaults(defineProps<{
@@ -31,13 +31,8 @@ const props = withDefaults(defineProps<{
 });
 
 const emit = defineEmits<{
-  (event: 'update:show', val: boolean): void;
+  (event: 'close'): void
 }>();
-
-const showModel = computed({
-  get: () => props.show,
-  set: (val: boolean) => emit('update:show', val),
-});
 
 const slots = useSlots();
 

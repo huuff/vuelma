@@ -1,6 +1,12 @@
 <template>
 <div class="column is-3 is-centered">
-  <base-message title="test" closeable v-model:show="show" :color="'primary'">
+  <base-message 
+    title="test" 
+    closeable 
+    :show="show" 
+    :color="'primary'"
+    @close="show = false"
+    >
     Test content
   </base-message>
 </div>
