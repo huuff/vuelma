@@ -12,13 +12,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 
 const props = defineProps<{
   pageNumber: number;
-  currentPage: number;
 }>();
 
-const isCurrent = computed(() => props.pageNumber === props.currentPage);
+const currentPage = inject('currentPage') as number;
+
+const isCurrent = computed(() => props.pageNumber === currentPage);
 
 </script>

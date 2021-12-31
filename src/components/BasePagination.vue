@@ -11,7 +11,6 @@
       <base-pagination-link 
         v-if="!backwardReachesFirst"
         :pageNumber="1" 
-        :currentPage="currentPage"
       />
 
       <li v-if="!backwardReachesFirst">
@@ -20,18 +19,15 @@
       
       <base-pagination-link v-for="page in showBackward"
         :pageNumber="page"
-        :currentPage="currentPage"
         :key="`page-${page}`"
       />
 
       <base-pagination-link
         :pageNumber="currentPage"
-        :currentPage="currentPage"
       />
 
       <base-pagination-link v-for="page in showForward"
         :pageNumber="page"
-        :currentPage="currentPage"
         :key="`page-${page}`"
       />
 
@@ -42,7 +38,6 @@
       <base-pagination-link 
         v-if="!forwardReachesLast"
         :pageNumber="pageNumber"
-        :currentPage="currentPage"
       />
     </ul>
   </template>
@@ -50,11 +45,11 @@
 </template>
 
 <script setup lang="ts">
-// TODO: Provides and inject for current page? And also emitting goto
+// TODO: Provides and inject for emitting goto
 // TODO: Validation that current page must be between 1 and last page?
 // TODO: Obviously, goto page events!
 // TODO: Test it!
-import { computed } from 'vue';
+import { computed, provide } from 'vue';
 import BasePaginationLink from '@/components/BasePaginationLink.vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
@@ -70,6 +65,8 @@ const props = withDefaults(defineProps<{
 }>(), {
   showAround: 2,
 });
+
+provide('currentPage', props.currentPage);
 
 const showBackward = computed(() => {
   const first = Math.max(1, props.currentPage - props.showAround);
