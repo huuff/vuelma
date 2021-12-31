@@ -1,7 +1,7 @@
 <template>
 <base-navbar>
   <template #brandItems>
-    <router-link to="/">Vuelma</router-link>
+    <router-link to="/" class="has-text-weight-bold is-size-4">Vuelma</router-link>
   </template>
   <template #end>
     <router-link to="/card">Card</router-link>
