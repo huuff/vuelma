@@ -16,7 +16,7 @@
   </template>
   <template v-if="isCard()">
     <div class="modal-card">
-      <header v-if="$slots.cardHeader || props.cardTitle" class="modal-card-head">
+      <header v-if="$slots.cardHeader || cardTitle || closeable" class="modal-card-head">
         <slot name="cardHeader"></slot>
         <p v-if="cardTitle" class="modal-card-title">
           {{ cardTitle }}

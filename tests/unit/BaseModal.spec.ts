@@ -63,4 +63,43 @@ describe('BaseModal.vue', () => {
       });
     });
   });
+
+  describe('card modal', () => {
+    test("it includes the title", () => {
+      const cardTitle = "Test title";
+      const wrapper = mount(BaseModal, {
+        props: { 
+          show: true,
+          cardTitle,
+        },
+        slots: {
+          cardBody: "Test card body",
+        }
+      });
+
+      expect(wrapper.get('.modal-card-title').text()).toBe(cardTitle);
+    });
+
+    describe("for closing", () => {
+      const wrapper = mount(BaseModal, {
+        props: {
+          show: true,
+          closeable: true,
+        },
+        slots: {
+          cardBody: "Test card body",
+        }
+      });
+
+      test("there is a delete button", () => {
+        expect(wrapper.find('button.delete').exists()).toBeTrue();
+      });
+
+      test("that when clicked, emits a close event", async () => {
+        await wrapper.get("button.delete").trigger("click");
+
+        expect(Object.keys(wrapper.emitted())).toContain("close");
+      });
+    });
+  });
 });
