@@ -13,6 +13,7 @@
 </template>
 
 <script setup lang="ts">
+// TODO: Showcase it with different colors with a v-for
 import { ref } from 'vue';
 import BaseMessage from '@/components/BaseMessage.vue';
 
