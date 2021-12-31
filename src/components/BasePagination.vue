@@ -45,9 +45,8 @@
 </template>
 
 <script setup lang="ts">
-// TODO: Provides and inject for emitting goto
+// TODO: Use InjectionKey for the provides and inject?
 // TODO: Validation that current page must be between 1 and last page?
-// TODO: Obviously, goto page events!
 // TODO: Test it!
 import { computed, provide } from 'vue';
 import BasePaginationLink from '@/components/BasePaginationLink.vue';
@@ -66,7 +65,14 @@ const props = withDefaults(defineProps<{
   showAround: 2,
 });
 
+const emit = defineEmits<{
+  (event: 'gotoPage', page: number): void
+}>();
+
 provide('currentPage', props.currentPage);
+provide('gotoPage', (page: number) => {
+  emit('gotoPage', page)
+});
 
 const showBackward = computed(() => {
   const first = Math.max(1, props.currentPage - props.showAround);

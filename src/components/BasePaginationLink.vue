@@ -5,6 +5,7 @@
     :class="{ 'is-current': isCurrent}"
     :aria-label="`Goto page ${pageNumber}`"
     :aria-current="isCurrent ? 'page' : null"
+    @click="gotoPage(pageNumber)"
   >
     {{ pageNumber }}
   </a>
@@ -19,6 +20,7 @@ const props = defineProps<{
 }>();
 
 const currentPage = inject('currentPage') as number;
+const gotoPage = inject('gotoPage') as ((page: number) => void)
 
 const isCurrent = computed(() => props.pageNumber === currentPage);
 
