@@ -1,0 +1,36 @@
+<template>
+<button 
+  class="button is-primary"
+  @click="showNormal = true" 
+  type="button"
+  >Show normal modal</button>
+<base-modal closeable :show="showNormal" @close="showNormal = false">
+  <p class="has-text-white">Example modal content</p>
+</base-modal>
+<button 
+  class="button is-info mx-2"
+  @click="showCard = true" 
+  type="button"
+  >Show card modal</button>
+<base-modal 
+  closeable 
+  :show="showCard" 
+  @close="showCard = false"
+  :card-title="'Example card modal'"
+  >
+  <template #cardBody>
+    <p>Example modal content</p>
+  </template>
+  <template #cardFooter>
+    <p>Example modal footer</p>
+  </template>
+</base-modal>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import BaseModal from '@/components/BaseModal.vue';
+
+const showNormal = ref(false);
+const showCard = ref(false);
+</script>

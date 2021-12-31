@@ -4,6 +4,7 @@ import ExampleClassedSlot from '@/pages/ExampleClassedSlot.vue';
 import ExampleBreadcrumb from '@/pages/ExampleBreadcrumb.vue';
 import ExampleDropdown from '@/pages/ExampleDropdown.vue';
 import ExampleMessage from '@/pages/ExampleMessage.vue';
+import ExampleModal from '@/pages/ExampleModal.vue';
 import ExampleHome from '@/pages/ExampleHome.vue';
 
 const routes = [
@@ -13,6 +14,7 @@ const routes = [
   { path: "/breadcrumb", component: ExampleBreadcrumb, name: "Breadcrumb" },
   { path: "/dropdown", component: ExampleDropdown, name: "Dropdown" },
   { path: "/message", component: ExampleMessage, name: "Message"},
+  { path: "/modal", component: ExampleModal, name: "Modal"},
 ];
 
 export default createRouter({
