@@ -15,9 +15,10 @@
 <script setup lang="ts">
 // TODO: Other types of panel blocks? Like label
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { FontAwesomeIconName } from '@/types/fontawesome-icon-name';
 
 const props = defineProps<{
-  icon?: string | [string, string];
+  icon?: FontAwesomeIconName;
   active?: boolean;
 }>();
 </script>

@@ -31,12 +31,13 @@
 
 <script setup lang="ts">
 import { useSlots } from 'vue';
+import { FontAwesomeIconName } from '@/types/fontawesome-icon-name';
 import ClassedSlot from '@/components/slots/ClassedSlot';
 
 const props = defineProps<{
   title?: string;
   image?: string;
-  icon?: string | [string, string];
+  icon?: FontAwesomeIconName;
 }>();
 
 const slots = useSlots();

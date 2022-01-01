@@ -11,9 +11,11 @@
 
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { FontAwesomeIconName } from '@/types/fontawesome-icon-name';
+
 const props = defineProps<{
   title: string;
-  icon?: string | [string, string]; // TODO: A type for this?
+  icon?: FontAwesomeIconName;
   active?: boolean;
 }>();
 
