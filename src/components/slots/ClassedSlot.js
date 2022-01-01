@@ -1,18 +1,15 @@
 import { cloneVNode } from 'vue';
 
 // FUTURE: Wish I could type this but it's extremely hard for me
-function recursivelyAddClass(element, classToAdd, excluded) {
+function recursivelyAddClass(element, classToAdd) {
   if (Array.isArray(element)) {
-    return element.map(el => recursivelyAddClass(el, classToAdd, excluded));
+    return element.map(el => recursivelyAddClass(el, classToAdd));
   } else if (element.type.toString() === 'Symbol(Fragment)') {
     const clone = cloneVNode(element);
-    clone.children = recursivelyAddClass(element.children, classToAdd, excluded)
+    clone.children = recursivelyAddClass(element.children, classToAdd)
     return clone;
   } else {
-    if (!excluded || !excluded.includes(element.type))
-      return cloneVNode(element, { class: classToAdd });
-    else
-      return element;
+    return cloneVNode(element, { class: classToAdd });
   }
 }
 
@@ -21,9 +18,6 @@ export default {
     childrenClass: {
       type: String,
       required: true
-    },
-    excludedElements: { // Do not apply the class to these elements
-      type: Array
     },
   },
 

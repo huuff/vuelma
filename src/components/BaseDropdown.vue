@@ -16,11 +16,9 @@
     </clickable-slot>
   </div>
   <div class="dropdown-menu">
-    <div class="dropdown-content">
-      <classed-slot :childrenClass="'dropdown-item'">
-        <slot></slot>
-      </classed-slot>
-    </div>
+    <classed-slot :childrenClass="'dropdown-item'">
+      <slot></slot>
+    </classed-slot>
   </div>
 </div>
 </template>
