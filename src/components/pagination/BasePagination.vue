@@ -50,6 +50,7 @@
 </template>
 
 <script setup lang="ts">
+// XXX: Pretty shitty logic in here but I'm no mathematician
 // TODO: Use InjectionKey for the provides and inject?
 // TODO: Goto next and previous pages! and test it! and disable the button when not possible!
 import { computed, provide } from 'vue';

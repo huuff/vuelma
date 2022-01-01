@@ -5,7 +5,6 @@
 * Maybe do as above for card notifications? Looks hard.
 * Should I go back to using two-way binding for closing/opening messages and modals?
 * For pagination, some inputs to define number of pages and current page in the example
-* Also for pagination, make it work so the page can be switched
 * Visual regression tests?
 * For the menu example get it to work for changing the active item
 * Alignment for those components that allow it?
