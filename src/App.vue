@@ -11,6 +11,7 @@
     <router-link to="/modal">Modal</router-link>
     <router-link to="/pagination">Pagination</router-link>
     <router-link to="/panel">Panel</router-link>
+    <router-link to="/menu">Menu</router-link>
   </template>
 </base-navbar>
 <main class="container">

@@ -7,4 +7,4 @@
 * For pagination, some inputs to define number of pages and current page in the example
 * Also for pagination, make it work so the page can be switched
 * Visual regression tests?
-* Do menu, group lists into labels.
+* For the menu example get it to work for changing the active item
