@@ -58,7 +58,6 @@
 <script setup lang="ts">
 // XXX: Pretty shitty logic in here but I'm no mathematician
 // TODO: Use InjectionKey for the provides and inject?
-// TODO: Test goto next and previous pages
 import { computed, provide } from 'vue';
 import BasePaginationLink from '@/components/pagination/BasePaginationLink.vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
