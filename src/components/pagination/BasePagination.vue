@@ -73,7 +73,7 @@ const emit = defineEmits<{
   (event: 'gotoPage', page: number): void
 }>();
 
-provide('currentPage', props.currentPage);
+provide('currentPage', () => props.currentPage);
 provide('gotoPage', (page: number) => {
   emit('gotoPage', page)
 });

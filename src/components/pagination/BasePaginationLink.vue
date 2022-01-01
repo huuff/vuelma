@@ -19,9 +19,9 @@ const props = defineProps<{
   pageNumber: number;
 }>();
 
-const currentPage = inject('currentPage') as number;
+const currentPage = inject('currentPage') as () => number;
 const gotoPage = inject('gotoPage') as ((page: number) => void)
 
-const isCurrent = computed(() => props.pageNumber === currentPage);
+const isCurrent = computed(() => props.pageNumber === currentPage());
 
 </script>
