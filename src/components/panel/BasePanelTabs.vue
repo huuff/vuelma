@@ -5,24 +5,32 @@
 <script setup lang="ts">
 import { h, useSlots } from 'vue';
 
-
 const slots = useSlots();
 
 const props = defineProps<{
-  active: string;
+  active: string; // TODO: See if I can type this as keyof slots
+}>();
+
+const emit = defineEmits<{
+  (event: 'setActiveTab', tab: string): void;
 }>();
 
 function tabsFromSlots() {
   return Object.keys(slots).map(slotName => h(
     'a',
-    { 'class': { 'is-active': props.active === slotName } },
+    { 
+      'class': { 'is-active': props.active === slotName },
+      onClick: () => emit('setActiveTab', slotName),
+    },
     slotName
   ));
 }
 
 const render = () => {
   return [
-    h('p', { 'class': 'panel-tabs'}, tabsFromSlots()),
+    h('p', 
+    { 'class': 'panel-tabs',  },
+    tabsFromSlots()),
     slots[props.active]!(),
   ];
 };
