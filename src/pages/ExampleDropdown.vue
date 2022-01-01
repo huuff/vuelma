@@ -1,8 +1,8 @@
 <template>
 <base-dropdown triggerText="Click here">
-  <div>First</div>
-  <div>Second</div>
-  <div>Third</div>
+  <a>First</a>
+  <a>Second</a>
+  <a>Third</a>
 </base-dropdown>
 </template>
 
