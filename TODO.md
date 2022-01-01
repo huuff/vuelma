@@ -8,3 +8,5 @@
 * Also for pagination, make it work so the page can be switched
 * Visual regression tests?
 * For the menu example get it to work for changing the active item
+* Alignment for those components that allow it?
+* Do menu as my tabs (and some other)? with a separate list component? This might solve the testing issue and the setting active issue.

@@ -12,6 +12,7 @@
     <router-link to="/pagination">Pagination</router-link>
     <router-link to="/panel">Panel</router-link>
     <router-link to="/menu">Menu</router-link>
+    <router-link to="/tabs">Tabs</router-link>
   </template>
 </base-navbar>
 <main class="container">

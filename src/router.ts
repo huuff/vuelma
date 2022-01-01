@@ -7,6 +7,7 @@ import ExampleModal from '@/pages/ExampleModal.vue';
 import ExamplePagination from '@/pages/ExamplePagination.vue';
 import ExamplePanel from '@/pages/ExamplePanel.vue';
 import ExampleMenu from '@/pages/ExampleMenu.vue';
+import ExampleTabs from '@/pages/ExampleTabs.vue';
 import ExampleHome from '@/pages/ExampleHome.vue';
 
 const routes = [
@@ -19,6 +20,7 @@ const routes = [
   { path: "/pagination", component: ExamplePagination, name: "Pagination"},
   { path: "/panel", component: ExamplePanel, name: "Panel"},
   { path: "/menu", component: ExampleMenu, name: "Menu"},
+  { path: "/tabs", component: ExampleTabs, name: "Tabs"},
 ];
 
 export default createRouter({
