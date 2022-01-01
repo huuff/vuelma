@@ -39,5 +39,44 @@ describe("BasePagination.vue", () => {
     test("there are two ellipses", () => {
       expect(wrapper.findAll('.pagination-ellipsis').length).toBe(2);
     });
+
+    test("clicking each one goes to the page it shows in the text", async () => {
+      // Sanity check
+      expect(Object.keys(wrapper.emitted()).length).toBe(0);
+
+      for (const [index, paginationLink] of wrapper.findAll('.pagination-link').entries()) {
+        await paginationLink.trigger('click');
+        const number = +paginationLink.text();
+        expect((wrapper.emitted()["gotoPage"][index] as number[])[0]).toBe(number);
+      }
+    })
+  });
+
+  describe('3 pages, 2 as current', () => {
+    const pageNumber = 3;
+    const currentPage = 2;
+
+    const wrapper = mount(BasePagination, {
+      props: {
+        pageNumber, currentPage,
+      },
+      global: {
+        stubs: [ 'font-awesome-icon' ],
+      }
+    });
+
+    test('there are exactly three pages shown', () => {
+      expect(wrapper.findAll('.pagination-link').length).toBe(3);
+    });
+
+    test('1, 2, and 3 are shown', () => {
+      expect(findPageAnchorByNumber(wrapper, 1).exists()).toBeTrue();
+      expect(findPageAnchorByNumber(wrapper, 2).exists()).toBeTrue();
+      expect(findPageAnchorByNumber(wrapper, 3).exists()).toBeTrue();
+    });
+
+    test('there are no ellipses', () => {
+      expect(wrapper.findAll('.pagination-ellipsis').length).toBe(0);
+    });
   });
 });
