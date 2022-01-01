@@ -10,8 +10,6 @@
 </template>
 
 <script setup lang="ts">
-// TODO: Test it
-// TODO: Variations
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 const props = defineProps<{
   title: string;
