@@ -1,6 +1,6 @@
 import { DOMWrapper, mount, VueWrapper } from '@vue/test-utils';
-import BasePagination from '@/components/BasePagination.vue';
-import BasePaginationLink from '@/components/BasePaginationLink.vue';
+import BasePagination from '@/components/pagination/BasePagination.vue';
+import BasePaginationLink from '@/components/pagination/BasePaginationLink.vue';
 
 function findPageAnchorByNumber(wrapper: VueWrapper, num: number): DOMWrapper<HTMLAnchorElement> {
   return wrapper.findAll("a").find(elem => elem.text() === num.toString())!;

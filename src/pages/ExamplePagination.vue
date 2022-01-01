@@ -6,5 +6,5 @@
 </template>
 
 <script setup lang="ts">
-import BasePagination from '@/components/BasePagination.vue';
+import BasePagination from '@/components/pagination/BasePagination.vue';
 </script>
