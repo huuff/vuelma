@@ -5,3 +5,4 @@
 * Maybe do as above for card notifications? Looks hard.
 * Should I go back to using two-way binding for closing/opening messages and modals?
 * For pagination, some inputs to define number of pages and current page in the example
+* Visual regression tests?
