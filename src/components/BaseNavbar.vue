@@ -15,7 +15,7 @@
       :class="{ 'is-active': showMobile }"
       aria-label="menu"
       aria-expanded="false"
-      @click="showMobile = !showMobile"
+      @click="toggleMobileMenu"
     >
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
@@ -41,20 +41,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, } from 'vue';
+import { ref } from 'vue';
 import ClassedSlot from '@/components/slots/ClassedSlot';
 
 const showMobile = ref(false);
 
-// HACK: Closes the navbar when clicking anywhere
-// (even the navbar itself). A bit hacky but eh
-watch(showMobile, (newVal) => {
-  if (newVal) {
-    setTimeout(() => {
+function toggleMobileMenu() {
+  showMobile.value = !showMobile.value;
+  if (showMobile.value) {
+    window.requestAnimationFrame(() => {
       document.addEventListener('click', () => {
           showMobile.value = false;
       }, { once: true})
-    }, 50);
+    });
   }
-});
+}
 </script>
