@@ -6,3 +6,4 @@
 * Should I go back to using two-way binding for closing/opening messages and modals?
 * For pagination, some inputs to define number of pages and current page in the example
 * Visual regression tests?
+* Put `BasePagination` and `BasePaginationLink` in their own folder
