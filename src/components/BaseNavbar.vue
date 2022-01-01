@@ -12,6 +12,7 @@
     <a 
       role="button" 
       class="navbar-burger"
+      :class="{ 'is-active': showMobile }"
       aria-label="menu"
       aria-expanded="false"
       @click="showMobile = !showMobile"
@@ -40,8 +41,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch, } from 'vue';
 import ClassedSlot from '@/components/slots/ClassedSlot';
 
 const showMobile = ref(false);
+
+// HACK: Closes the navbar when clicking anywhere
+// (even the navbar itself). A bit hacky but eh
+watch(showMobile, (newVal) => {
+  if (newVal) {
+    setTimeout(() => {
+      document.addEventListener('click', () => {
+          showMobile.value = false;
+      }, { once: true})
+    }, 50);
+  }
+});
 </script>
