@@ -1,9 +1,10 @@
 <template>
-<article :class="`panel is-${color}`">
+<nav :class="`panel is-${color}`">
   <p v-if="title"
     class="panel-heading"
   > {{ title }}</p>
-</article>
+  <slot></slot>
+</nav>
 </template>
 
 <script setup lang="ts">
