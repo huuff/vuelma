@@ -4,15 +4,10 @@
     <router-link to="/" class="has-text-weight-bold is-size-4">Vuelma</router-link>
   </template>
   <template #end>
-    <router-link to="/card">Card</router-link>
-    <router-link to="/breadcrumb">Breadcrumb</router-link>
-    <router-link to="/dropdown">Dropdown</router-link>
-    <router-link to="/message">Message</router-link>
-    <router-link to="/modal">Modal</router-link>
-    <router-link to="/pagination">Pagination</router-link>
-    <router-link to="/panel">Panel</router-link>
-    <router-link to="/menu">Menu</router-link>
-    <router-link to="/tabs">Tabs</router-link>
+    <router-link  v-for="[path, name] in routes()" 
+      :to="path"
+      :key="path"
+      >{{ name }}</router-link>
   </template>
 </base-navbar>
 <main class="container">
@@ -21,6 +16,14 @@
 </template>
 
 <script setup lang="ts">
-// TODO: Autogenerate from router?
+import { useRouter } from 'vue-router';
 import BaseNavbar from '@/components/BaseNavbar.vue';
+
+const router = useRouter();
+
+function routes(): [string, string][] {
+  return router.getRoutes()
+    .filter(route => route.name)
+    .map(route => [route.path, route.name!.toString()]);
+}
 </script>
