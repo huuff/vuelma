@@ -1,16 +1,22 @@
 <template>
 <nav class="pagination" role="navigation" aria-label="pagination">
-  <a 
-    class="pagination-previous" 
+  <button
+    type="button"
+    :disabled="currentPage === 1"
+    @click="emit('gotoPage', currentPage-1)"
+    class="pagination-previous button" 
     aria-label="previous page"
     ><font-awesome-icon icon="angle-left"/>
-  </a>
-  <a
-    class="pagination-next"
+  </button>
+  <button
+    @click="emit('gotoPage', currentPage+1)"
+    :disabled="currentPage === pageNumber"
+    type="button"
+    class="pagination-next button "
     aria-label="next page"
   >
     <font-awesome-icon icon="angle-right"/>
-  </a>
+  </button>
   <template v-if="pageNumber > 0">
     <ul class="pagination-list">
       <base-pagination-link 
@@ -52,7 +58,7 @@
 <script setup lang="ts">
 // XXX: Pretty shitty logic in here but I'm no mathematician
 // TODO: Use InjectionKey for the provides and inject?
-// TODO: Goto next and previous pages! and test it! and disable the button when not possible!
+// TODO: Test goto next and previous pages
 import { computed, provide } from 'vue';
 import BasePaginationLink from '@/components/pagination/BasePaginationLink.vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
