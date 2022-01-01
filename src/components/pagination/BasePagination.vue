@@ -18,7 +18,7 @@
         :pageNumber="1" 
       />
 
-      <li v-if="!backwardReachesFirst">
+      <li v-if="!backwardReachesFirst && !showBackward.includes(2)">
         <span class="pagination-ellipsis">&hellip;</span>
       </li>
       
@@ -36,7 +36,7 @@
         :key="`page-${page}`"
       />
 
-      <li v-if="!forwardReachesLast">
+      <li v-if="!forwardReachesLast && !showForward.includes(pageNumber - 1)">
         <span class="pagination-ellipsis">&hellip;</span>
       </li>
 
