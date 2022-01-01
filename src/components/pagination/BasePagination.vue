@@ -1,9 +1,14 @@
 <template>
 <nav class="pagination" role="navigation" aria-label="pagination">
-  <a class="pagination-previous" aria-label="previous page">
-    <font-awesome-icon icon="angle-left"/>
+  <a 
+    class="pagination-previous" 
+    aria-label="previous page"
+    ><font-awesome-icon icon="angle-left"/>
   </a>
-  <a class="pagination-next" aria-label="next page">
+  <a
+    class="pagination-next"
+    aria-label="next page"
+  >
     <font-awesome-icon icon="angle-right"/>
   </a>
   <template v-if="pageNumber > 0">
@@ -46,6 +51,7 @@
 
 <script setup lang="ts">
 // TODO: Use InjectionKey for the provides and inject?
+// TODO: Goto next and previous pages! and test it! and disable the button when not possible!
 import { computed, provide } from 'vue';
 import BasePaginationLink from '@/components/pagination/BasePaginationLink.vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
