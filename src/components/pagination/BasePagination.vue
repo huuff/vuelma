@@ -46,7 +46,6 @@
 
 <script setup lang="ts">
 // TODO: Use InjectionKey for the provides and inject?
-// TODO: Test it!
 import { computed, provide } from 'vue';
 import BasePaginationLink from '@/components/pagination/BasePaginationLink.vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
