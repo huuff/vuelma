@@ -8,7 +8,7 @@ import { h, useSlots } from 'vue';
 const slots = useSlots();
 
 const props = defineProps<{
-  active: string; // TODO: See if I can type this as keyof slots
+  active: keyof typeof slots;
 }>();
 
 const emit = defineEmits<{
