@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import { useSlots } from 'vue';
-import ClassedSlot from '@/components/ClassedSlot.js';
+import ClassedSlot from '@/components/slots/ClassedSlot';
 
 const props = defineProps<{
   title?: string;

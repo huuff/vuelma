@@ -26,8 +26,8 @@
 <script setup lang="ts">
 // TODO: Some way to add dividers?
 import { useSlots, ref } from 'vue';
-import ClassedSlot from './ClassedSlot';
-import ClickableSlot from './ClickableSlot';
+import ClassedSlot from '@/components/slots/ClassedSlot';
+import ClickableSlot from '@/components/slots/ClickableSlot';
 
 const props = defineProps<{
   triggerText?: string;

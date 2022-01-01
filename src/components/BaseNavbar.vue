@@ -41,7 +41,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import ClassedSlot from '@/components/ClassedSlot';
+import ClassedSlot from '@/components/slots/ClassedSlot';
 
 const showMobile = ref(false);
 </script>

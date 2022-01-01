@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import ClassedSlot from '@/components/ClassedSlot.js';
+import ClassedSlot from '@/components/slots/ClassedSlot.js';
 
 describe('ClassedSlot.js', () => {
   test('every child has the given class', () => {
