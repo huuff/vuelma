@@ -8,6 +8,7 @@
 </template>
 
 <script setup lang="ts">
+// TODO: Is there some way I can ensure that the slot is made of BasePanelBlocks or BasePanelTabs? (And likewise for BasePanelTabs)
 import { BulmaColor } from '@/types/bulma-color';
 
 const props = withDefaults(defineProps<{
