@@ -7,3 +7,4 @@
 * For pagination, some inputs to define number of pages and current page in the example
 * Visual regression tests?
 * Put `BasePagination` and `BasePaginationLink` in their own folder
+* Do menu, group lists into labels.

@@ -13,6 +13,7 @@
 </template>
 
 <script setup lang="ts">
+// TODO: Other types of panel blocks? Like label
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 const props = defineProps<{
