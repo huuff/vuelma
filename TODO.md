@@ -7,4 +7,4 @@
 * Visual regression tests?
 * For the menu example get it to work for changing the active item
 * Alignment for those components that allow it?
-* Generalize optional two-way bindings in some way
+* Do something with injection symbols. (At least, put them in the same folder as the clients? Maybe generalize it somehow)

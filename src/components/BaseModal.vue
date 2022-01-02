@@ -40,7 +40,8 @@
 </template>
 
 <script setup lang="ts">
-import { useSlots, computed, ref } from 'vue';
+import { useSlots, computed, } from 'vue';
+import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 
 const props = withDefaults(defineProps<{
   show?: boolean;
@@ -57,14 +58,7 @@ const emit = defineEmits<{
   (event: 'update:show', value: boolean): void
 }>();
 
-const internalShow = ref(true);
-const actualShow = computed({
-  get: () => props.show ?? internalShow.value,
-  set: (newShow: boolean) => {
-    internalShow.value = newShow; 
-    emit('update:show', newShow); 
-  }
-});
+const actualShow = useOptionalTwoWayBinding(true, () => props.show, (newVal) => emit('update:show', newVal));
 
 // Sets a sensible default for backdropCloseable,
 // if no value is provided, it's assumed to be
