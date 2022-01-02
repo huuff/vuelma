@@ -1,6 +1,6 @@
 <template>
 <nav 
-  class="navbar" 
+  :class="`navbar is-${color}`" 
   role="navigation" 
   aria-label="main navigation"
   @blur="showMobile = false"
@@ -40,10 +40,14 @@
 
 <script setup lang="ts">
 import { provide, ref, computed } from 'vue';
+import { BulmaColor } from '@/types/bulma-color';
 
-const props = defineProps<{
-  active?: string
-}>();
+const props = withDefaults(defineProps<{
+  active?: string;
+  color?: BulmaColor;
+}>(), {
+  color: "white",
+});
 
 const emit = defineEmits<{
   (event: "update:active", title: string): void;

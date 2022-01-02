@@ -15,7 +15,7 @@
   </base-navbar-item>
   </template>
 </base-navbar>
-<main class="container">
+<main class="container mt-3">
   <router-view></router-view>
 </main>
 </template>
