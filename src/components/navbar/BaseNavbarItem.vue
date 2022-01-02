@@ -6,7 +6,7 @@
 import { useSlots, cloneVNode, h, inject } from 'vue';
 
 const props = defineProps<{
-  title: string;
+  itemId: string;
 }>();
 
 const activeNavbarItem = inject('activeNavbarItem') as () => string;
@@ -18,15 +18,17 @@ const render = () => {
     throw new Error("A BaseNavbarItem must have exactly one child element!")
   }
 
-  const slotAsNavbarItem = cloneVNode(slots.default()[0], { class: `navbar-item ${activeNavbarItem() === props.title ? 'is-active' : null}`})
+// TODO: Fix so null doesn't appear in the class
+// TODO: Does it preserve the classes?
+  const slotAsNavbarItem = cloneVNode(slots.default()[0], { class: `navbar-item ${activeNavbarItem() === props.itemId ? 'is-active' : null}`})
 
   if (!slotAsNavbarItem.props) {
     slotAsNavbarItem.props = {};
   }
 
-const setActiveNavbarItem = inject('setActiveNavbarItem') as (title: string) => void;
-slotAsNavbarItem.props.onClick = () => setActiveNavbarItem(props.title);
+  const setActiveNavbarItem = inject('setActiveNavbarItem') as (title: string) => void;
+  slotAsNavbarItem.props.onClick = () => setActiveNavbarItem(props.itemId);
 
-  return h(slotAsNavbarItem, {}, () => props.title);
+  return slotAsNavbarItem;
 };
 </script>

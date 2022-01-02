@@ -5,7 +5,7 @@
   aria-label="main navigation"
   @blur="showMobile = false"
   >
-  <div class="navbar-brand" @setActiveNavbarItem="setActiveNavbarItem">
+  <div class="navbar-brand">
     <slot name="brandItems"></slot>
     <a 
       role="button" 
@@ -26,13 +26,11 @@
   >
   <div v-if="$slots.start"
     class="navbar-start"
-    @setActiveNavbarItem="setActiveNavbarItem"
   >
     <slot name="start"></slot>
   </div>
   <div v-if="$slots.end"
     class="navbar-end"
-    @setActiveNavbarItem="setActiveNavbarItem"
   >
     <slot name="end"></slot>
   </div>
@@ -41,7 +39,6 @@
 </template>
 
 <script setup lang="ts">
-// TODO: A NavBar example that showcases using two-way binding and internal state automanagement
 import { provide, ref, computed } from 'vue';
 
 const props = defineProps<{
@@ -53,14 +50,17 @@ const emit = defineEmits<{
 }>();
 
 const showMobile = ref(false);
-
 const internalActive = ref<string | undefined>(undefined);
+
+// Gets the active from prop if it exists, or from an
+// internal state if it exists. Updates both the prop
+// and th interal state
 const actualActive = computed({
   get: () => props.active ?? internalActive.value,
-  set: (title: string | undefined) => {
-    if (title) {
-      internalActive.value = title;
-      emit('update:active', title);
+  set: (itemId: string | undefined) => {
+    if (itemId) {
+      internalActive.value = itemId;
+      emit('update:active', itemId);
     }
   }
 });
@@ -77,10 +77,6 @@ function toggleMobileMenu() {
   }
 }
 
-function setActiveNavbarItem(title: string): void {
-  console.log(`Setting as active: ${title}`)
-}
-
-provide('setActiveNavbarItem', (title: string) => actualActive.value = title);
+provide('setActiveNavbarItem', (id: string) => actualActive.value = id);
 provide('activeNavbarItem', () => actualActive.value);
 </script>

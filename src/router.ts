@@ -8,6 +8,7 @@ import ExamplePagination from '@/pages/ExamplePagination.vue';
 import ExamplePanel from '@/pages/ExamplePanel.vue';
 import ExampleMenu from '@/pages/ExampleMenu.vue';
 import ExampleTabs from '@/pages/ExampleTabs.vue';
+import ExampleNavbar from '@/pages/ExampleNavbar.vue';
 import ExampleHome from '@/pages/ExampleHome.vue';
 
 const routes = [
@@ -21,6 +22,7 @@ const routes = [
   { path: "/panel", component: ExamplePanel, name: "Panel"},
   { path: "/menu", component: ExampleMenu, name: "Menu"},
   { path: "/tabs", component: ExampleTabs, name: "Tabs"},
+  { path: "/navbar", component: ExampleNavbar, name: "Navbar"},
 ];
 
 export default createRouter({

@@ -1,17 +1,17 @@
 <template>
 <base-navbar class="is-fixed-top">
   <template #brandItems>
-    <base-navbar-item :title="'Vuelma'">
-      <router-link to="/" class="has-text-weight-bold is-size-4"></router-link>
+    <base-navbar-item itemId="Vuelma">
+      <router-link to="/" class="has-text-weight-bold is-size-4">Vuelma</router-link>
     </base-navbar-item>
   </template>
   <template #end>
   <base-navbar-item
     v-for="[path, name] in routes()"
-    :title="name"
+    :itemId="name"
     :key="path"
   >
-    <router-link :to="path"></router-link>
+    <router-link :to="path">{{ name }}</router-link>
   </base-navbar-item>
   </template>
 </base-navbar>
