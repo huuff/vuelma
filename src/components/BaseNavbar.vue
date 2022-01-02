@@ -49,8 +49,9 @@ const showMobile = ref(false);
 function toggleMobileMenu() {
   showMobile.value = !showMobile.value;
   if (showMobile.value) {
-    window.requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
       document.addEventListener('click', () => {
+          console.log("Hiding on mobile");
           showMobile.value = false;
       }, { once: true})
     });

@@ -9,5 +9,4 @@
 * For the menu example get it to work for changing the active item
 * Alignment for those components that allow it?
 * Active in navbar
-* Test that the navbar closes by clicking anywhere? (might need some fake timers, I'm unsure whether it works with my version of vue-jest)
 * Arrow in dropdown
