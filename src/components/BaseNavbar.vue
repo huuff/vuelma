@@ -5,10 +5,8 @@
   aria-label="main navigation"
   @blur="showMobile = false"
   >
-  <div class="navbar-brand">
-    <classed-slot children-class="navbar-item">
-      <slot name="brandItems"></slot>
-    </classed-slot>
+  <div class="navbar-brand" @setActiveNavbarItem="setActiveNavbarItem">
+    <slot name="brandItems"></slot>
     <a 
       role="button" 
       class="navbar-burger"
@@ -26,25 +24,47 @@
     class="navbar-menu"
     :class="{ 'is-active': showMobile }"
   >
-  <div class="navbar-start" v-if="$slots.start">
-    <classed-slot children-class="navbar-item">
-      <slot name="start"></slot>
-    </classed-slot>
+  <div v-if="$slots.start"
+    class="navbar-start"
+    @setActiveNavbarItem="setActiveNavbarItem"
+  >
+    <slot name="start"></slot>
   </div>
-  <div class="navbar-end" v-if="$slots.end">
-    <classed-slot children-class="navbar-item">
-      <slot name="end"></slot>
-    </classed-slot>
+  <div v-if="$slots.end"
+    class="navbar-end"
+    @setActiveNavbarItem="setActiveNavbarItem"
+  >
+    <slot name="end"></slot>
   </div>
   </div>
 </nav>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import ClassedSlot from '@/components/slots/ClassedSlot';
+// TODO: A NavBar example that showcases using two-way binding and internal state automanagement
+// TODO: Put navbar stuff into their own folder
+import { provide, ref, computed } from 'vue';
+
+const props = defineProps<{
+  active?: string
+}>();
+
+const emit = defineEmits<{
+  (event: "update:active", title: string): void;
+}>();
 
 const showMobile = ref(false);
+
+const internalActive = ref<string | undefined>(undefined);
+const actualActive = computed({
+  get: () => props.active ?? internalActive.value,
+  set: (title: string | undefined) => {
+    if (title) {
+      internalActive.value = title;
+      emit('update:active', title);
+    }
+  }
+});
 
 function toggleMobileMenu() {
   showMobile.value = !showMobile.value;
@@ -57,4 +77,11 @@ function toggleMobileMenu() {
     });
   }
 }
+
+function setActiveNavbarItem(title: string): void {
+  console.log(`Setting as active: ${title}`)
+}
+
+provide('setActiveNavbarItem', (title: string) => actualActive.value = title);
+provide('activeNavbarItem', () => actualActive.value);
 </script>

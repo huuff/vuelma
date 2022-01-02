@@ -8,4 +8,3 @@
 * Visual regression tests?
 * For the menu example get it to work for changing the active item
 * Alignment for those components that allow it?
-* Active in navbar
