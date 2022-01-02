@@ -49,7 +49,8 @@ describe('BaseMessage.vue', () => {
     test("when clicked, it emits a close event", async () => {
       await(wrapper.get("button.delete").trigger('click'));
 
-      expect(Object.keys(wrapper.emitted())).toContain('close');
+      expect(Object.keys(wrapper.emitted())).toContain('update:show');
+      expect((wrapper.emitted()["update:show"][0] as boolean[])[0]).toBe(false);
     });
   });
 });

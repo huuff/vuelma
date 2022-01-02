@@ -4,7 +4,6 @@
 * Improve the dropdown component so much that it works seamlessly in the navbar comonent (maybe using `$parent`?) That it detects that it's in a navbar and applies the correct classes (since dropdowns are different in both)
 * Maybe do as above for card modals? Looks hard.
 * Maybe do this for tabs in panels? Just a dream
-* Should I go back to using two-way binding for closing/opening messages and modals?
 * Visual regression tests?
 * For the menu example get it to work for changing the active item
 * Alignment for those components that allow it?

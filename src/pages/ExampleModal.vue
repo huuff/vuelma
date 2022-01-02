@@ -30,7 +30,7 @@
 </base-modal>
 
 <base-modal closeable class="has-text-white">
-  This modal has no two-way binding, once closed, it cannot be opened again.
+  This modal has no two-way binding. Once closed, it cannot be opened again.
 </base-modal>
 </template>
 
