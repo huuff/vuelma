@@ -18,7 +18,8 @@ describe('BaseModal.vue', () => {
 
       await wrapper.get('.modal-close').trigger('click');
 
-      expect(Object.keys(wrapper.emitted())).toContain('close');
+      expect(Object.keys(wrapper.emitted())).toContain('update:show');
+      expect((wrapper.emitted()["update:show"][0] as boolean[])[0]).toBe(false);
     });
 
     test('it is closeable by backdrop', async () => {
@@ -35,7 +36,8 @@ describe('BaseModal.vue', () => {
 
       await wrapper.get('.modal-background').trigger('click');
 
-      expect(Object.keys(wrapper.emitted())).toContain('close');
+      expect(Object.keys(wrapper.emitted())).toContain('update:show');
+      expect((wrapper.emitted()["update:show"][0] as boolean[])[0]).toBe(false);
     });
 
     describe('when backdropCloaseable is false', () => {
@@ -53,13 +55,14 @@ describe('BaseModal.vue', () => {
       test("it's not closeable by backdrop", async () => {
         await wrapper.get('.modal-background').trigger('click');
 
-        expect(Object.keys(wrapper.emitted())).not.toContain('close');
+        expect(Object.keys(wrapper.emitted())).not.toContain('update:show');
       });
 
       test("but it's still closeable by button", async () => {
         await wrapper.get('.modal-close').trigger('click');
 
-        expect(Object.keys(wrapper.emitted())).toContain('close');
+        expect(Object.keys(wrapper.emitted())).toContain('update:show');
+        expect((wrapper.emitted()["update:show"][0] as boolean[])[0]).toBe(false);
       });
     });
   });
@@ -98,7 +101,8 @@ describe('BaseModal.vue', () => {
       test("that when clicked, emits a close event", async () => {
         await wrapper.get("button.delete").trigger("click");
 
-        expect(Object.keys(wrapper.emitted())).toContain("close");
+        expect(Object.keys(wrapper.emitted())).toContain('update:show');
+        expect((wrapper.emitted()["update:show"][0] as boolean[])[0]).toBe(false);
       });
     });
 

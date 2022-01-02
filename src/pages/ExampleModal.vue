@@ -6,8 +6,7 @@
   >Show normal modal</button>
 <base-modal
   closeable 
-  :show="showNormal"
-  @close="showNormal = false"
+  v-model:show="showNormal"
   :backdropCloseable="false"
 >
   <p class="has-text-white">Example modal content. This modal is not closeable by clicking on the backdrop</p>
@@ -19,8 +18,7 @@
   >Show card modal</button>
 <base-modal 
   closeable 
-  :show="showCard" 
-  @close="showCard = false"
+  v-model:show="showCard"
   :card-title="'Example card modal'"
   >
   <template #cardBody>
@@ -29,6 +27,10 @@
   <template #cardFooter>
     <p>Example modal footer</p>
   </template>
+</base-modal>
+
+<base-modal closeable class="has-text-white">
+  This modal has no two-way binding, once closed, it cannot be opened again.
 </base-modal>
 </template>
 

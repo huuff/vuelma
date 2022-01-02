@@ -1,5 +1,5 @@
 <template>
-<div class="modal" :class="{ 'is-active': show }">
+<div class="modal" :class="{ 'is-active': actualShow }">
   <div 
     class="modal-background"
     @click="tryToCloseByBackdrop"
@@ -11,7 +11,7 @@
     <button v-if="closeable"
       class="modal-close is-large"
       aria-label="close"
-      @click="$emit('close')"
+      @click="actualShow = false"
     ></button>
   </template>
   <template v-if="isCard()">
@@ -25,7 +25,7 @@
           type="button"
           class="delete"
           aria-label="close"
-          @click="$emit('close')"
+          @click="actualShow = false"
         ></button>
       </header>
       <section v-if="$slots.cardBody" class="modal-card-body">
@@ -40,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { useSlots, computed } from 'vue';
+import { useSlots, computed, ref } from 'vue';
 
 const props = withDefaults(defineProps<{
   show?: boolean;
@@ -48,9 +48,22 @@ const props = withDefaults(defineProps<{
   backdropCloseable?: boolean;
   cardTitle?: string;
 }>(), {
-  show: true,
+  show: undefined,
   closeable: true,
   backdropCloseable: undefined,
+});
+
+const emit = defineEmits<{
+  (event: 'update:show', value: boolean): void
+}>();
+
+const internalShow = ref(true);
+const actualShow = computed({
+  get: () => props.show ?? internalShow.value,
+  set: (newShow: boolean) => {
+    internalShow.value = newShow; 
+    emit('update:show', newShow); 
+  }
 });
 
 // Sets a sensible default for backdropCloseable,
@@ -65,9 +78,6 @@ const computedBackdropCloseable = computed(() => {
   }
 });
 
-const emit = defineEmits<{
-  (event: 'close'): void
-}>();
 
 const slots = useSlots();
 function isCard() {
@@ -76,7 +86,7 @@ function isCard() {
 
 function tryToCloseByBackdrop() {
   if (computedBackdropCloseable.value) {
-    emit('close');
+    emit('update:show', false);
   }
 }
 
