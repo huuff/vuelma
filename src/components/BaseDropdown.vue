@@ -1,10 +1,9 @@
 <template>
 <div class="dropdown" :class="{ 'is-active': open }">
   <div class="dropdown-trigger">
-    <!-- TODO: More resilient aria-controls -->
     <button v-if="triggerText"
       class="button"
-      aria-controls="dropdown-menu" 
+      :aria-controls="id" 
       aria-haspopup="true"
       @click="open = !open"
       @blur="open = false"
@@ -18,7 +17,7 @@
       <slot name="trigger"></slot>
     </clickable-slot>
   </div>
-  <div class="dropdown-menu">
+  <div class="dropdown-menu" :id="id">
     <div class="dropdown-content">
       <classed-slot :childrenClass="'dropdown-item'">
         <slot></slot>
@@ -44,6 +43,10 @@ const props = defineProps<{
 }>();
 
 const open = ref(false);
+
+// XXX: Only for accurate aria-controls, there might be some
+// better solution, but I'm unsure which one
+const id = Math.random().toString();
 
 const slots = useSlots();
 
