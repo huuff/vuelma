@@ -24,9 +24,7 @@ const render = () => {
     throw new Error("A BaseNavbarItem must have exactly one child element!")
   }
 
-// TODO: Fix so null doesn't appear in the class
-// TODO: Does it preserve the classes?
-  const slotAsNavbarItem = cloneVNode(slots.default()[0], { class: `navbar-item ${activeNavbarItem() === props.itemId ? 'is-active' : null}`})
+  const slotAsNavbarItem = cloneVNode(slots.default()[0], { class: 'navbar-item' + (activeNavbarItem() === props.itemId ? ' is-active' : '')});
 
   if (!slotAsNavbarItem.props) {
     slotAsNavbarItem.props = {};
