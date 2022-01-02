@@ -9,7 +9,10 @@
       @click="open = !open"
       @blur="open = false"
       >
-      {{ triggerText }}
+      <span> {{ triggerText }} </span>
+      <span class="icon is-small">
+        <font-awesome-icon icon="angle-down" />
+      </span>
     </button>
     <clickable-slot v-if="$slots.trigger" :fn="() => open = !open">
       <slot name="trigger"></slot>
@@ -30,6 +33,11 @@
 import { useSlots, ref } from 'vue';
 import ClassedSlot from '@/components/slots/ClassedSlot';
 import ClickableSlot from '@/components/slots/ClickableSlot';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faAngleDown);
 
 const props = defineProps<{
   triggerText?: string;
