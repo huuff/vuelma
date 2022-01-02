@@ -41,6 +41,7 @@
 <script setup lang="ts">
 import { provide, ref, computed } from 'vue';
 import { BulmaColor } from '@/types/bulma-color';
+import { SetActiveNavbarItemKey, ActiveNavbarItemKey } from '@/symbols';
 
 const props = withDefaults(defineProps<{
   active?: string;
@@ -81,6 +82,6 @@ function toggleMobileMenu() {
   }
 }
 
-provide('setActiveNavbarItem', (id: string) => actualActive.value = id);
-provide('activeNavbarItem', () => actualActive.value);
+provide(SetActiveNavbarItemKey, (id: string) => actualActive.value = id);
+provide(ActiveNavbarItemKey, () => actualActive.value);
 </script>

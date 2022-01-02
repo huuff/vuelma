@@ -14,13 +14,18 @@
 
 <script setup lang="ts">
 import { computed, inject } from 'vue';
+import { PageKey, GotoPageKey } from '@/symbols';
 
 const props = defineProps<{
   pageNumber: number;
 }>();
 
-const currentPage = inject('currentPage') as () => number;
-const gotoPage = inject('gotoPage') as ((page: number) => void)
+const currentPage = inject(PageKey);
+const gotoPage = inject(GotoPageKey);
+
+if (!currentPage || !gotoPage) {
+  throw new Error("Some necesary function hasn't been provided from BasePagination to BasePaginationLink");
+}
 
 const isCurrent = computed(() => props.pageNumber === currentPage());
 

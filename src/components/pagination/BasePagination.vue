@@ -57,8 +57,8 @@
 
 <script setup lang="ts">
 // XXX: Pretty shitty logic in here but I'm no mathematician
-// TODO: Use InjectionKey for the provides and inject?
 import { computed, provide } from 'vue';
+import { PageKey, GotoPageKey } from '@/symbols';
 import BasePaginationLink from '@/components/pagination/BasePaginationLink.vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
@@ -79,8 +79,8 @@ const emit = defineEmits<{
   (event: 'gotoPage', page: number): void
 }>();
 
-provide('currentPage', () => props.currentPage);
-provide('gotoPage', (page: number) => {
+provide(PageKey, () => props.currentPage);
+provide(GotoPageKey, (page: number) => {
   emit('gotoPage', page)
 });
 

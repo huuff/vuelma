@@ -4,12 +4,18 @@
 
 <script setup lang="ts">
 import { useSlots, cloneVNode, h, inject } from 'vue';
+import { SetActiveNavbarItemKey, ActiveNavbarItemKey } from '@/symbols';
 
 const props = defineProps<{
   itemId: string;
 }>();
 
-const activeNavbarItem = inject('activeNavbarItem') as () => string;
+const activeNavbarItem = inject(ActiveNavbarItemKey);
+const setActiveNavbarItem = inject(SetActiveNavbarItemKey);
+
+if (!activeNavbarItem || !setActiveNavbarItem) {
+  throw new Error("Some necessary value wasn't provided from BaseNavbar to BaseNavbarItem!")
+}
 
 const slots = useSlots();
 
@@ -26,7 +32,6 @@ const render = () => {
     slotAsNavbarItem.props = {};
   }
 
-  const setActiveNavbarItem = inject('setActiveNavbarItem') as (title: string) => void;
   slotAsNavbarItem.props.onClick = () => setActiveNavbarItem(props.itemId);
 
   return slotAsNavbarItem;
