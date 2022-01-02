@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import BaseNavbar from '@/components/BaseNavbar.vue';
+import BaseNavbar from '@/components/navbar/BaseNavbar.vue';
 
 beforeEach(() => {
   jest.useFakeTimers('modern');

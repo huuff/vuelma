@@ -42,7 +42,6 @@
 
 <script setup lang="ts">
 // TODO: A NavBar example that showcases using two-way binding and internal state automanagement
-// TODO: Put navbar stuff into their own folder
 import { provide, ref, computed } from 'vue';
 
 const props = defineProps<{

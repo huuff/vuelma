@@ -22,8 +22,8 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import BaseNavbar from '@/components/BaseNavbar.vue';
-import BaseNavbarItem from '@/components/BaseNavbarItem.vue';
+import BaseNavbar from '@/components/navbar/BaseNavbar.vue';
+import BaseNavbarItem from '@/components/navbar/BaseNavbarItem.vue';
 
 const router = useRouter();
 
