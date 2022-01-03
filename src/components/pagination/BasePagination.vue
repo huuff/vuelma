@@ -57,7 +57,8 @@
 
 <script setup lang="ts">
 // XXX: Pretty shitty logic in here but I'm no mathematician
-import { computed, } from 'vue';
+// TODO: Honestly this could have optional two way binding even if it doesn't make much sense
+import { computed, toRef } from 'vue';
 import { provideAccessors } from '@/composables/injected-accessors'
 import BasePaginationLink from '@/components/pagination/BasePaginationLink.vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -80,7 +81,7 @@ const emit = defineEmits<{
   (event: 'update:currentPage', page: number): void
 }>();
 
-provideAccessors("CurrentPage", () => props.currentPage, partial(emit, "update:currentPage"));
+provideAccessors("CurrentPage", toRef(props, 'currentPage'), partial(emit, "update:currentPage"));
 
 const showBackward = computed(() => {
   const first = Math.max(1, props.currentPage - props.showAround);

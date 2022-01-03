@@ -1,13 +1,21 @@
-import { inject, provide, } from 'vue';
+import { inject, provide, Ref } from 'vue';
 
 // Future: No type safety whatsoever :(
 // But it was hard achieving it for me
 // TODO: Maybe use a ref for the getter (for setter too?)
 // TODO: Actual accessor? With a `value` property or smth
-// TODO: Autoprovide passing just actual for optionalTwoWayBinding
-export function provideAccessors<T>(name: string, getter: () => T, setter: (newVal: T) => void): void {
-  provide(`get${name}`, getter);
-  provide(`set${name}`, setter);
+const getterName = (name: string) => `get${name}`;
+const setterName = (name: string) => `set${name}`;
+
+
+export function provideAccessors<T>(name: string, getter: Ref<T>, setter: (newVal: T) => void): void {
+  provide(getterName(name), () => getter.value);
+  provide(setterName(name), setter);
+}
+
+export function provideAccessorsFromOptionalTwoWayBinding<T>(name: string, actual: Ref<T>) {
+  provide(getterName(name), () => actual.value);
+  provide(setterName(name), (newVal: T) => actual.value = newVal);
 }
 
 type InjectedAccessors<T> = {
@@ -16,8 +24,8 @@ type InjectedAccessors<T> = {
 };
 
 export function injectAccessors<T>(name: string): InjectedAccessors<T> {
-  const getter = inject(`get${name}`);
-  const setter = inject(`set${name}`);
+  const getter = inject(getterName(name));
+  const setter = inject(setterName(name));
 
   if (!getter || !setter) {
     throw new Error(`Accessors for ${name} were not provided from parent element!`);
