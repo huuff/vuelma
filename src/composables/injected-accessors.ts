@@ -8,12 +8,7 @@ const getterName = (name: string) => `get${name}`;
 const setterName = (name: string) => `set${name}`;
 
 
-export function provideAccessors<T>(name: string, getter: Ref<T>, setter: (newVal: T) => void): void {
-  provide(getterName(name), () => getter.value);
-  provide(setterName(name), setter);
-}
-
-export function provideAccessorsFromOptionalTwoWayBinding<T>(name: string, actual: Ref<T>) {
+export function provideAccessors<T>(name: string, actual: Ref<T>) {
   provide(getterName(name), () => actual.value);
   provide(setterName(name), (newVal: T) => actual.value = newVal);
 }

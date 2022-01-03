@@ -41,7 +41,7 @@
 <script setup lang="ts">
 import { ref, toRef } from 'vue';
 import { BulmaColor } from '@/types/bulma-color';
-import { provideAccessorsFromOptionalTwoWayBinding } from '@/composables/injected-accessors';
+import { provideAccessors } from '@/composables/injected-accessors';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import partial from 'lodash/partial';
 
@@ -72,5 +72,5 @@ function toggleMobileMenu() {
   }
 }
 
-provideAccessorsFromOptionalTwoWayBinding('ActiveNavbarItem', actualActive);
+provideAccessors('ActiveNavbarItem', actualActive);
 </script>

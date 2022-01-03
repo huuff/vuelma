@@ -84,7 +84,7 @@ const emit = defineEmits<{
 
 const actualCurrentPage = useOptionalTwoWayBinding(1, toRef(props, 'currentPage'), partial(emit, "update:currentPage"))
 
-provideAccessors("CurrentPage", toRef(props, 'currentPage'), partial(emit, "update:currentPage"));
+provideAccessors("CurrentPage", actualCurrentPage);
 
 const showBackward = computed(() => {
   const first = Math.max(1, actualCurrentPage.value - props.showAround);
