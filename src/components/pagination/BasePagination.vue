@@ -57,12 +57,13 @@
 
 <script setup lang="ts">
 // XXX: Pretty shitty logic in here but I'm no mathematician
-import { computed, provide } from 'vue';
-import { PageKey, GotoPageKey } from '@/symbols';
+import { computed, } from 'vue';
+import { provideAccessors } from '@/composables/injected-accessors'
 import BasePaginationLink from '@/components/pagination/BasePaginationLink.vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import partial from 'lodash/partial';
 
 library.add(faAngleLeft);
 library.add(faAngleRight);
@@ -79,10 +80,7 @@ const emit = defineEmits<{
   (event: 'update:currentPage', page: number): void
 }>();
 
-provide(PageKey, () => props.currentPage);
-provide(GotoPageKey, (page: number) => {
-  emit('update:currentPage', page)
-});
+provideAccessors("CurrentPage", () => props.currentPage, partial(emit, "update:currentPage"));
 
 const showBackward = computed(() => {
   const first = Math.max(1, props.currentPage - props.showAround);

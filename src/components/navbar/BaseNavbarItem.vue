@@ -3,19 +3,14 @@
 </template>
 
 <script setup lang="ts">
-import { useSlots, cloneVNode, inject } from 'vue';
-import { SetActiveNavbarItemKey, ActiveNavbarItemKey } from '@/symbols';
+import { useSlots, cloneVNode, } from 'vue';
+import { injectAccessors } from '@/composables/injected-accessors';
 
 const props = defineProps<{
   itemId: string;
 }>();
 
-const activeNavbarItem = inject(ActiveNavbarItemKey);
-const setActiveNavbarItem = inject(SetActiveNavbarItemKey);
-
-if (!activeNavbarItem || !setActiveNavbarItem) {
-  throw new Error("Some necessary value wasn't provided from BaseNavbar to BaseNavbarItem!")
-}
+const active = injectAccessors<string>("ActiveNavbarItem");
 
 const slots = useSlots();
 
@@ -24,13 +19,13 @@ const render = () => {
     throw new Error("A BaseNavbarItem must have exactly one child element!")
   }
 
-  const slotAsNavbarItem = cloneVNode(slots.default()[0], { class: 'navbar-item' + (activeNavbarItem() === props.itemId ? ' is-active' : '')});
+  const slotAsNavbarItem = cloneVNode(slots.default()[0], { class: 'navbar-item' + (active.get() === props.itemId ? ' is-active' : '')});
 
   if (!slotAsNavbarItem.props) {
     slotAsNavbarItem.props = {};
   }
 
-  slotAsNavbarItem.props.onClick = () => setActiveNavbarItem(props.itemId);
+  slotAsNavbarItem.props.onClick = () => active.set(props.itemId);
 
   return slotAsNavbarItem;
 };

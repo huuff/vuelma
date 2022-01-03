@@ -3,22 +3,16 @@
 </template>
 
 <script setup lang="ts">
-import { inject, h, useSlots, cloneVNode } from 'vue';
-import { SetActiveBreadcrumbItemKey, ActiveBreadcrumbItemKey } from './symbols';
+import { h, useSlots, cloneVNode } from 'vue';
+import { injectAccessors } from '@/composables/injected-accessors';
 
 const props = defineProps<{
   itemId: string;
 }>();
 
-const activeId = inject(ActiveBreadcrumbItemKey);
-const setActiveId = inject(SetActiveBreadcrumbItemKey)
-
-if (!activeId || !setActiveId) {
-  throw new Error("Either active id or a method to set active id was not provided from BaseBreadcrumb to BaseBreadcrumbItem");
-}
+const active = injectAccessors<string>("ActiveBreadcrumbItem");
 
 const slots = useSlots();
-
 
 const render = () => {
   if (!slots.default) {
@@ -27,9 +21,9 @@ const render = () => {
 
   return h(
     "li",
-    props.itemId === activeId() ? { class: "is-active" } : {},
+    props.itemId === active.get() ? { class: "is-active" } : {},
     cloneVNode(slots.default()[0], {
-      onClick: () => setActiveId(props.itemId)
+      onClick: () => active.set(props.itemId)
     })
   );
 }

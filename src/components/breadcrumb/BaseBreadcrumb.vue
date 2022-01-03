@@ -11,10 +11,10 @@
 </template>
 
 <script setup lang="ts">
-import { provide, toRef } from 'vue';
-import { ActiveBreadcrumbItemKey, SetActiveBreadcrumbItemKey } from './symbols';
+import { toRef } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { BreadcrumbSeparator } from '@/types/breadcrumb-separator';
+import { provideAccessors } from '@/composables/injected-accessors';
 import partial from "lodash/partial";
 
 const props = defineProps<{
@@ -28,6 +28,5 @@ const emit = defineEmits<{
 
 const actualActive = useOptionalTwoWayBinding(undefined, toRef(props, "active"), partial(emit, "update:active"));
 
-provide(ActiveBreadcrumbItemKey, () => actualActive.value);
-provide(SetActiveBreadcrumbItemKey, (itemId) => actualActive.value = itemId);
+provideAccessors('ActiveBreadcrumbItem', () => actualActive.value, (id) => actualActive.value = id);
 </script>

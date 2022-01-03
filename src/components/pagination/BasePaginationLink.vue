@@ -5,7 +5,7 @@
     :class="{ 'is-current': isCurrent}"
     :aria-label="`Goto page ${pageNumber}`"
     :aria-current="isCurrent ? 'page' : null"
-    @click="gotoPage(pageNumber)"
+    @click="currentPage.set(pageNumber)"
   >
     {{ pageNumber }}
   </a>
@@ -13,20 +13,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject } from 'vue';
-import { PageKey, GotoPageKey } from '@/symbols';
+import { computed, } from 'vue';
+import { injectAccessors } from '@/composables/injected-accessors';
 
 const props = defineProps<{
   pageNumber: number;
 }>();
 
-const currentPage = inject(PageKey);
-const gotoPage = inject(GotoPageKey);
+const currentPage = injectAccessors<number>("CurrentPage");
 
-if (!currentPage || !gotoPage) {
-  throw new Error("Some necesary function hasn't been provided from BasePagination to BasePaginationLink");
-}
-
-const isCurrent = computed(() => props.pageNumber === currentPage());
+const isCurrent = computed(() => props.pageNumber === currentPage.get());
 
 </script>

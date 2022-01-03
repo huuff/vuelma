@@ -6,6 +6,5 @@
 * Visual regression tests?
 * For the menu example get it to work for changing the active item
 * Alignment for those components that allow it?
-* Do something with injection symbols. (At least, put them in the same folder as the clients? Maybe generalize it somehow)
 * Remove as many warnings as I can
 * Fix the display of the navbar example

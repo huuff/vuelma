@@ -41,7 +41,7 @@
 <script setup lang="ts">
 import { provide, ref, computed } from 'vue';
 import { BulmaColor } from '@/types/bulma-color';
-import { SetActiveNavbarItemKey, ActiveNavbarItemKey } from '@/symbols';
+import { provideAccessors } from '@/composables/injected-accessors';
 
 const props = withDefaults(defineProps<{
   active?: string;
@@ -60,6 +60,7 @@ const internalActive = ref<string | undefined>(undefined);
 // Gets the active from prop if it exists, or from an
 // internal state if it exists. Updates both the prop
 // and th interal state
+// TODO: What? I'm not using optionalTwoWayBinding?
 const actualActive = computed({
   get: () => props.active ?? internalActive.value,
   set: (itemId: string | undefined) => {
@@ -82,6 +83,5 @@ function toggleMobileMenu() {
   }
 }
 
-provide(SetActiveNavbarItemKey, (id: string) => actualActive.value = id);
-provide(ActiveNavbarItemKey, () => actualActive.value);
+provideAccessors('ActiveNavbarItem', () => actualActive.value, (id) => actualActive.value = id);
 </script>
