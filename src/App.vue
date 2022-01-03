@@ -1,5 +1,5 @@
 <template>
-<base-navbar class="is-fixed-top">
+<base-navbar class="is-fixed-top" :active="router.currentRoute.value.name?.toString()">
   <template #brandItems>
     <base-navbar-item itemId="Vuelma">
       <router-link to="/" class="has-text-weight-bold is-size-4">Vuelma</router-link>
