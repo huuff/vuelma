@@ -1,7 +1,7 @@
 <template>
-<base-breadcrumb :separator="'arrow'"></base-breadcrumb>
+<router-breadcrumb />
 </template>
 
 <script setup lang="ts">
-import BaseBreadcrumb from '@/components/BaseBreadcrumb.vue'
+import RouterBreadcrumb from '@/components/breadcrumb/RouterBreadcrumb.vue'
 </script>

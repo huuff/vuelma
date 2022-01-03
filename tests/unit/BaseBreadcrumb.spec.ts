@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
-import BaseBreadcrumb from '@/components/BaseBreadcrumb.vue';
-import { useRouter, RouterLink } from 'vue-router';
+import RouterBreadcrumb from '@/components/breadcrumb/RouterBreadcrumb.vue';
+import { useRouter, } from 'vue-router';
 
 jest.mock('vue-router', () => ({
   useRouter: jest.fn(() => ({
@@ -13,7 +13,7 @@ const fakeStartRoute = { path: "/", name: "Start" };
 const fakeMiddleRoute = { path: "/middle", name: "Middle" };
 const fakeEndRoute = { path: "/middle/end", name: "End" };
 
-describe('BaseBreadcrumb.vue', () => {
+describe('RouterBreadcrumb.vue', () => {
   const getRoutes = jest.fn(() => [ fakeStartRoute, fakeMiddleRoute, fakeEndRoute ]);
   const currentRoute =  { value: fakeEndRoute };
 
@@ -21,7 +21,7 @@ describe('BaseBreadcrumb.vue', () => {
     getRoutes, currentRoute
   }));
 
-  const wrapper = mount(BaseBreadcrumb, {
+  const wrapper = mount(RouterBreadcrumb, {
     global: {
       stubs: [ 'router-link' ],
       renderStubDefaultSlot: true,
