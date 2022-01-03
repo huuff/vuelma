@@ -28,6 +28,7 @@
 </template>
 
 <script setup lang="ts">
+// TODO: Triggers no event at all? What use is it then?
 // TODO: Some way to add dividers?
 import { useSlots, ref } from 'vue';
 import ClassedSlot from '@/components/slots/ClassedSlot';

@@ -5,6 +5,8 @@
 <script setup lang="ts">
 import { useSlots, h, VNode, toRef } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
+import { FontAwesomeIconName } from '@/types/fontawesome-icon-name';
+import { iconAsRender } from '@/util/fontawesome-icon-render';
 import BaseTab from './BaseTab.vue';
 import partial from "lodash/partial";
 
@@ -19,7 +21,6 @@ const emit = defineEmits<{
 
 const actualActiveTabId = useOptionalTwoWayBinding(undefined, toRef(props, "activeTabId"), partial(emit, "update:activeTabId"));
 
-const slots = useSlots();
 
 // TODO: This in an external file? But it uses the actualActiveTabId
 // TODO: Test it
@@ -27,6 +28,7 @@ class Tab {
   constructor(
     public readonly title: string,
     public readonly tabId: string,
+    public readonly icon: FontAwesomeIconName | undefined,
     public readonly slot: VNode<any, any, any>,
   ) {}
 
@@ -41,7 +43,13 @@ class Tab {
   public setActive(): void {
     actualActiveTabId.value = this.tabId;
   }
+
+  public hasIcon(): boolean {
+    return this.icon !== undefined;
+  }
 }
+
+const slots = useSlots();
 
 function slotToTabs(): Tab[] {
   const children = slots.default!();
@@ -55,6 +63,7 @@ function slotToTabs(): Tab[] {
   return children.map(child => new Tab(
     child.props!.title,
     child.props!.tabId,
+    child.props!.icon,
     child,
   ));
 }
@@ -77,7 +86,12 @@ const render = () => {
           h(
             "a",
             { onClick: () => tab.setActive()},
-            tab.title
+            !tab.hasIcon()
+              ? tab.title
+              : [
+                iconAsRender(tab.icon!, [ "is-small" ]),
+                h("span", {}, tab.title),
+              ]
           )
         ))
       )

@@ -3,10 +3,11 @@
 </template>
 
 <script setup lang="ts">
-// TODO: Add icons
+import { FontAwesomeIconName } from '@/types/fontawesome-icon-name';
 
 const props = defineProps<{
   title: string;
   tabId: string;
+  icon?: FontAwesomeIconName
 }>();
 </script>
