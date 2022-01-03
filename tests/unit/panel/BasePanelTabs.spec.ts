@@ -38,6 +38,12 @@ describe('BasePanelTabs.vue', () => {
       [SECOND_BLOCK_ID]: SECOND_BLOCK,
       [THIRD_BLOCK_ID]: THIRD_BLOCK,
     },
+    global: {
+      provide: {
+        getActivePanelTab: jest.fn(() => FIRST_BLOCK_ID),
+        setActivePanelTab: jest.fn(),
+      },
+    },
   });
 
   test.skip("slots are shown as tabs", () => {

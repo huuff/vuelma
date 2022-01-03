@@ -8,9 +8,16 @@ library.add(faHeart);
 
 describe('BasePanelBlock.vue', () => {
   test('if active is passed, then it has the is-active class', () => {
+    const itemId = "test";
     const wrapper = mount(BasePanelBlock, {
       props: {
         active: true,
+        itemId
+      }, global: {
+        provide: {
+          getActivePanelBlock: jest.fn(() => itemId),
+          setActivePanelBlock: jest.fn(),
+        },
       }
     });
 
@@ -20,9 +27,13 @@ describe('BasePanelBlock.vue', () => {
   test("if an icon is passed, then it's in the element", () => {
     const icon = 'heart';
     const wrapper = mount(BasePanelBlock, {
-      props: { icon },
+      props: { icon, itemId: "test" },
       global: {
-        components: { 'font-awesome-icon': FontAwesomeIcon }
+        components: { 'font-awesome-icon': FontAwesomeIcon },
+        provide: {
+          getActivePanelBlock: jest.fn(),
+          setActivePanelBlock: jest.fn(),
+        }
       }
     })
 

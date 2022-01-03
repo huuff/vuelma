@@ -1,7 +1,8 @@
 <template>
 <a 
   class="panel-block" 
-  :class="{ 'is-active': active }"
+  :class="{ 'is-active': activeBlock == itemId }"
+  @click="activeBlock = itemId"
   >
   <span v-if="icon"
     class="panel-icon"
@@ -16,9 +17,12 @@
 // TODO: Other types of panel blocks? Like label
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { FontAwesomeIconName } from '@/types/fontawesome-icon-name';
+import { injectAccessors } from '@/composables/injected-accessors';
 
 const props = defineProps<{
   icon?: FontAwesomeIconName;
-  active?: boolean;
+  itemId: string;
 }>();
+
+const activeBlock = injectAccessors("ActivePanelBlock");
 </script>

@@ -3,24 +3,21 @@
 </template>
 
 <script setup lang="ts">
-import { h, useSlots } from 'vue';
+import { h, useSlots, } from 'vue';
+import { injectAccessors } from '@/composables/injected-accessors';
 
 const slots = useSlots();
 
-const props = defineProps<{
-  active: keyof typeof slots;
-}>();
-
-const emit = defineEmits<{
-  (event: 'setActiveTab', tab: string): void;
-}>();
+const activeTab = injectAccessors<string>("ActivePanelTab");
 
 function tabsFromSlots() {
   return Object.keys(slots).map(slotName => h(
     'a',
     { 
-      'class': { 'is-active': props.active === slotName },
-      onClick: () => emit('setActiveTab', slotName),
+      'class': { 'is-active': activeTab.value === slotName },
+      onClick: () => {
+        activeTab.value = slotName;
+      },
     },
     slotName
   ));
@@ -31,7 +28,7 @@ const render = () => {
     h('p', 
     { 'class': 'panel-tabs',  },
     tabsFromSlots()),
-    slots[props.active]!(),
+    slots[activeTab.value] ? slots[activeTab.value]!() : undefined,
   ];
 };
 </script>
