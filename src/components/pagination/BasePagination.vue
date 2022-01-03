@@ -3,13 +3,13 @@
   <button
     type="button"
     :disabled="currentPage === 1"
-    @click="emit('gotoPage', currentPage-1)"
+    @click="emit('update:currentPage', currentPage-1)"
     class="pagination-previous button" 
     aria-label="previous page"
     ><font-awesome-icon icon="angle-left"/>
   </button>
   <button
-    @click="emit('gotoPage', currentPage+1)"
+    @click="emit('update:currentPage', currentPage+1)"
     :disabled="currentPage === pageNumber"
     type="button"
     class="pagination-next button "
@@ -76,12 +76,12 @@ const props = withDefaults(defineProps<{
 });
 
 const emit = defineEmits<{
-  (event: 'gotoPage', page: number): void
+  (event: 'update:currentPage', page: number): void
 }>();
 
 provide(PageKey, () => props.currentPage);
 provide(GotoPageKey, (page: number) => {
-  emit('gotoPage', page)
+  emit('update:currentPage', page)
 });
 
 const showBackward = computed(() => {

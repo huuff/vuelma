@@ -36,9 +36,8 @@
   <div class="columns is-centered mt-5">
     <base-pagination
       :pageNumber="pageNumber"
-      :currentPage="currentPage"
+      v-model:currentPage="currentPage"
       :showAround="showAround"
-      @gotoPage="(page) => currentPage = page"
     />
   </div>
 </template>

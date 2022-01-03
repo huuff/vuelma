@@ -47,7 +47,7 @@ describe("BasePagination.vue", () => {
       for (const [index, paginationLink] of wrapper.findAll('.pagination-link').entries()) {
         await paginationLink.trigger('click');
         const number = +paginationLink.text();
-        expect((wrapper.emitted()["gotoPage"][index] as number[])[0]).toBe(number);
+        expect((wrapper.emitted()["update:currentPage"][index] as number[])[0]).toBe(number);
       }
     })
   });
@@ -119,7 +119,7 @@ describe("BasePagination.vue", () => {
       });
       
       await wrapper.get("button.pagination-previous").trigger('click');
-      expect((wrapper.emitted()["gotoPage"][0] as number[])[0]).toBe(currentPage - 1);
+      expect((wrapper.emitted()["update:currentPage"][0] as number[])[0]).toBe(currentPage - 1);
     });
 
     test("next sends to next page", async () => {
@@ -130,7 +130,7 @@ describe("BasePagination.vue", () => {
       });
       
       await wrapper.get("button.pagination-next").trigger('click');
-      expect((wrapper.emitted()["gotoPage"][0] as number[])[0]).toBe(currentPage + 1);
+      expect((wrapper.emitted()["update:currentPage"][0] as number[])[0]).toBe(currentPage + 1);
     });
   });
 });
