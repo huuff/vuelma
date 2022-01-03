@@ -19,12 +19,16 @@ if (!activeId || !setActiveId) {
 
 const slots = useSlots();
 
+
 const render = () => {
+  if (!slots.default) {
+    throw new Error("BaseBreadcrumbItem requires a filled default slot!");
+  }
+
   return h(
     "li",
     props.itemId === activeId() ? { class: "is-active" } : {},
-    // TODO: Avoid nonnull assertion
-    cloneVNode(slots.default!()[0], {
+    cloneVNode(slots.default()[0], {
       onClick: () => setActiveId(props.itemId)
     })
   );

@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { useSlots, cloneVNode, h, inject } from 'vue';
+import { useSlots, cloneVNode, inject } from 'vue';
 import { SetActiveNavbarItemKey, ActiveNavbarItemKey } from '@/symbols';
 
 const props = defineProps<{
