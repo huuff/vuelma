@@ -42,6 +42,7 @@
 <script setup lang="ts">
 import { useSlots, computed, toRef } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
+import partial from "lodash/partial";
 
 const props = withDefaults(defineProps<{
   show?: boolean;
@@ -58,7 +59,7 @@ const emit = defineEmits<{
   (event: 'update:show', value: boolean): void
 }>();
 
-const actualShow = useOptionalTwoWayBinding(true, toRef(props, 'show'), (newVal) => emit('update:show', newVal));
+const actualShow = useOptionalTwoWayBinding(true, toRef(props, 'show'), partial(emit, "update:show"));
 
 // Sets a sensible default for backdropCloseable,
 // if no value is provided, it's assumed to be

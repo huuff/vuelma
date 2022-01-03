@@ -19,6 +19,7 @@
 import { useSlots, toRef } from 'vue';
 import { BulmaColor } from '@/types/bulma-color';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
+import partial from 'lodash/partial';
 
 const props = withDefaults(defineProps<{
   title?: string;
@@ -35,7 +36,7 @@ const emit = defineEmits<{
   (event: 'update:show', newShow: boolean): void
 }>();
 
-const actualShow = useOptionalTwoWayBinding(true, toRef(props, "show"), (show) => emit('update:show', show));
+const actualShow = useOptionalTwoWayBinding(true, toRef(props, "show"), partial(emit, "update:show"));
 
 const slots = useSlots();
 

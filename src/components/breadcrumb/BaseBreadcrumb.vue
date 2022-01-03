@@ -15,6 +15,7 @@ import { provide, toRef } from 'vue';
 import { ActiveBreadcrumbItemKey, SetActiveBreadcrumbItemKey } from './symbols';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { BreadcrumbSeparator } from '@/types/breadcrumb-separator';
+import partial from "lodash/partial";
 
 const props = defineProps<{
   active?: string;
@@ -25,7 +26,7 @@ const emit = defineEmits<{
   (event: "update:active", itemId?: string): void;
 }>();
 
-const actualActive = useOptionalTwoWayBinding(undefined, toRef(props, "active"), (newActive) => emit("update:active", newActive));
+const actualActive = useOptionalTwoWayBinding(undefined, toRef(props, "active"), partial(emit, "update:active"));
 
 provide(ActiveBreadcrumbItemKey, () => actualActive.value);
 provide(SetActiveBreadcrumbItemKey, (itemId) => actualActive.value = itemId);
