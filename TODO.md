@@ -8,3 +8,4 @@
 * Remove as many warnings as I can
 * Fix the display of the navbar example
 * Remove all caps from tests. They look ugly and I hate them.
+* Do I need so many ids everywhere? Could I use keys?

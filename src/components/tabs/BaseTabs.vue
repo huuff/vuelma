@@ -3,39 +3,54 @@
 </template>
 
 <script setup lang="ts">
-// TODO: Icons
-// TODO: Test it
-import { h, useSlots, toRef } from 'vue';
-import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
-import partial from "lodash/partial";
-
-const props = defineProps<{
-  activeTab?: string;
-}>();
-const emit = defineEmits<{
-  (event: "update:activeTab", id?: string): void;
-}>();
-
-const actualActiveTab = useOptionalTwoWayBinding(undefined, toRef(props, "activeTab"), partial(emit, "update:activeTab"));
+import { useSlots, h, VNode } from 'vue';
+import BaseTab from './BaseTab.vue';
 
 const slots = useSlots();
 
-function tabsFromSlots() {
-  return Object.keys(slots).map(slotName => h(
-    'li',
-    actualActiveTab.value === slotName ? { class: "is-active"} : {},
-    h('a', {
-      onClick: () => actualActiveTab.value = slotName,
-    }, slotName)
-  ));
+interface Tab {
+  title: string;
+  tabId: string;
+  slot: VNode<any, any, any>;
+}
+
+function slotToTabs(): Tab[] {
+  const children = slots.default!();
+
+  for (const child of children) {
+    if (child.type !== BaseTab) {
+      throw new Error(`All children of BaseTabs must be of type BaseTab, found ${child.type.toString()}`);
+    }
+  }
+
+  return children.map(child => ({
+    title: child.props!.title,
+    tabId: child.props!.tabId,
+    slot: child,
+  }));
 }
 
 const render = () => {
+  const tabs = slotToTabs();
+
   return [
-    h("div", { class: "tabs" }, 
-      h('ul', tabsFromSlots()),
+    h(
+      "div",
+      { class: "tabs"},
+      h(
+        "ul",
+        {},
+        tabs.map(tab => h(
+          "li",
+          {},
+          h(
+            "a",
+            {},
+            tab.title
+          )
+        ))
+      )
     ),
-    actualActiveTab.value ? slots[actualActiveTab.value]!() : undefined
   ];
 };
 </script>
