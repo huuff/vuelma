@@ -39,9 +39,11 @@
 </template>
 
 <script setup lang="ts">
-import { provide, ref, computed } from 'vue';
+import { ref, toRef } from 'vue';
 import { BulmaColor } from '@/types/bulma-color';
 import { provideAccessors } from '@/composables/injected-accessors';
+import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
+import partial from 'lodash/partial';
 
 const props = withDefaults(defineProps<{
   active?: string;
@@ -51,25 +53,12 @@ const props = withDefaults(defineProps<{
 });
 
 const emit = defineEmits<{
-  (event: "update:active", title: string): void;
+  (event: "update:active", id?: string): void;
 }>();
 
 const showMobile = ref(false);
-const internalActive = ref<string | undefined>(undefined);
 
-// Gets the active from prop if it exists, or from an
-// internal state if it exists. Updates both the prop
-// and th interal state
-// TODO: What? I'm not using optionalTwoWayBinding?
-const actualActive = computed({
-  get: () => props.active ?? internalActive.value,
-  set: (itemId: string | undefined) => {
-    if (itemId) {
-      internalActive.value = itemId;
-      emit('update:active', itemId);
-    }
-  }
-});
+const actualActive = useOptionalTwoWayBinding<string | undefined>(undefined, toRef(props, "active"), partial(emit, 'update:active'));
 
 function toggleMobileMenu() {
   showMobile.value = !showMobile.value;
