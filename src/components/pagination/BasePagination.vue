@@ -57,6 +57,13 @@
 
 <script setup lang="ts">
 // XXX: Pretty shitty logic in here but I'm no mathematician
+
+// XXX
+// The only reason I'm using injected-accessors here is because
+// there are five base-pagination-links and I didn't want
+// to pass the currentPage and an event listener to set it
+// for each one. It's a good enough reason for me, but I'm
+// this comment around for the future.
 import { computed, toRef } from 'vue';
 import { provideAccessors } from '@/composables/injected-accessors'
 import BasePaginationLink from '@/components/pagination/BasePaginationLink.vue';
