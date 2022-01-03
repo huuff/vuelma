@@ -22,7 +22,6 @@ const emit = defineEmits<{
 const actualActiveTabId = useOptionalTwoWayBinding(undefined, toRef(props, "activeTabId"), partial(emit, "update:activeTabId"));
 
 
-// TODO: This in an external file? But it uses the actualActiveTabId
 // TODO: Test it
 class Tab {
   constructor(
