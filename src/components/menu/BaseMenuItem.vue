@@ -1,18 +1,21 @@
 <template>
-<li :class="{ 'is-active': active }">
-  <a @click="emit('setActiveMenuItem', title)">
-    {{ title }}
-  </a>
+<li>
+  <a @click="activeItem = itemId"
+    :class="{ 'is-active': activeItem === itemId }"
+  >{{ title }}</a>
 </li>
 </template>
 
 <script setup lang="ts">
+import { injectAccessors } from '@/composables/injected-accessors';
+
+// TODO: It'd be great to default itemId to the
+// value of title. I'm sure many other components would
+// benefit from this default.
 const props = defineProps<{
   title: string;
-  active?: boolean;
+  itemId: string;
 }>();
 
-const emit = defineEmits<{
-  (event: 'setActiveMenuItem', title: string): void;
-}>();
+const activeItem = injectAccessors<string>("ActiveMenuItem");
 </script>

@@ -4,7 +4,6 @@
 * Maybe do as above for card modals? Looks hard.
 * Maybe do this for tabs in panels? Just a dream
 * Visual regression tests?
-* For the menu example get it to work for changing the active item
 * Alignment for those components that allow it?
 * Remove as many warnings as I can
 * Fix the display of the navbar example
