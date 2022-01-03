@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { provide } from 'vue';
+import { provide, toRef } from 'vue';
 import { ActiveBreadcrumbItemKey, SetActiveBreadcrumbItemKey } from './symbols';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { BreadcrumbSeparator } from '@/types/breadcrumb-separator';
@@ -25,7 +25,7 @@ const emit = defineEmits<{
   (event: "update:active", itemId?: string): void;
 }>();
 
-const actualActive = useOptionalTwoWayBinding(undefined, () => props.active, (newActive) => emit("update:active", newActive));
+const actualActive = useOptionalTwoWayBinding(undefined, toRef(props, "active"), (newActive) => emit("update:active", newActive));
 
 provide(ActiveBreadcrumbItemKey, () => actualActive.value);
 provide(SetActiveBreadcrumbItemKey, (itemId) => actualActive.value = itemId);
