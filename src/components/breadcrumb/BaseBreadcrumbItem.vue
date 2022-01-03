@@ -21,9 +21,9 @@ const render = () => {
 
   return h(
     "li",
-    props.itemId === active.get() ? { class: "is-active" } : {},
+    props.itemId === active.value ? { class: "is-active" } : {},
     cloneVNode(slots.default()[0], {
-      onClick: () => active.set(props.itemId)
+      onClick: () => active.value = props.itemId,
     })
   );
 }

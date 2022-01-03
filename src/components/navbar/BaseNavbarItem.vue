@@ -19,13 +19,13 @@ const render = () => {
     throw new Error("A BaseNavbarItem must have exactly one child element!")
   }
 
-  const slotAsNavbarItem = cloneVNode(slots.default()[0], { class: 'navbar-item' + (active.get() === props.itemId ? ' is-active' : '')});
+  const slotAsNavbarItem = cloneVNode(slots.default()[0], { class: 'navbar-item' + (active.value === props.itemId ? ' is-active' : '')});
 
   if (!slotAsNavbarItem.props) {
     slotAsNavbarItem.props = {};
   }
 
-  slotAsNavbarItem.props.onClick = () => active.set(props.itemId);
+  slotAsNavbarItem.props.onClick = () => active.value = props.itemId;
 
   return slotAsNavbarItem;
 };

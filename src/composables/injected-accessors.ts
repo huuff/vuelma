@@ -1,9 +1,15 @@
-import { inject, provide, Ref } from 'vue';
+import { 
+  inject, 
+  provide, 
+  Ref, 
+  computed, 
+  WritableComputedRef,
+  ComputedGetter,
+  ComputedSetter,
+} from 'vue';
 
 // Future: No type safety whatsoever :(
 // But it was hard achieving it for me
-// TODO: Maybe use a ref for the getter (for setter too?)
-// TODO: Actual accessor? With a `value` property or smth
 const getterName = (name: string) => `get${name}`;
 const setterName = (name: string) => `set${name}`;
 
@@ -13,12 +19,7 @@ export function provideAccessors<T>(name: string, actual: Ref<T>) {
   provide(setterName(name), (newVal: T) => actual.value = newVal);
 }
 
-type InjectedAccessors<T> = {
-  get: () => T;
-  set: (newVal: T) => void;
-};
-
-export function injectAccessors<T>(name: string): InjectedAccessors<T> {
+export function injectAccessors<T>(name: string): WritableComputedRef<T> {
   const getter = inject(getterName(name));
   const setter = inject(setterName(name));
 
@@ -26,8 +27,8 @@ export function injectAccessors<T>(name: string): InjectedAccessors<T> {
     throw new Error(`Accessors for ${name} were not provided from parent element!`);
   }
 
-  return {
-    get: getter,
-    set: setter,
-  } as InjectedAccessors<T>;
+  return computed({
+    get: getter as ComputedGetter<T> ,
+    set: setter as ComputedSetter<T>
+  }) as WritableComputedRef<T>;
 }
