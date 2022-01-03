@@ -1,13 +1,18 @@
 <template>
 <base-tabs>
-  <base-tab title="First" />
-  <base-tab title="Second" />
-  <base-tab title="Third" active />
+  <template #Tab1>
+    Tab 1 slot
+  </template>
+  <template #Tab2>
+    Tab 2 slot
+  </template>
+  <template #Tab3>
+    Tab 3 slot
+  </template>
 </base-tabs>
 </template>
 
 <script setup lang="ts">
 import BaseTabs from '@/components/tabs/BaseTabs.vue';
-import BaseTab from '@/components/tabs/BaseTab.vue';
 
 </script>
