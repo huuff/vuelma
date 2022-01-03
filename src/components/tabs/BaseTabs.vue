@@ -22,6 +22,7 @@ const actualActiveTabId = useOptionalTwoWayBinding(undefined, toRef(props, "acti
 const slots = useSlots();
 
 // TODO: This in an external file? But it uses the actualActiveTabId
+// TODO: Test it
 class Tab {
   constructor(
     public readonly title: string,
@@ -61,6 +62,8 @@ function slotToTabs(): Tab[] {
 const render = () => {
   const tabs = slotToTabs();
 
+  const activeTab = tabs.find(tab => tab.tabId === actualActiveTabId.value);
+
   return [
     h(
       "div",
@@ -79,6 +82,7 @@ const render = () => {
         ))
       )
     ),
+    activeTab?.slot
   ];
 };
 </script>

@@ -1,8 +1,14 @@
 <template>
 <base-tabs>
-  <base-tab title="Tab 1" tabId="tab1" />
-  <base-tab title="Tab 2" tabId="tab2" />
-  <base-tab title="Tab 3" tabId="tab3" />
+  <base-tab title="Tab 1" tabId="tab1">
+    Test content for tab 1
+  </base-tab>
+  <base-tab title="Tab 2" tabId="tab2">
+    Test content for tab 2
+  </base-tab>
+  <base-tab title="Tab 3" tabId="tab3">
+    Test content for tab 3
+  </base-tab>
 </base-tabs>
 </template>
 
