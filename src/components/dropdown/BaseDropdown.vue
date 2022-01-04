@@ -18,7 +18,9 @@
     </button>
   </div>
   <div class="dropdown-menu">
-    <dropdownContent></dropdownContent>
+    <div class="dropdown-content">
+      <dropdownContent></dropdownContent>
+    </div>
   </div>
 </div>
 </template>
@@ -98,13 +100,10 @@ class DropdownItemData {
   }
 }
 
-const dropdownContent = () => 
-<div class="dropdown-content">
-  { slots.default && slots.default().map(el => {
+const dropdownContent = () => slots.default && slots.default().map(el => {
     if (el.type === DropdownItem) 
       return new DropdownItemData(el.props as DropdownItemProps).render();
     else if (el.type === DropdownDivider)
       return el;
-  })}
-</div>
+  });
 </script>
