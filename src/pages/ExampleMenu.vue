@@ -3,13 +3,13 @@
   <div class="column is-3-desktop">
   <base-menu>
     <base-menu-list label="First Menu">
-      <base-menu-item title="Elem 1" itemId="1"/>
-      <base-menu-item title="Elem 2" itemId="2" />
+      <base-menu-item title="Elem 1" />
+      <base-menu-item title="Elem 2" />
     </base-menu-list>
     <base-menu-list label="Second Menu">
-      <base-menu-item title="Elem 3" itemId="3"/>
-      <base-menu-item title="Elem 4" itemId="4" />
-      <base-menu-item title="Elem 5" itemId="5"/>
+      <base-menu-item title="Elem 3" />
+      <base-menu-item title="Elem 4" />
+      <base-menu-item title="Elem 5" />
     </base-menu-list>
   </base-menu>
   </div>

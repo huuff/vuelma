@@ -35,7 +35,6 @@ describe('BaseNavbar.vue', () => {
         attachTo: document.documentElement,
       });
 
-      console.log("Now clicking to show");
       await (wrapper.get('.navbar-burger').trigger('click'));
 
       await wrapper.vm.$forceUpdate();
@@ -43,7 +42,6 @@ describe('BaseNavbar.vue', () => {
 
       jest.runAllTimers();
 
-      console.log("Now clicking to hide");
       await wrapper.get('.navbar-menu').trigger('click');
       
       await wrapper.vm.$forceUpdate();

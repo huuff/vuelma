@@ -6,6 +6,7 @@
 import { h, useSlots, cloneVNode } from 'vue';
 import { injectAccessors } from '@/composables/injected-accessors';
 
+// TODO: Pass a title instead of using an slot?
 const props = defineProps<{
   itemId: string;
 }>();

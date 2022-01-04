@@ -65,7 +65,6 @@ function toggleMobileMenu() {
   if (showMobile.value) {
     requestAnimationFrame(() => {
       document.addEventListener('click', () => {
-          console.log("Hiding on mobile");
           showMobile.value = false;
       }, { once: true})
     });

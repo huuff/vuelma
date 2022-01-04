@@ -22,12 +22,16 @@ const emit = defineEmits<{
 const actualActiveTabId = useOptionalTwoWayBinding(undefined, toRef(props, "activeTabId"), partial(emit, "update:activeTabId"));
 
 class Tab {
+  public readonly tabId: string;
+
   constructor(
     public readonly title: string,
-    public readonly tabId: string,
     public readonly icon: FontAwesomeIconName | undefined,
     public readonly slot: VNode<any, any, any>,
-  ) {}
+    tabId?: string,
+  ) {
+    this.tabId = tabId ?? title;
+  }
 
   public getClasses(): { class: string } | Record<string, never> {
     if (this.tabId === actualActiveTabId.value) {
@@ -59,9 +63,9 @@ function slotToTabs(): Tab[] {
 
   return children.map(child => new Tab(
     child.props!.title,
-    child.props!.tabId,
     child.props!.icon,
     child,
+    child.props!.tabId,
   ));
 }
 

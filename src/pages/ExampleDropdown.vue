@@ -7,5 +7,5 @@
 </template>
 
 <script setup lang="ts">
-import BaseDropdown from '@/components/BaseDropdown.vue';
+import BaseDropdown from '@/components/dropdown/BaseDropdown.vue';
 </script>

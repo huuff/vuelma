@@ -1,21 +1,22 @@
 <template>
 <li>
-  <a @click="activeItem = itemId"
-    :class="{ 'is-active': activeItem === itemId }"
+  <a @click="activeItem = actualItemId"
+    :class="{ 'is-active': activeItem === actualItemId }"
   >{{ title }}</a>
 </li>
 </template>
 
 <script setup lang="ts">
+import { toRef } from 'vue';
 import { injectAccessors } from '@/composables/injected-accessors';
+import { useOptionalItemId } from '@/composables/optional-item-id';
 
-// TODO: It'd be great to default itemId to the
-// value of title. I'm sure many other components would
-// benefit from this default.
 const props = defineProps<{
   title: string;
-  itemId: string;
+  itemId?: string;
 }>();
+
+const actualItemId = useOptionalItemId(toRef(props, "title"), toRef(props, "itemId"));
 
 const activeItem = injectAccessors<string>("ActiveMenuItem");
 </script>

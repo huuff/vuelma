@@ -7,7 +7,7 @@ import { FontAwesomeIconName } from '@/types/fontawesome-icon-name';
 
 const props = defineProps<{
   title: string;
-  tabId: string;
+  tabId?: string;
   icon?: FontAwesomeIconName
 }>();
 </script>
