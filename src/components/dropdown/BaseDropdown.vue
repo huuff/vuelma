@@ -43,6 +43,8 @@ import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 library.add(faAngleDown);
 library.add(faAngleUp);
 
+import { alignment } from '@/types/alignment';
+
 // Just to have specific aria-controls
 const id = Math.random().toString();
 
@@ -54,9 +56,11 @@ const props = withDefaults(defineProps<{
   activeItemId?: string;
   direction?: DropdownDirection;
   asSelector?: boolean;
+  alignment?: alignment;
 }>(), {
   open: undefined,
   direction: "down",
+  alignment: "center",
 });
 
 const emit = defineEmits<{
@@ -77,6 +81,8 @@ const actualActiveItemId = useOptionalTwoWayBinding(undefined, toRef(props, "act
 const classes = computed(() => ({
   "is-active": actualOpen.value,
   "is-up": props.direction === "up",
+  "is-right": props.alignment === "right",
+  "is-left": props.alignment === "left",
 }));
 
 const icon = computed(() => {
