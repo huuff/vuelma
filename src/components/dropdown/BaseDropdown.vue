@@ -27,7 +27,8 @@
 
 <script setup lang="tsx">
 // TODO: aria-controls
-import { useSlots, toRef, } from 'vue';
+// TODO: closing the dropdown on blur
+import { useSlots, toRef, VNode } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 
 import DropdownItem, { DropdownItemProps } from './DropdownItem.vue';
@@ -99,10 +100,17 @@ class DropdownItemData {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function renderDropdownContent(el: VNode<any, any, any>) {
+  return <div class="dropdown-item"> { el } </div>
+}
+
 const dropdownMenu = () => slots.default && slots.default().map(el => {
     if (el.type === DropdownItem) 
       return new DropdownItemData(el.props as DropdownItemProps).render();
     else if (el.type === DropdownDivider)
       return el;
+    else
+      return renderDropdownContent(el);
   });
 </script>
