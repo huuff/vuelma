@@ -9,6 +9,7 @@
 </template>
 
 <script setup lang="ts">
+// TODO: Showcase all variants!
 import BaseDropdown from '@/components/dropdown/BaseDropdown.vue';
 import DropdownItem from '@/components/dropdown/DropdownItem.vue';
 import DropdownDivider from '@/components/dropdown/DropdownDivider.vue';

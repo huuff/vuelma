@@ -8,7 +8,7 @@
       @click="actualOpen = !actualOpen"
       >
       <template v-if="!$slots.trigger">
-        <span> {{ triggerText }} </span>
+        <span> {{ computedTriggerText }} </span>
         <span class="icon is-small">
           <font-awesome-icon :icon="icon" />
         </span>
@@ -27,7 +27,6 @@
 </template>
 
 <script setup lang="tsx">
-// TODO: as selector
 import { useSlots, toRef, computed } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { useCloseOnClickOutside } from '@/composables/close-on-click-outside';
@@ -54,6 +53,7 @@ const props = withDefaults(defineProps<{
   open?: boolean;
   activeItemId?: string;
   direction?: DropdownDirection;
+  asSelector?: boolean;
 }>(), {
   open: undefined,
   direction: "down",
@@ -111,21 +111,47 @@ class DropdownItemData {
   }
 
   render() {
-    return <a 
-          class={classnames({
-            "dropdown-item": true,
-            "is-active": this.isActive(),
-          })}
-          onClick={() => this.setActive()}
-        >{this.text}</a> 
-
+    if (props.asSelector && this.isActive())
+      return undefined;
+    else
+      return <a 
+            class={classnames({
+              "dropdown-item": true,
+              "is-active": this.isActive(),
+            })}
+            onClick={() => this.setActive()}
+          >{this.text}</a> 
   }
 }
 
 const slots = useSlots();
 if (!!props.triggerText === !!slots.trigger) {
-  throw new Error("Only one of triggerText or the 'trigger' slot must be filled in!");
+  throw new Error("Only one of triggerText or the 'trigger' slot must be filled in BaseDropdown!");
 }
+
+if (props.asSelector && slots.trigger) {
+  throw new Error("Can't have a BaseDropdown that works as a selector with a custom trigger slot!");
+}
+
+// OPT: Items are transformed to DropdownItemData twice,
+// once here (only for selectors) and once for rendering
+function findActiveItem(): DropdownItemData | undefined {
+  return slots.default && slots.default()
+    .filter(item => item.type === DropdownItem)
+    .map(item => new DropdownItemData(item.props as DropdownItemProps))
+    .find(item => item.itemId === actualActiveItemId.value);
+}
+
+const computedTriggerText = computed(() => {
+  if (!props.asSelector || !actualActiveItemId.value)
+    return props.triggerText;
+  
+  const activeItem = findActiveItem();
+  if (activeItem)
+    return activeItem.text;
+  else
+    return props.triggerText;
+});
 
 const dropdownMenu = () => slots.default && slots.default().map(el => {
     if (el.type === DropdownItem) 
