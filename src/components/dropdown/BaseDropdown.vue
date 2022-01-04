@@ -28,6 +28,8 @@
 <script setup lang="tsx">
 // TODO: aria-controls
 // TODO: closing the dropdown on blur
+// TODO: dropup
+// TODO: as selector
 import { useSlots, toRef, VNode } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 
