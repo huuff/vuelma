@@ -78,4 +78,33 @@ describe('BaseTabs.vue', () => {
     expect(Object.keys(wrapper.emitted())).toContain("update:activeTabId");
     expect((wrapper.emitted()["update:activeTabId"][0] as string[])[0]).toBe(tabToClick);
   });
+
+  test("only the contents of the active tab are displayed", () => {
+    const activeTabId = "activeTab";
+    const activeTabContents = "This text should be displayed";
+    const unactiveTabContents = "This text shouldn't be displayed";
+    const wrapper = mount(BaseTabs, {
+      props: {
+        activeTabId,
+      },
+      global: {
+        components: {
+          'base-tab': BaseTab,
+        },
+      },
+      slots: {
+        default: `
+        <base-tab title="Tab1" tabId="${activeTabId}">
+          ${activeTabContents}
+        </base-tab>
+        <base-tab title="Tab2" tabId="unactiveTab">
+          ${unactiveTabContents}
+        </base-tab>
+        `,
+      },
+    });
+    
+    expect(wrapper.html()).toContain(activeTabContents);
+    expect(wrapper.html()).not.toContain(unactiveTabContents);
+  });
 });
