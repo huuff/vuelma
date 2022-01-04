@@ -26,14 +26,18 @@
 <script setup lang="tsx">
 // TODO: aria-controls
 import { useSlots, toRef, } from 'vue';
+import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
+
+import DropdownItem, { DropdownItemProps } from './DropdownItem.vue';
+import DropdownDivider from './DropdownDivider.vue';
+
+
+import partial from 'lodash/partial';
+import classnames from 'classnames';
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
-import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
-import partial from 'lodash/partial';
-import DropdownItem, { DropdownItemProps } from './DropdownItem.vue';
-import classnames from 'classnames';
-
 library.add(faAngleDown);
 
 const props = withDefaults(defineProps<{
@@ -76,19 +80,23 @@ function getItemId(props: DropdownItemProps) {
   return props.itemId ?? props.text;
 }
 
+function renderDropdownItem(itemProps: DropdownItemProps) {
+  return <a 
+          class={classnames({
+            "dropdown-item": true,
+            "is-active": isActive(getItemId(itemProps)),
+          })}
+          onClick={() => setActive(getItemId(itemProps))}
+        >{itemProps.text}</a> 
+}
+
 const dropdownContent = () => 
 <div class="dropdown-content">
   { slots.default && slots.default().map(el => {
-    if (el.type === DropdownItem) {
-      const elemProps = el.props as DropdownItemProps;
-      return <a 
-          class={classnames({
-            "dropdown-item": true,
-            "is-active": isActive(getItemId(elemProps)),
-          })}
-          onClick={() => setActive(getItemId(elemProps))}
-        >{elemProps.text}</a> 
-    }
+    if (el.type === DropdownItem) 
+      return renderDropdownItem(el.props as DropdownItemProps);
+    else if (el.type === DropdownDivider)
+      return el;
   })}
 </div>
 </script>
