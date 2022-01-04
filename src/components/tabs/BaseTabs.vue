@@ -21,8 +21,6 @@ const emit = defineEmits<{
 
 const actualActiveTabId = useOptionalTwoWayBinding(undefined, toRef(props, "activeTabId"), partial(emit, "update:activeTabId"));
 
-
-// TODO: Test it
 class Tab {
   constructor(
     public readonly title: string,

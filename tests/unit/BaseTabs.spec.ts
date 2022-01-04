@@ -1,6 +1,11 @@
 import { mount } from '@vue/test-utils';
 import BaseTabs from '@/components/tabs/BaseTabs.vue';
 import BaseTab from '@/components/tabs/BaseTab.vue';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+library.add(faHeart);
 
 describe('BaseTabs.vue', () => {
   test("it cannot be created with a non-tab child", () => {
@@ -106,5 +111,26 @@ describe('BaseTabs.vue', () => {
     
     expect(wrapper.html()).toContain(activeTabContents);
     expect(wrapper.html()).not.toContain(unactiveTabContents);
+  });
+
+  test("icons are displayed", () => {
+    const icon = "heart";
+    const wrapper = mount(BaseTabs, {
+      global: {
+        components: {
+          "base-tab": BaseTab,
+          "font-awesome-icon": FontAwesomeIcon,
+        },
+      },
+      slots: {
+        default: `
+          <base-tab title="Test" tabId="testid" icon="heart">
+            Test content
+          </base-tab>
+        `,
+      },
+    });
+
+    expect(wrapper.findComponent(FontAwesomeIcon).props().icon).toBe(icon);
   });
 });
