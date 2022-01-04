@@ -71,6 +71,11 @@ function setActive(itemId: string): void {
   actualActiveItemId.value = itemId;
   actualOpen.value = false;
 }
+
+function getItemId(props: DropdownItemProps) {
+  return props.itemId ?? props.text;
+}
+
 const dropdownContent = () => 
 <div class="dropdown-content">
   { slots.default && slots.default().map(el => {
@@ -79,9 +84,9 @@ const dropdownContent = () =>
       return <a 
           class={classnames({
             "dropdown-item": true,
-            "is-active": isActive(elemProps.itemId),
+            "is-active": isActive(getItemId(elemProps)),
           })}
-          onClick={() => setActive(elemProps.itemId)}
+          onClick={() => setActive(getItemId(elemProps))}
         >{elemProps.text}</a> 
     }
   })}
