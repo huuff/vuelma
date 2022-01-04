@@ -4,6 +4,7 @@
     <button v-if="triggerText"
       class="button"
       aria-haspopup="true"
+      :aria-controls="id"
       @click="actualOpen = !actualOpen"
       >
       <template v-if="!$slots.trigger">
@@ -17,7 +18,7 @@
       </template>
     </button>
   </div>
-  <div class="dropdown-menu">
+  <div class="dropdown-menu" id="id">
     <div class="dropdown-content">
       <dropdown-menu></dropdown-menu>
     </div>
@@ -26,7 +27,6 @@
 </template>
 
 <script setup lang="tsx">
-// TODO: aria-controls
 // TODO: as selector
 import { useSlots, toRef, computed } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
@@ -43,6 +43,9 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 library.add(faAngleDown);
 library.add(faAngleUp);
+
+// Just to have specific aria-controls
+const id = Math.random().toString();
 
 export type DropdownDirection = "up" | "down";
 
