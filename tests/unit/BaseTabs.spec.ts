@@ -55,4 +55,27 @@ describe('BaseTabs.vue', () => {
     expect(allTabs[1].text()).toBe(tab2Title);
     expect(allTabs[2].text()).toBe(tab3Title);
   });
+
+  test("clicking a tab tries to make it active", async () => {
+    const tabToClick = "test1";
+    const wrapper = mount(BaseTabs, {
+      global: {
+        components: {
+          'base-tab': BaseTab,
+        },
+      },
+      slots: {
+        default: `
+        <base-tab title="Test1" tabId="${tabToClick}">
+          Tab contents 1
+        </base-tab>
+        `,
+      },
+    });
+
+    await wrapper.get('a').trigger('click');
+
+    expect(Object.keys(wrapper.emitted())).toContain("update:activeTabId");
+    expect((wrapper.emitted()["update:activeTabId"][0] as string[])[0]).toBe(tabToClick);
+  });
 });
