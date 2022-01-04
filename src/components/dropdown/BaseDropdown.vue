@@ -67,34 +67,42 @@ if (!!props.triggerText === !!slots.trigger) {
   throw new Error("Only one of triggerText or the 'trigger' slot must be filled in!");
 }
 
-function isActive(itemId: string): boolean {
-  return actualActiveItemId.value === itemId;
-}
+// A better name for this class would be great
+class DropdownItemData {
+  public readonly itemId: string;
+  public readonly text: string;
 
-function setActive(itemId: string): void {
-  actualActiveItemId.value = itemId;
-  actualOpen.value = false;
-}
+  constructor(props: DropdownItemProps) {
+    this.text = props.text;
+    this.itemId = props.itemId ?? props.text;
+  }
 
-function getItemId(props: DropdownItemProps) {
-  return props.itemId ?? props.text;
-}
+  isActive(): boolean {
+    return actualActiveItemId.value == this.itemId;
+  }
 
-function renderDropdownItem(itemProps: DropdownItemProps) {
-  return <a 
+  setActive(): void {
+    actualActiveItemId.value = this.itemId;
+    actualOpen.value = false;
+  }
+
+  render() {
+    return <a 
           class={classnames({
             "dropdown-item": true,
-            "is-active": isActive(getItemId(itemProps)),
+            "is-active": this.isActive(),
           })}
-          onClick={() => setActive(getItemId(itemProps))}
-        >{itemProps.text}</a> 
+          onClick={() => this.setActive()}
+        >{this.text}</a> 
+
+  }
 }
 
 const dropdownContent = () => 
 <div class="dropdown-content">
   { slots.default && slots.default().map(el => {
     if (el.type === DropdownItem) 
-      return renderDropdownItem(el.props as DropdownItemProps);
+      return new DropdownItemData(el.props as DropdownItemProps).render();
     else if (el.type === DropdownDivider)
       return el;
   })}
