@@ -27,11 +27,11 @@
 
 <script setup lang="tsx">
 // TODO: aria-controls
-// TODO: closing the dropdown on blur
 // TODO: dropup
 // TODO: as selector
 import { useSlots, toRef, VNode } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
+import { useCloseOnClickOutside } from '@/composables/close-on-click-outside';
 
 import DropdownItem, { DropdownItemProps } from './DropdownItem.vue';
 import DropdownDivider from './DropdownDivider.vue';
@@ -62,6 +62,7 @@ const emit = defineEmits<{
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const actualOpen = useOptionalTwoWayBinding(false, toRef(props, "open"), partial(emit, "update:open"));
+useCloseOnClickOutside(actualOpen);
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const actualActiveItemId = useOptionalTwoWayBinding(undefined, toRef(props, "activeItemId"), partial(emit, "update:activeItemId"));
@@ -87,7 +88,6 @@ class DropdownItemData {
 
   setActive(): void {
     actualActiveItemId.value = this.itemId;
-    actualOpen.value = false;
   }
 
   render() {

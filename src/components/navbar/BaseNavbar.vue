@@ -13,7 +13,7 @@
       :class="{ 'is-active': showMobile }"
       aria-label="menu"
       aria-expanded="false"
-      @click="toggleMobileMenu"
+      @click="showMobile = false"
     >
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
@@ -43,6 +43,7 @@ import { ref, toRef } from 'vue';
 import { BulmaColor } from '@/types/bulma-color';
 import { provideAccessors } from '@/composables/injected-accessors';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
+import { useCloseOnClickOutside } from '@/composables/close-on-click-outside';
 import partial from 'lodash/partial';
 
 const props = withDefaults(defineProps<{
@@ -57,19 +58,9 @@ const emit = defineEmits<{
 }>();
 
 const showMobile = ref(false);
+useCloseOnClickOutside(showMobile);
 
 const actualActive = useOptionalTwoWayBinding<string | undefined>(undefined, toRef(props, "active"), partial(emit, 'update:active'));
-
-function toggleMobileMenu() {
-  showMobile.value = !showMobile.value;
-  if (showMobile.value) {
-    requestAnimationFrame(() => {
-      document.addEventListener('click', () => {
-          showMobile.value = false;
-      }, { once: true})
-    });
-  }
-}
 
 provideAccessors('ActiveNavbarItem', actualActive);
 </script>
