@@ -1,5 +1,5 @@
 <template>
-<div class="dropdown" :class="{ 'is-active': actualOpen }">
+<div class="dropdown" :class="classes">
   <div class="dropdown-trigger">
     <button v-if="triggerText"
       class="button"
@@ -9,7 +9,7 @@
       <template v-if="!$slots.trigger">
         <span> {{ triggerText }} </span>
         <span class="icon is-small">
-          <font-awesome-icon icon="angle-down" />
+          <font-awesome-icon :icon="icon" />
         </span>
       </template>
       <template v-else>
@@ -27,9 +27,8 @@
 
 <script setup lang="tsx">
 // TODO: aria-controls
-// TODO: dropup
 // TODO: as selector
-import { useSlots, toRef, VNode } from 'vue';
+import { useSlots, toRef, computed } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { useCloseOnClickOutside } from '@/composables/close-on-click-outside';
 
@@ -41,15 +40,20 @@ import classnames from 'classnames';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 library.add(faAngleDown);
+library.add(faAngleUp);
+
+export type DropdownDirection = "up" | "down";
 
 const props = withDefaults(defineProps<{
   triggerText?: string;
   open?: boolean;
   activeItemId?: string;
+  direction?: DropdownDirection;
 }>(), {
   open: undefined,
+  direction: "down",
 });
 
 const emit = defineEmits<{
@@ -67,12 +71,25 @@ useCloseOnClickOutside(actualOpen);
 // @ts-ignore
 const actualActiveItemId = useOptionalTwoWayBinding(undefined, toRef(props, "activeItemId"), partial(emit, "update:activeItemId"));
 
-const slots = useSlots();
-if (!!props.triggerText === !!slots.trigger) {
-  throw new Error("Only one of triggerText or the 'trigger' slot must be filled in!");
-}
+const classes = computed(() => ({
+  "is-active": actualOpen.value,
+  "is-up": props.direction === "up",
+}));
+
+const icon = computed(() => {
+  if (props.direction === "up")
+    return "angle-up";
+  else if (props.direction === "down")
+    return "angle-down";
+  else
+    throw new Error(`No icon for direction ${props.direction}`);
+});
+
 
 // A better name for this class would be great
+// Also I would love to have it somewhere else, but where?
+// I can't export a class from a component, and it uses 
+// actualActiveItemId
 class DropdownItemData {
   public readonly itemId: string;
   public readonly text: string;
@@ -102,9 +119,9 @@ class DropdownItemData {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function renderDropdownContent(el: VNode<any, any, any>) {
-  return <div class="dropdown-item"> { el } </div>
+const slots = useSlots();
+if (!!props.triggerText === !!slots.trigger) {
+  throw new Error("Only one of triggerText or the 'trigger' slot must be filled in!");
 }
 
 const dropdownMenu = () => slots.default && slots.default().map(el => {
@@ -113,6 +130,6 @@ const dropdownMenu = () => slots.default && slots.default().map(el => {
     else if (el.type === DropdownDivider)
       return el;
     else
-      return renderDropdownContent(el);
+      return <div class="dropdown-item"> { el } </div>
   });
 </script>

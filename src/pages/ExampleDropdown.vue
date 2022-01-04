@@ -12,5 +12,4 @@
 import BaseDropdown from '@/components/dropdown/BaseDropdown.vue';
 import DropdownItem from '@/components/dropdown/DropdownItem.vue';
 import DropdownDivider from '@/components/dropdown/DropdownDivider.vue';
-import DropdownContent from '@/components/dropdown/DropdownContent.vue';
 </script>
