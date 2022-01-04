@@ -19,7 +19,7 @@
   </div>
   <div class="dropdown-menu">
     <div class="dropdown-content">
-      <dropdownContent></dropdownContent>
+      <dropdown-menu></dropdown-menu>
     </div>
   </div>
 </div>
@@ -32,7 +32,6 @@ import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding
 
 import DropdownItem, { DropdownItemProps } from './DropdownItem.vue';
 import DropdownDivider from './DropdownDivider.vue';
-
 
 import partial from 'lodash/partial';
 import classnames from 'classnames';
@@ -55,7 +54,7 @@ const emit = defineEmits<{
   (event: "update:activeItemId", value?: string): void;
 }>();
 
-// XXX: I don't know what's up with these issues, seems like
+// XXX: I don't know what's up with these errors, seems like
 // the vue compiler went crazy. But it works anyway
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -100,7 +99,7 @@ class DropdownItemData {
   }
 }
 
-const dropdownContent = () => slots.default && slots.default().map(el => {
+const dropdownMenu = () => slots.default && slots.default().map(el => {
     if (el.type === DropdownItem) 
       return new DropdownItemData(el.props as DropdownItemProps).render();
     else if (el.type === DropdownDivider)
