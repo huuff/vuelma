@@ -5,7 +5,6 @@
       class="button"
       aria-haspopup="true"
       @click="actualOpen = !actualOpen"
-      @blur="actualOpen = false"
       >
       <template v-if="!$slots.trigger">
         <span> {{ triggerText }} </span>
@@ -19,42 +18,72 @@
     </button>
   </div>
   <div class="dropdown-menu">
-    <div class="dropdown-content">
-      <classed-slot :childrenClass="'dropdown-item'">
-        <slot></slot>
-      </classed-slot>
-    </div>
+    <dropdownContent></dropdownContent>
   </div>
 </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="tsx">
 // TODO: aria-controls
-import { useSlots, toRef } from 'vue';
-import ClassedSlot from '@/components/slots/ClassedSlot';
+import { useSlots, toRef, } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import partial from 'lodash/partial';
+import DropdownItem, { DropdownItemProps } from './DropdownItem.vue';
+import classnames from 'classnames';
 
 library.add(faAngleDown);
 
 const props = withDefaults(defineProps<{
   triggerText?: string;
   open?: boolean;
+  activeItemId?: string;
 }>(), {
   open: undefined,
 });
 
 const emit = defineEmits<{
-  (event: "update:open", value: boolean): void
+  (event: "update:open", value: boolean): void;
+  (event: "update:activeItemId", value?: string): void;
 }>();
 
+// XXX: I don't know what's up with these issues, seems like
+// the vue compiler went crazy. But it works anyway
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 const actualOpen = useOptionalTwoWayBinding(false, toRef(props, "open"), partial(emit, "update:open"));
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const actualActiveItemId = useOptionalTwoWayBinding(undefined, toRef(props, "activeItemId"), partial(emit, "update:activeItemId"));
 
 const slots = useSlots();
 if (!!props.triggerText === !!slots.trigger) {
   throw new Error("Only one of triggerText or the 'trigger' slot must be filled in!");
 }
+
+function isActive(itemId: string): boolean {
+  return actualActiveItemId.value === itemId;
+}
+
+function setActive(itemId: string): void {
+  actualActiveItemId.value = itemId;
+  actualOpen.value = false;
+}
+const dropdownContent = () => 
+<div class="dropdown-content">
+  { slots.default && slots.default().map(el => {
+    if (el.type === DropdownItem) {
+      const elemProps = el.props as DropdownItemProps;
+      return <a 
+          class={classnames({
+            "dropdown-item": true,
+            "is-active": isActive(elemProps.itemId),
+          })}
+          onClick={() => setActive(elemProps.itemId)}
+        >{elemProps.text}</a> 
+    }
+  })}
+</div>
 </script>

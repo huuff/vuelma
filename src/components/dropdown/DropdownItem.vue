@@ -1,14 +1,13 @@
 <template>
-  <a class="dropdown-item">
-    {{ text }}
-  </a>
+  {{ text }}
 </template>
 
 <script setup lang="ts">
-
-const props = defineProps<{
+export type DropdownItemProps = {
   text: string;
-  itemId?: string;
-}>();
+  itemId: string;
+};
+
+const props = defineProps<DropdownItemProps>();
 
 </script>
