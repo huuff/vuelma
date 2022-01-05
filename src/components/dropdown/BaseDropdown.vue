@@ -8,7 +8,7 @@
       @click="actualOpen = !actualOpen"
       >
       <template v-if="!$slots.trigger">
-        <span> {{ computedTriggerText }} </span>
+        <span> {{ triggerText }} </span>
         <span class="icon is-small">
           <font-awesome-icon :icon="icon" />
         </span>
@@ -28,8 +28,7 @@
 
 <script setup lang="tsx">
 // TODO: Test it, but I can't because of https://github.com/vuejs/vue-cli/issues/6911
-// TODO: Separate the selector behavior into another component
-import { useSlots, toRef, computed } from 'vue';
+import { useSlots, toRef, computed, } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { useCloseOnClickOutside } from '@/composables/close-on-click-outside';
 
@@ -37,7 +36,6 @@ import DropdownItem, { DropdownItemProps } from './DropdownItem.vue';
 import DropdownDivider from './DropdownDivider.vue';
 
 import partial from 'lodash/partial';
-import classnames from 'classnames';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -46,6 +44,8 @@ library.add(faAngleDown);
 library.add(faAngleUp);
 
 import { alignment } from '@/types/alignment';
+import { unwrapFragment } from '@/util/unwrap-fragment';
+import { DropdownItemData } from './dropdown-item-data';
 
 // Just to have specific aria-controls
 const id = Math.random().toString();
@@ -53,11 +53,10 @@ const id = Math.random().toString();
 export type DropdownDirection = "up" | "down";
 
 const props = withDefaults(defineProps<{
-  triggerText?: string;
+  triggerText: string;
   open?: boolean;
   activeItemId?: string;
   direction?: DropdownDirection;
-  asSelector?: boolean;
   alignment?: alignment;
 }>(), {
   open: undefined,
@@ -75,6 +74,8 @@ const emit = defineEmits<{
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const actualOpen = useOptionalTwoWayBinding(false, toRef(props, "open"), partial(emit, "update:open"));
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 useCloseOnClickOutside(actualOpen);
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -97,73 +98,14 @@ const icon = computed(() => {
 });
 
 
-// A better name for this class would be great
-// Also I would love to have it somewhere else, but where?
-// I can't export a class from a component, and it uses 
-// actualActiveItemId
-class DropdownItemData {
-  public readonly itemId: string;
-  public readonly text: string;
-
-  constructor(props: DropdownItemProps) {
-    this.text = props.text;
-    this.itemId = props.itemId ?? props.text;
-  }
-
-  isActive(): boolean {
-    return actualActiveItemId.value == this.itemId;
-  }
-
-  setActive(): void {
-    actualActiveItemId.value = this.itemId;
-  }
-
-  render() {
-    if (props.asSelector && this.isActive())
-      return undefined;
-    else
-      return <a 
-            class={classnames({
-              "dropdown-item": true,
-              "is-active": this.isActive(),
-            })}
-            onClick={() => this.setActive()}
-          >{this.text}</a> 
-  }
-}
-
 const slots = useSlots();
 if (!!props.triggerText === !!slots.trigger) {
-  throw new Error("Only one of triggerText or the 'trigger' slot must be filled in BaseDropdown!");
+  throw new Error("Exactly one of triggerText or the 'trigger' slot must be filled in BaseDropdown!");
 }
 
-if (props.asSelector && slots.trigger) {
-  throw new Error("Can't have a BaseDropdown that works as a selector with a custom trigger slot!");
-}
-
-// OPT: Items are transformed to DropdownItemData twice,
-// once here (only for selectors) and once for rendering
-function findActiveItem(): DropdownItemData | undefined {
-  return slots.default && slots.default()
-    .filter(item => item.type === DropdownItem)
-    .map(item => new DropdownItemData(item.props as DropdownItemProps))
-    .find(item => item.itemId === actualActiveItemId.value);
-}
-
-const computedTriggerText = computed(() => {
-  if (!props.asSelector || !actualActiveItemId.value)
-    return props.triggerText;
-  
-  const activeItem = findActiveItem();
-  if (activeItem)
-    return activeItem.text;
-  else
-    return props.triggerText;
-});
-
-const dropdownMenu = () => slots.default && slots.default().map(el => {
+const dropdownMenu = () => slots.default && unwrapFragment(slots.default()).map(el => {
     if (el.type === DropdownItem) 
-      return new DropdownItemData(el.props as DropdownItemProps).render();
+      return new DropdownItemData(el.props as DropdownItemProps, actualActiveItemId).render();
     else if (el.type === DropdownDivider)
       return el;
     else
