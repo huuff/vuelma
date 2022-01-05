@@ -3,7 +3,6 @@
   :class="`navbar is-${color}`" 
   role="navigation" 
   aria-label="main navigation"
-  @blur="showMobile = false"
   >
   <div class="navbar-brand">
     <slot name="brandItems"></slot>
@@ -13,7 +12,7 @@
       :class="{ 'is-active': showMobile }"
       aria-label="menu"
       aria-expanded="false"
-      @click="showMobile = false"
+      @click="showMobile = true"
     >
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
