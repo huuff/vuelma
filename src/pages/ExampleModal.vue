@@ -21,12 +21,14 @@
   v-model:show="showCard"
   :card-title="'Example card modal'"
   >
-  <template #cardBody>
-    <p>Example modal content</p>
-  </template>
-  <template #cardFooter>
-    <p>Example modal footer</p>
-  </template>
+  <card-modal title="Example card modal">
+    <template #default>
+      <p>Example modal content</p>
+    </template>
+    <template #footer>
+      <p>Example modal footer</p>
+    </template>
+  </card-modal>
 </base-modal>
 
 <base-modal closeable class="has-text-white">
@@ -36,7 +38,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import BaseModal from '@/components/BaseModal.vue';
+import BaseModal from '@/components/modal/BaseModal.vue';
+import CardModal from '@/components/modal/CardModal.vue';
 
 const showNormal = ref(false);
 const showCard = ref(false);
