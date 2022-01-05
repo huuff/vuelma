@@ -3,6 +3,7 @@
 </template>
 
 <script setup lang="ts">
+// TODO: Use TSX
 import { useSlots, h, VNode, toRef } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { FontAwesomeIconName } from '@/types/fontawesome-icon-name';

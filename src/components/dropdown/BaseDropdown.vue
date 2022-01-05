@@ -27,6 +27,8 @@
 </template>
 
 <script setup lang="tsx">
+// TODO: Test it, but I can't because of https://github.com/vuejs/vue-cli/issues/6911
+// TODO: Separate the selector behavior into another component
 import { useSlots, toRef, computed } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { useCloseOnClickOutside } from '@/composables/close-on-click-outside';
