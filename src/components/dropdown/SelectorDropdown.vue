@@ -13,7 +13,7 @@
 <script setup lang="ts">
 import { toRef, useSlots, computed } from "vue";
 import BaseDropdown, { DropdownDirection } from "./BaseDropdown.vue";
-import { alignment } from '@/types/alignment';
+import { Alignment } from '@/types/alignment';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { useCloseOnClickOutside } from '@/composables/close-on-click-outside';
 import DropdownItem, { DropdownItemProps } from '@/components/dropdown/DropdownItem.vue';
@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<{
   open?: boolean;
   activeItemId?: string;
   direction?: DropdownDirection;
-  alignment?: alignment;
+  alignment?: Alignment;
 }>(), {
   open: undefined,
   direction: "down",

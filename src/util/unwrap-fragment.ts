@@ -1,6 +1,10 @@
-// HACK: I'm unable to type this
-
 import {RendererElement, RendererNode, VNode, VNodeArrayChildren, } from "vue";
+
+// HACK: This is seriously horrible and I don't know who to blame
+// Vue internals types are impractical?
+// I don't know about Vue internals well enough?
+// I don't know TypeScript?
+// It's unlikely I'll ever fix this. It's flaky and wrong but didn't break any tests.
 
 type Slot = VNode<RendererNode, RendererElement, { [key: string]: any; }>[];
 

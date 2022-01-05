@@ -43,7 +43,7 @@ import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 library.add(faAngleDown);
 library.add(faAngleUp);
 
-import { alignment } from '@/types/alignment';
+import { Alignment } from '@/types/alignment';
 import { unwrapFragment } from '@/util/unwrap-fragment';
 import { DropdownItemData } from './dropdown-item-data';
 
@@ -57,7 +57,7 @@ const props = withDefaults(defineProps<{
   open?: boolean;
   activeItemId?: string;
   direction?: DropdownDirection;
-  alignment?: alignment;
+  alignment?: Alignment;
 }>(), {
   open: undefined,
   direction: "down",

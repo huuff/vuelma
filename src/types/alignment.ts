@@ -1,1 +1,3 @@
-export type alignment = "left" | "center" | "right";
+export type Alignment = "left" | "center" | "right";
+
+export const alignmentArray: Alignment[] = [ "left", "center", "right" ];
