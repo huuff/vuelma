@@ -1,7 +1,7 @@
 <template>
 <div class="column is-4 mx-auto">
   <base-panel 
-    :title="'Example panel'" 
+    :titleText="'Example panel'" 
     :color="'primary'"
     v-model:activeTab="activeTab"
   >

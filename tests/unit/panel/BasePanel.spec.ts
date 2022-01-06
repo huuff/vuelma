@@ -2,13 +2,13 @@ import { mount } from '@vue/test-utils';
 import BasePanel from '@/components/panel/BasePanel.vue';
 
 describe('BasePanel.vue', () => {
-  test("title is set", () => {
-    const title = "Test title";
+  test("titleText is set", () => {
+    const titleText = "Test titleText";
 
     const wrapper = mount(BasePanel, {
-      props: { title }
+      props: { titleText }
     });
 
-    expect(wrapper.get('.panel-heading').text()).toBe(title);
+    expect(wrapper.get('.panel-heading').text()).toBe(titleText);
   });
 });

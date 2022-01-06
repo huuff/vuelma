@@ -1,8 +1,8 @@
 <template>
 <nav :class="`panel is-${color}`">
-  <p v-if="title"
+  <p v-if="titleText"
     class="panel-heading"
-  > {{ title }}</p>
+  > {{ titleText }}</p>
   <slot></slot>
 </nav>
 </template>
@@ -17,7 +17,7 @@ import { provideAccessors } from '@/composables/injected-accessors';
 
 const props = withDefaults(defineProps<{
   color?: BulmaColor;
-  title?: string;
+  titleText?: string;
   activeBlock?: string;
   activeTab?: string;
 }>(), {
