@@ -1,5 +1,8 @@
 <template>
-<div class="navbar-item has-dropdown" :class="{ 'is-active': actualOpen }">
+<div class="navbar-item has-dropdown" :class="{
+    'is-active': actualOpen,
+    'has-dropdown-up': direction === 'up',
+  }">
   <a class="navbar-link" @click="actualOpen = !actualOpen">
     {{ triggerText }}
   </a>
@@ -8,13 +11,13 @@
 </template>
 
 <script setup lang="tsx">
-// TODO: divider
-// TODO: direction
 // TODO: hoverable
 // TODO: arrowless
+// TODO: alignment
 import { useSlots, VNode, h, toRef } from 'vue';
 import DropdownItem, { DropdownItemProps } from '@/components/dropdown/DropdownItem.vue'
 import DropdownDivider from '../dropdown/DropdownDivider.vue';
+import { DropdownDirection } from '@/components/dropdown/BaseDropdown.vue';
 import classnames from 'classnames';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { useCloseOnClickOutside } from '@/composables/close-on-click-outside';
@@ -22,10 +25,12 @@ import partial from "lodash/partial";
 
 const props = withDefaults(defineProps<{
   triggerText?: string;
-  activeItem?: string
+  activeItem?: string;
+  direction?: DropdownDirection;
   open?: boolean
 }>(), {
   open: undefined,
+  direction: "down",
 });
 
 const emit = defineEmits<{

@@ -5,7 +5,7 @@
       :title="`Test-${num}`"
       :key="`test-${num}`"
     />
-    <navbar-dropdown triggerText="Dropdown">
+    <navbar-dropdown triggerText="Dropdown" direction="up">
       <dropdown-item text="First" />
       <dropdown-item text="Second" />
       <dropdown-divider />
