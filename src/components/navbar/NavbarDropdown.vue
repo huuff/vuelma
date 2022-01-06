@@ -5,7 +5,9 @@
     'is-hoverable': hoverable,
     'is-right': isRight,
   }">
-  <a class="navbar-link" @click="actualOpen = !actualOpen">
+  <a class="navbar-link" 
+    :class="{ 'is-arrowless': arrowless }"
+    @click="actualOpen = !actualOpen">
     {{ triggerText }}
   </a>
   <render></render>
@@ -13,7 +15,6 @@
 </template>
 
 <script setup lang="tsx">
-// TODO: arrowless
 import { useSlots, VNode, h, toRef } from 'vue';
 import DropdownItem, { DropdownItemProps } from '@/components/dropdown/DropdownItem.vue'
 import DropdownDivider from '../dropdown/DropdownDivider.vue';
@@ -30,6 +31,7 @@ const props = withDefaults(defineProps<{
   open?: boolean;
   hoverable?: boolean;
   isRight?: boolean;
+  arrowless?: boolean;
 }>(), {
   open: undefined,
   direction: "down",
