@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="tsx">
-import { useSlots, h, VNode, toRef } from 'vue';
+import { useSlots, VNode, toRef } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { FontAwesomeIconName } from '@/types/fontawesome-icon-name';
 import { iconAsRender } from '@/util/fontawesome-icon-render';
