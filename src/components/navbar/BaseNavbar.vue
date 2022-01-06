@@ -50,7 +50,7 @@ function renderNode(node: VNode, isEnd = false): VNode {
         class: classnames({
           "navbar-item": true,
           "is-active": actualActiveItem.value === itemId,
-        }) + [ ` ${node.props?.class}` ],
+        }, node.props?.class),
         onClick: () => actualActiveItem.value = itemId,
       },
       { default: () => itemProps.title }

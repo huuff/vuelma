@@ -61,7 +61,7 @@ function renderNode(node: VNode): VNode {
           class: classnames({
             "navbar-item": true,
             "is-active": actualActiveItem.value === itemId,
-          }) + [ ` ${node.props?.class}`], // TODO: repeated here and in BaseNavbar, extract it to an util function? Also, it's adding undefined as a class
+          }, node.props?.class),
           onClick: () => actualActiveItem.value = itemId,
         },
         { default: () => itemProps.text }
