@@ -3,7 +3,7 @@
   <base-tab title="Tab 1">
     Test content for tab 1
   </base-tab>
-  <base-tab title="Tab 2">
+  <base-tab title="Tab 2" icon="heart">
     Test content for tab 2
   </base-tab>
   <base-tab title="Tab 3">

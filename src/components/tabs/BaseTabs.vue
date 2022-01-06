@@ -2,8 +2,7 @@
 <render></render>
 </template>
 
-<script setup lang="ts">
-// TODO: Use TSX
+<script setup lang="tsx">
 import { useSlots, h, VNode, toRef } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { FontAwesomeIconName } from '@/types/fontawesome-icon-name';
@@ -76,28 +75,24 @@ const render = () => {
   const activeTab = tabs.find(tab => tab.tabId === actualActiveTabId.value);
 
   return [
-    h(
-      "div",
-      { class: "tabs"},
-      h(
-        "ul",
-        {},
-        tabs.map(tab => h(
-          "li",
-          tab.getClasses(),
-          h(
-            "a",
-            { onClick: () => tab.setActive()},
-            !tab.hasIcon()
-              ? tab.title
-              : [
-                iconAsRender(tab.icon!, [ "is-small" ]),
-                h("span", {}, tab.title),
-              ]
-          )
-        ))
-      )
-    ),
+    <div class="tabs">
+      <ul>
+        { tabs.map(tab => 
+          <li class={tab.getClasses}>
+            <a onClick={() => tab.setActive()}>
+              <span> {
+                !tab.hasIcon()
+                ? tab.title
+                : [
+                  iconAsRender(tab.icon!, [ "is-small" ]),
+                  <span> { tab.title } </span>
+                ]
+              } </span>
+            </a>
+          </li>
+        ) }
+      </ul>
+    </div>,
     activeTab?.slot
   ];
 };
