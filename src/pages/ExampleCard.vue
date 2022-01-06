@@ -1,6 +1,6 @@
 <template>
   <div class="column is-3 is-3-desktop">
-    <base-card :title="'Title'" :icon="'angle-down'">
+    <base-card :headerTitle="'Title'" :icon="'angle-down'">
       <template #default>
         Content text
       </template>
