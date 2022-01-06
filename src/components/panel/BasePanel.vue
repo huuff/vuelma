@@ -29,10 +29,12 @@ const emit = defineEmits<{
   (event: "update:activeTab", id?: string): void;
 }>();
 
-// What's up with these errors? Seems like the compiler went crazy
+//eslint-disable-next-line
+//@ts-ignore
 const actualActiveBlock = useOptionalTwoWayBinding(undefined, toRef(props, 'activeBlock'), partial(emit, "update:activeBlock"))
 provideAccessors("ActivePanelBlock", actualActiveBlock);
-
+//eslint-disable-next-line
+//@ts-ignore
 const actualActiveTab = useOptionalTwoWayBinding(undefined, toRef(props, 'activeTab'), partial(emit, "update:activeTab"));
 provideAccessors("ActivePanelTab", actualActiveTab);
 

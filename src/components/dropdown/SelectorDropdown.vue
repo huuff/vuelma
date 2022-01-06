@@ -37,8 +37,6 @@ const emit = defineEmits<{
   (event: "update:activeItemId", value?: string): void;
 }>();
 
-// XXX: I don't know what's up with these errors, seems like
-// the vue compiler went crazy. But it works anyway
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const actualOpen = useOptionalTwoWayBinding(false, toRef(props, "open"), partial(emit, "update:open"));
