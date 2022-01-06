@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import BaseModal from '@/components/modal/BaseModal.vue';
 import CardModal from '@/components/modal/CardModal.vue';
 
-const DEFAULT_TEST_CONTENT = "Test content";
+const defaultTestContent = "Test content";
 
 describe('BaseModal.vue', () => {
   describe('normal modal', () => {
@@ -13,7 +13,7 @@ describe('BaseModal.vue', () => {
           closable: true,
         },
         slots: {
-          default: DEFAULT_TEST_CONTENT,
+          default: defaultTestContent,
         },
       });
 
@@ -31,7 +31,7 @@ describe('BaseModal.vue', () => {
           backdropCloseable: true
         },
         slots: {
-          default: DEFAULT_TEST_CONTENT,
+          default: defaultTestContent,
         },
       });
 
@@ -49,7 +49,7 @@ describe('BaseModal.vue', () => {
           backdropCloseable: false,
         },
         slots: {
-          default: DEFAULT_TEST_CONTENT,
+          default: defaultTestContent,
         },
       });
 

@@ -1,24 +1,24 @@
 import { mount } from '@vue/test-utils';
 import BasePanelTabs from '@/components/panel/BasePanelTabs.vue';
 
-const FIRST_BLOCK_ID = "firstBlock";
-const SECOND_BLOCK_ID = "secondBlock";
-const THIRD_BLOCK_ID = "thirdBlock";
+const firstBlockId = "firstBlock";
+const secondBlockId = "secondBlock";
+const thirdBlockId = "thirdBlock";
 
-const FIRST_BLOCK = `
-  <a class="panel-block" id="${FIRST_BLOCK_ID}">
+const firstBlock = `
+  <a class="panel-block" id="${firstBlockId}">
     First block
   </a>
 `;
 
-const SECOND_BLOCK = `
-  <a class="panel-block" id="${SECOND_BLOCK_ID}">
+const secondBlock = `
+  <a class="panel-block" id="${secondBlockId}">
     Second block
   </a>
 `;
 
-const THIRD_BLOCK = `
-  <a class="panel-block" id="${THIRD_BLOCK_ID}">
+const thirdBlock = `
+  <a class="panel-block" id="${thirdBlockId}">
     Third block
   </a>
 `;
@@ -34,13 +34,13 @@ describe('BasePanelTabs.vue', () => {
       active: 'firstBlock',
     },
     slots: {
-      [FIRST_BLOCK_ID]: FIRST_BLOCK,
-      [SECOND_BLOCK_ID]: SECOND_BLOCK,
-      [THIRD_BLOCK_ID]: THIRD_BLOCK,
+      [firstBlockId]: firstBlock,
+      [secondBlockId]: secondBlock,
+      [thirdBlockId]: thirdBlock,
     },
     global: {
       provide: {
-        getActivePanelTab: jest.fn(() => FIRST_BLOCK_ID),
+        getActivePanelTab: jest.fn(() => firstBlockId),
         setActivePanelTab: jest.fn(),
       },
     },
@@ -51,8 +51,8 @@ describe('BasePanelTabs.vue', () => {
     const tabWrappers = wrapper.findAll('p');
     console.log(JSON.stringify(tabWrappers));
 
-    expect(tabWrappers[0].text()).toBe(FIRST_BLOCK_ID);
-    expect(tabWrappers[1].text()).toBe(SECOND_BLOCK_ID);
-    expect(tabWrappers[2].text()).toBe(THIRD_BLOCK_ID);
+    expect(tabWrappers[0].text()).toBe(firstBlockId);
+    expect(tabWrappers[1].text()).toBe(secondBlockId);
+    expect(tabWrappers[2].text()).toBe(thirdBlockId);
   });
 });
