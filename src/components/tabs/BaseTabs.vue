@@ -25,12 +25,12 @@ class Tab {
   public readonly tabId: string;
 
   constructor(
-    public readonly title: string,
+    public readonly titleText: string,
     public readonly icon: FontAwesomeIconName | undefined,
     public readonly slot: VNode<any, any, any>,
     tabId?: string,
   ) {
-    this.tabId = tabId ?? title;
+    this.tabId = tabId ?? titleText;
   }
 
   public getClasses(): { class: string } | Record<string, never> {
@@ -62,7 +62,7 @@ function slotToTabs(): Tab[] {
   }
 
   return children.map(child => new Tab(
-    child.props!.title,
+    child.props!.titleText,
     child.props!.icon,
     child,
     child.props!.tabId,
@@ -82,10 +82,10 @@ const render = () => {
             <a onClick={() => tab.setActive()}>
               <span> {
                 !tab.hasIcon()
-                ? tab.title
+                ? tab.titleText
                 : [
                   iconAsRender(tab.icon!, [ "is-small" ]),
-                  <span> { tab.title } </span>
+                  <span> { tab.titleText } </span>
                 ]
               } </span>
             </a>

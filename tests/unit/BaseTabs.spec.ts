@@ -23,23 +23,23 @@ describe("fake test so jest wont complain", () => {
       //},
       //slots: {
         //default: `
-          //<base-tab title="Test1" tabId="test1">
+          //<base-tab titleText="Test1" tabId="test1">
             //Tab contents 1
           //</base-tab>
           //<div>
             //This is a non-tab child, so it should throw
           //</div>
-          //<base-tab title="Test2" tabId="test2">
+          //<base-tab titleText="Test2" tabId="test2">
             //Test contents 2
           //</base-tab>
         //`,
       //},
     //}));
   //});
-  //test("the titles of the tabs appear in the tab elements", () => {
-    //const tab1Title = "Test1";
-    //const tab2Title = "Test2";
-    //const tab3Title = "Test3";
+  //test("the titleTexts of the tabs appear in the tab elements", () => {
+    //const tab1titleText = "Test1";
+    //const tab2titleText = "Test2";
+    //const tab3titleText = "Test3";
     //const wrapper = mount(BaseTabs, {
       //global: {
         //components: {
@@ -48,13 +48,13 @@ describe("fake test so jest wont complain", () => {
       //},
       //slots: {
         //default: `
-        //<base-tab title="${tab1Title}" tabId="test1">
+        //<base-tab titleText="${tab1titleText}" tabId="test1">
           //Tab contents 1
         //</base-tab>
-        //<base-tab title="${tab2Title}" tabId="test2">
+        //<base-tab titleText="${tab2titleText}" tabId="test2">
           //Tab contents 2
         //</base-tab>
-        //<base-tab title="${tab3Title}" tabId="test3">
+        //<base-tab titleText="${tab3titleText}" tabId="test3">
           //Tab contents 3
         //</base-tab>
         //`,
@@ -62,9 +62,9 @@ describe("fake test so jest wont complain", () => {
     //});
 
     //const allTabs = wrapper.get("ul").findAll("li");
-    //expect(allTabs[0].text()).toBe(tab1Title);
-    //expect(allTabs[1].text()).toBe(tab2Title);
-    //expect(allTabs[2].text()).toBe(tab3Title);
+    //expect(allTabs[0].text()).toBe(tab1titleText);
+    //expect(allTabs[1].text()).toBe(tab2titleText);
+    //expect(allTabs[2].text()).toBe(tab3titleText);
   //});
 
   //test("clicking a tab tries to make it active", async () => {
@@ -77,7 +77,7 @@ describe("fake test so jest wont complain", () => {
       //},
       //slots: {
         //default: `
-        //<base-tab title="Test1" tabId="${tabToClick}">
+        //<base-tab titleText="Test1" tabId="${tabToClick}">
           //Tab contents 1
         //</base-tab>
         //`,
@@ -105,10 +105,10 @@ describe("fake test so jest wont complain", () => {
       //},
       //slots: {
         //default: `
-        //<base-tab title="Tab1" tabId="${activeTabId}">
+        //<base-tab titleText="Tab1" tabId="${activeTabId}">
           //${activeTabContents}
         //</base-tab>
-        //<base-tab title="Tab2" tabId="unactiveTab">
+        //<base-tab titleText="Tab2" tabId="unactiveTab">
           //${unactiveTabContents}
         //</base-tab>
         //`,
@@ -130,7 +130,7 @@ describe("fake test so jest wont complain", () => {
       //},
       //slots: {
         //default: `
-          //<base-tab title="Test" tabId="testid" icon="heart">
+          //<base-tab titleText="Test" tabId="testid" icon="heart">
             //Test content
           //</base-tab>
         //`,

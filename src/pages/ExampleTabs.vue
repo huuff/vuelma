@@ -1,12 +1,12 @@
 <template>
 <base-tabs>
-  <base-tab title="Tab 1">
+  <base-tab titleText="Tab 1">
     Test content for tab 1
   </base-tab>
-  <base-tab title="Tab 2" icon="heart">
+  <base-tab titleText="Tab 2" icon="heart">
     Test content for tab 2
   </base-tab>
-  <base-tab title="Tab 3">
+  <base-tab titleText="Tab 3">
     Test content for tab 3
   </base-tab>
 </base-tabs>
