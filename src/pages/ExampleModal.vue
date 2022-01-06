@@ -21,7 +21,7 @@
   v-model:show="showCard"
   :card-title="'Example card modal'"
   >
-  <card-modal title="Example card modal">
+  <card-modal titleText="Example card modal">
     <template #default>
       <p>Example modal content</p>
     </template>

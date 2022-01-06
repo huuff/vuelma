@@ -1,9 +1,9 @@
 <template>
   <div class="modal-card">
-    <header v-if="$slots.header || title || closeable" class="modal-card-head">
+    <header v-if="$slots.header || titleText || closeable" class="modal-card-head">
       <slot name="cardHeader"></slot>
-      <p v-if="title" class="modal-card-title">
-        {{ title }}
+      <p v-if="titleText" class="modal-card-title">
+        {{ titleText }}
       </p>
       <button v-if="closeable"
         type="button"
@@ -26,7 +26,7 @@ import { useSlots } from 'vue';
 
 const props = withDefaults(defineProps<{
   closeable?: boolean;
-  title?: string;
+  titleText?: string;
 }>(), {
   closeable: true,
 });
@@ -36,7 +36,7 @@ const emit = defineEmits<{
 }>();
 
 const slots = useSlots();
-if (slots.header && props.title) {
-  throw new Error("Can't have both a title and a header in a CardModal!");
+if (slots.header && props.titleText) {
+  throw new Error("Can't have both a titleText and a header in a CardModal!");
 }
 </script>

@@ -7,15 +7,15 @@ import BaseCard from '@/components/BaseCard.vue';
 library.add(faHeart);
 
 describe('BaseCard.vue', () => {
-  test('it contains the headerTitle', () => {
-    const headerTitle = "TEST headerTitle";
+  test('it contains the titleText', () => {
+    const titleText = "TEST titleText";
     const wrapper = mount(BaseCard, {
-      props: { headerTitle },
+      props: { titleText },
       global: {  stubs: [ 'font-awesome-icon' ], },
     });
 
     expect(wrapper.find('.card-header-title').exists()).toBeTrue();
-    expect(wrapper.get('.card-header-title').text()).toBe(headerTitle);
+    expect(wrapper.get('.card-header-title').text()).toBe(titleText);
   });
 
   test('it contains the content', () => {
@@ -58,12 +58,12 @@ describe('BaseCard.vue', () => {
     })).toThrow();
   });
 
-  test('cannot create an instance with both a header and a headerTitle', () => {
+  test('cannot create an instance with both a header and a titleText', () => {
     expect(() => mount(BaseCard, {
       global: { stubs: ['font-awesome-icon']},
       slots: {
         header: 'test1',
-        headerTitle: 'test2'
+        titleText: 'test2'
       },
     })).toThrow();
   });

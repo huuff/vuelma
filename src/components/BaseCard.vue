@@ -2,8 +2,8 @@
   <div class="card">
     <header class="card-header">
       <slot name="header">
-        <p v-if="headerTitle" class="card-header-title">
-          {{ headerTitle }}
+        <p v-if="titleText" class="card-header-title">
+          {{ titleText }}
         </p>
         <div v-if="icon" class="card-header-icon">
           <span class="icon">
@@ -35,7 +35,7 @@ import { FontAwesomeIconName } from '@/types/fontawesome-icon-name';
 import ClassedSlot from '@/components/slots/ClassedSlot';
 
 const props = defineProps<{
-  headerTitle?: string;
+  titleText?: string;
   image?: string;
   icon?: FontAwesomeIconName;
 }>();
@@ -46,7 +46,7 @@ if (slots.footer && slots.footerItems) {
   throw new Error('The card component cannot be used with both a footer and footerItems!');
 }
 
-if (slots.header && (slots.headerTitle || slots.icon)) {
-  throw new Error('The card component cannot be used with both a header and a headerTitle or an icon!');
+if (slots.header && (slots.titleText || slots.icon)) {
+  throw new Error('The card component cannot be used with both a header and a titleText or an icon!');
 }
 </script>

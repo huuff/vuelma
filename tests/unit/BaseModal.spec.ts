@@ -69,8 +69,8 @@ describe('BaseModal.vue', () => {
   });
 
   describe('card modal', () => {
-    test("it includes the title", () => {
-      const cardTitle = "Test title";
+    test("it includes the titleText", () => {
+      const cardtitleText = "Test titleText";
       const wrapper = mount(BaseModal, {
         props: { 
           show: true,
@@ -82,12 +82,12 @@ describe('BaseModal.vue', () => {
         },
         slots: {
           default: `
-            <card-modal title="${cardTitle}" />
+            <card-modal titleText="${cardtitleText}" />
           `
         }
       });
 
-      expect(wrapper.get('.modal-card-title').text()).toBe(cardTitle);
+      expect(wrapper.get('.modal-card-title').text()).toBe(cardtitleText);
     });
 
     describe("for closing", () => {
