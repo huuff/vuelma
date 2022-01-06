@@ -5,6 +5,7 @@
   :triggerText="actualTriggerText"
   :direction="direction"
   :alignment="alignment"
+  :hoverable="hoverable"
 >
   <slot></slot>
 </base-dropdown>
@@ -26,6 +27,7 @@ const props = withDefaults(defineProps<{
   activeItemId?: string;
   direction?: DropdownDirection;
   alignment?: Alignment;
+  hoverable?: boolean;
 }>(), {
   open: undefined,
   direction: "down",

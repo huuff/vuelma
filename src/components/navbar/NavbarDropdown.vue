@@ -2,6 +2,7 @@
 <div class="navbar-item has-dropdown" :class="{
     'is-active': actualOpen,
     'has-dropdown-up': direction === 'up',
+    'is-hoverable': hoverable,
   }">
   <a class="navbar-link" @click="actualOpen = !actualOpen">
     {{ triggerText }}
@@ -11,7 +12,6 @@
 </template>
 
 <script setup lang="tsx">
-// TODO: hoverable
 // TODO: arrowless
 // TODO: alignment
 import { useSlots, VNode, h, toRef } from 'vue';
@@ -28,6 +28,7 @@ const props = withDefaults(defineProps<{
   activeItem?: string;
   direction?: DropdownDirection;
   open?: boolean
+  hoverable?: boolean
 }>(), {
   open: undefined,
   direction: "down",

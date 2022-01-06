@@ -59,6 +59,7 @@ const props = withDefaults(defineProps<{
   activeItemId?: string;
   direction?: DropdownDirection;
   alignment?: Alignment;
+  hoverable?: boolean;
 }>(), {
   open: undefined,
   direction: "down",
@@ -85,6 +86,7 @@ const classes = computed(() => ({
   "is-up": props.direction === "up",
   "is-right": props.alignment === "right",
   "is-left": props.alignment === "left",
+  "is-hoverable": props.hoverable,
 }));
 
 const icon = computed(() => {

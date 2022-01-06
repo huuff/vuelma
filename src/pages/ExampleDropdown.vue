@@ -16,7 +16,7 @@
         <dropdown-item text="Third"/>
       </selector-dropdown>
 
-      <base-dropdown triggerText="This one opens up" direction="up" class="mr-5">
+      <base-dropdown triggerText="This one opens up" direction="up" class="mr-5" hoverable>
         <dropdown-item text="First"/>
         <dropdown-item text="Second"/>
         <dropdown-item text="Third"/>
