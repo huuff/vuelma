@@ -3,7 +3,6 @@
 </template>
 
 <script setup lang="tsx">
-// TODO: colors
 // TODO: other variants
 // TODO: Test it, but I can't because of https://github.com/vuejs/vue-cli/issues/6911
 import { useSlots, h, VNode, toRef, cloneVNode } from 'vue';
@@ -14,10 +13,12 @@ import partial from "lodash/partial";
 import { unwrapFragment } from '@/util/unwrap-fragment';
 import { useCloseOnClickOutside } from '@/composables/close-on-click-outside';
 import NavbarDropdown from './NavbarDropdown.vue'
+import { BulmaColor } from '@/types/bulma-color';
 
 const props = withDefaults(defineProps<{
   activeItem?: string;
   mobileMenuOpen?: boolean;
+  color?: BulmaColor;
 }>(), {
   mobileMenuOpen: undefined,
 });
@@ -62,7 +63,13 @@ function renderNode(node: VNode, isEnd = false): VNode {
 
 const slots = useSlots();
 const render = () => 
-<nav class="navbar" role="navigation" aria-label="navigation">
+<nav 
+  class={classnames({
+    "navbar": true,
+    [`is-${props.color}`]: props.color,
+  })}
+  role="navigation" 
+  aria-label="navigation">
   <div class="navbar-brand">
     { slots.brand && unwrapFragment(slots.brand())
     .flatMap(node => unwrapFragment([node]))
