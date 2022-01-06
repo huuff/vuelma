@@ -1,5 +1,8 @@
 <template>
 <base-navbar>
+  <template #brand>
+    <navbar-item title="Navbar with dropdown" class="has-text-weight-bold is-size-5"/>
+  </template>
   <template #end>
     <navbar-item v-for="num in testArray" 
       :title="num"
@@ -20,6 +23,9 @@
   :color="color"
   class="mb-2"
 >
+  <template #brand>
+    <navbar-item :title="`Navbar ${color}`" class="has-text-weight-bold is-size-5" />
+  </template>
   <template #end>
     <navbar-item v-for="num in testArray" 
       :title="num"
