@@ -14,6 +14,7 @@
 // TODO: arrowless
 import { useSlots, VNode, h, toRef } from 'vue';
 import DropdownItem, { DropdownItemProps } from '@/components/dropdown/DropdownItem.vue'
+import DropdownDivider from '../dropdown/DropdownDivider.vue';
 import classnames from 'classnames';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { useCloseOnClickOutside } from '@/composables/close-on-click-outside';
@@ -56,8 +57,10 @@ function renderNode(node: VNode): VNode {
         },
         { default: () => itemProps.text }
       );
+  } else if (node.type === DropdownDivider) {
+    return <hr class="navbar-divider"/>
   } else {
-    throw new Error("Children of a NavbarDropdown must be DropdownItems!")
+    throw new Error("Children of a NavbarDropdown must be DropdownItems or DropdownDividers!")
   }
 }
 

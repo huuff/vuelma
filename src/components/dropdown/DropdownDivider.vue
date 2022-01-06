@@ -1,3 +1,3 @@
 <template>
-<hr class="dropdown-divider">
+<hr>
 </template>

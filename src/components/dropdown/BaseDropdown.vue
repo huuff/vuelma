@@ -106,7 +106,7 @@ const dropdownMenu = () => slots.default && unwrapFragment(slots.default()).map(
     if (el.type === DropdownItem) 
       return new DropdownItemData(el.props as DropdownItemProps, actualActiveItemId).render();
     else if (el.type === DropdownDivider)
-      return el;
+      return <hr class="dropdown-divider"/>;
     else
       return <div class="dropdown-item"> { el } </div>
   });
