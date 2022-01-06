@@ -19,7 +19,6 @@
 <base-modal 
   closeable 
   v-model:show="showCard"
-  :card-title="'Example card modal'"
   >
   <card-modal titleText="Example card modal">
     <template #default>

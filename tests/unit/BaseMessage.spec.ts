@@ -2,18 +2,18 @@ import { mount } from '@vue/test-utils';
 import BaseMessage from '@/components/BaseMessage.vue';
 
 describe('BaseMessage.vue', () => {
-  test("it shows the title", () => {
-    const title = "Test title"
+  test("it shows the titleText", () => {
+    const titleText = "Test titleText"
     const wrapper = mount(BaseMessage, {
-      props: { title }
+      props: { titleText }
     });
 
-    expect(wrapper.get('.message-header').text()).toBe(title);
+    expect(wrapper.get('.message-header').text()).toBe(titleText);
   }); 
 
-  test("it is not possible to have both a header and a title", () => {
+  test("it is not possible to have both a header and a titleText", () => {
     expect(() => mount(BaseMessage, {
-      props: { title: "Test" },
+      props: { titleText: "Test" },
       slots: { header: "<div>test</div>"},
     })).toThrow();
   })

@@ -1,7 +1,7 @@
 <template>
 <div class="is-centered mt-5 is-flex-direction-column">
   <base-message
-    title="Two way binding message"
+    titleText="Two way binding message"
     closeable
     color="dark"
     v-model:show="twoWayBoundShow"
@@ -16,7 +16,7 @@
   <hr class="my-3">
   <base-message v-for="color in colorArray"
     class="column is-half mx-auto"
-    :title="`Message ${color}`" 
+    :titleText="`Message ${color}`" 
     closeable 
     :key="`message-${color}`"
     :color="color"
