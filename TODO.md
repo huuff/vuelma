@@ -9,3 +9,4 @@
 * Fix the display of the navbar example
 * I have to stop using `title` as a prop because it produces a popover :(
 * A `RouterNavbar`?
+* Tabs are not being marked as active
