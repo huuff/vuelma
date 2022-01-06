@@ -52,7 +52,9 @@ function renderNode(node: VNode): VNode {
         }) + [ ` ${node.props?.class}` ],
         onClick: () => actualActiveItem.value = itemId,
       },
-      itemProps.title
+      {
+        default: () => itemProps.title
+      }
     )
   }
   throw new Error("Children of a BaseNavbar must be NavbarItems!");
