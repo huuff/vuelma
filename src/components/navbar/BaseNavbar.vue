@@ -5,15 +5,16 @@
 <script setup lang="tsx">
 // TODO: other variants
 // TODO: Test it, but I can't because of https://github.com/vuejs/vue-cli/issues/6911
-import { useSlots, h, VNode, toRef, cloneVNode } from 'vue';
+import { useSlots, VNode, toRef, cloneVNode } from 'vue';
 import NavbarItem, { NavbarItemProps } from './NavbarItem.vue';
 import classnames from "classnames";
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import partial from "lodash/partial";
 import { unwrapFragment } from '@/util/unwrap-fragment';
 import { useCloseOnClickOutside } from '@/composables/close-on-click-outside';
-import NavbarDropdown from './NavbarDropdown.vue'
+import NavbarDropdown from './NavbarDropdown.vue';
 import { BulmaColor } from '@/types/bulma-color';
+import { renderNavbarItem } from './render-navbar-item';
 
 const props = withDefaults(defineProps<{
   activeItem?: string;
@@ -40,21 +41,7 @@ useCloseOnClickOutside(actualMobileMenuOpen);
 function renderNode(node: VNode, isEnd = false): VNode {
   if (node.type === NavbarItem) {
     const itemProps = node.props as NavbarItemProps;
-    const itemId = itemProps.itemId ?? itemProps.title;
-    // HACK: Why this compilation error? I've checked the overloads
-    // and it definitely exists.
-    // eslint-disable-next-line
-    // @ts-ignore
-    return h(itemProps.tag ?? 'a',
-      { ...itemProps,
-        class: classnames({
-          "navbar-item": true,
-          "is-active": actualActiveItem.value === itemId,
-        }, node.props?.class),
-        onClick: () => actualActiveItem.value = itemId,
-      },
-      { default: () => itemProps.title }
-    );
+    return renderNavbarItem(itemProps.tag ?? "a", node, actualActiveItem, itemProps);
   } else if (node.type === NavbarDropdown) {
     return !isEnd ? node : cloneVNode(node, { isRight: true});
   }
@@ -62,6 +49,7 @@ function renderNode(node: VNode, isEnd = false): VNode {
 }
 
 const slots = useSlots();
+// TODO: Write most of it into the template and only the slots in the render?
 const render = () => 
 <nav 
   class={classnames({

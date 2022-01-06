@@ -1,11 +1,11 @@
 <template>
 <base-navbar>
   <template #brand>
-    <navbar-item title="Navbar with dropdown" class="has-text-weight-bold is-size-5"/>
+    <navbar-item text="Navbar with dropdown" class="has-text-weight-bold is-size-5"/>
   </template>
   <template #end>
     <navbar-item v-for="num in testArray" 
-      :title="num"
+      :text="num"
       :key="num"
     />
     <navbar-dropdown triggerText="Dropdown">
@@ -18,17 +18,17 @@
 </base-navbar>
 <hr class="my-5">
 <base-navbar v-for="color in colorArray"
-  :title="`Navbar ${color}`"
+  :text="`Navbar ${color}`"
   :key="`Navbar ${color}`"
   :color="color"
   class="mb-2"
 >
   <template #brand>
-    <navbar-item :title="`Navbar ${color}`" class="has-text-weight-bold is-size-5" />
+    <navbar-item :text="`Navbar ${color}`" class="has-text-weight-bold is-size-5" />
   </template>
   <template #end>
     <navbar-item v-for="num in testArray" 
-      :title="num"
+      :text="num"
       :key="num"
     />
   </template>

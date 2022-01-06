@@ -15,14 +15,14 @@
 </template>
 
 <script setup lang="tsx">
-import { useSlots, VNode, h, toRef } from 'vue';
+import { useSlots, VNode, toRef } from 'vue';
 import DropdownItem, { DropdownItemProps } from '@/components/dropdown/DropdownItem.vue'
 import DropdownDivider from '../dropdown/DropdownDivider.vue';
 import { DropdownDirection } from '@/components/dropdown/BaseDropdown.vue';
-import classnames from 'classnames';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { useCloseOnClickOutside } from '@/composables/close-on-click-outside';
 import partial from "lodash/partial";
+import { renderNavbarItem } from './render-navbar-item';
 
 const props = withDefaults(defineProps<{
   triggerText?: string;
@@ -53,19 +53,8 @@ useCloseOnClickOutside(actualOpen);
 
 function renderNode(node: VNode): VNode {
   if (node.type === DropdownItem) {
-    // TODO: Almost the exact same code as the render node of BaseNavbar, can I dry it somehow?
     const itemProps = node.props as DropdownItemProps;
-    const itemId = itemProps.itemId ?? itemProps.text;
-    return h("a",
-        { ...itemProps,
-          class: classnames({
-            "navbar-item": true,
-            "is-active": actualActiveItem.value === itemId,
-          }, node.props?.class),
-          onClick: () => actualActiveItem.value = itemId,
-        },
-        { default: () => itemProps.text }
-      );
+    return renderNavbarItem("a", node, actualActiveItem, itemProps);
   } else if (node.type === DropdownDivider) {
     return <hr class="navbar-divider"/>
   } else {

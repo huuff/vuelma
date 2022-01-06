@@ -3,10 +3,12 @@
 </template>
 
 <script setup lang="ts">
-export type DropdownItemProps = {
+import { OptionalId } from '@/util/optional-id';
+
+export interface DropdownItemProps extends OptionalId {
   text: string;
   itemId?: string;
-};
+}
 
 const props = defineProps<DropdownItemProps>();
 
