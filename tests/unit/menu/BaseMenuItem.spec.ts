@@ -28,14 +28,14 @@ describe('BaseMenuItem.vue', () => {
   });
 
   test("clicking it tries to set the active menu item", async () => {
-    const DIFFERENT_testId = "differentid"
+    const differentTestId = "differentid"
     const wrapper = mount(BaseMenuItem, {
-      props: { title: "Test", itemId: DIFFERENT_testId },
+      props: { title: "Test", itemId: differentTestId },
       global: { provide: mockActiveItem },
     });
 
     await wrapper.find("a").trigger("click");
     expect(mockActiveItem.setActiveMenuItem).toHaveBeenCalledOnce();
-    expect(mockActiveItem.setActiveMenuItem).toHaveBeenCalledWith(DIFFERENT_testId);
+    expect(mockActiveItem.setActiveMenuItem).toHaveBeenCalledWith(differentTestId);
   });
 })
