@@ -3,7 +3,6 @@
 </template>
 
 <script setup lang="tsx">
-// TODO: dropdown
 // TODO: colors
 // TODO: other variants
 // TODO: Test it, but I can't because of https://github.com/vuejs/vue-cli/issues/6911
@@ -14,6 +13,7 @@ import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding
 import partial from "lodash/partial";
 import { unwrapFragment } from '@/util/unwrap-fragment';
 import { useCloseOnClickOutside } from '@/composables/close-on-click-outside';
+import NavbarDropdown from './NavbarDropdown.vue'
 
 const props = withDefaults(defineProps<{
   activeItem?: string;
@@ -52,10 +52,10 @@ function renderNode(node: VNode): VNode {
         }) + [ ` ${node.props?.class}` ],
         onClick: () => actualActiveItem.value = itemId,
       },
-      {
-        default: () => itemProps.title
-      }
-    )
+      { default: () => itemProps.title }
+    );
+  } else if (node.type === NavbarDropdown) {
+    return node;
   }
   throw new Error("Children of a BaseNavbar must be NavbarItems!");
 }
@@ -64,7 +64,7 @@ const slots = useSlots();
 const render = () => 
 <nav class="navbar" role="navigation" aria-label="navigation">
   <div class="navbar-brand">
-    { slots.brand && unwrapFragment(slots.brand()).map(renderNode) }
+    { slots.brand && unwrapFragment(slots.brand()).flatMap(node => unwrapFragment([node])).map(renderNode) }
     <a 
       role="button"
       class={classnames({
@@ -87,13 +87,13 @@ const render = () =>
   })}>
     { slots.start &&
       <div class="navbar-start">
-        { (unwrapFragment(slots.start())).map(renderNode) }
+        { (unwrapFragment(slots.start())).flatMap(node => unwrapFragment([node])).map(renderNode) }
       </div>
     }
     {
       slots.end &&
       <div class="navbar-end">
-        { unwrapFragment(slots.end()).map(renderNode) }
+        { unwrapFragment(slots.end()).flatMap(node => unwrapFragment([node])).map(renderNode) }
       </div>
     }
   </div>
