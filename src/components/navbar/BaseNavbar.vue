@@ -6,7 +6,7 @@
 // TODO: colors
 // TODO: other variants
 // TODO: Test it, but I can't because of https://github.com/vuejs/vue-cli/issues/6911
-import { useSlots, h, VNode, toRef, } from 'vue';
+import { useSlots, h, VNode, toRef, cloneVNode } from 'vue';
 import NavbarItem, { NavbarItemProps } from './NavbarItem.vue';
 import classnames from "classnames";
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
@@ -36,7 +36,7 @@ const actualActiveItem = useOptionalTwoWayBinding(undefined, toRef(props, "activ
 const actualMobileMenuOpen = useOptionalTwoWayBinding(false, toRef(props, "mobileMenuOpen"), partial(emit, "update:mobileMenuOpen"))
 useCloseOnClickOutside(actualMobileMenuOpen);
 
-function renderNode(node: VNode): VNode {
+function renderNode(node: VNode, isEnd = false): VNode {
   if (node.type === NavbarItem) {
     const itemProps = node.props as NavbarItemProps;
     const itemId = itemProps.itemId ?? itemProps.title;
@@ -55,7 +55,7 @@ function renderNode(node: VNode): VNode {
       { default: () => itemProps.title }
     );
   } else if (node.type === NavbarDropdown) {
-    return node;
+    return !isEnd ? node : cloneVNode(node, { isRight: true});
   }
   throw new Error("Children of a BaseNavbar must be NavbarItems!");
 }
@@ -64,7 +64,9 @@ const slots = useSlots();
 const render = () => 
 <nav class="navbar" role="navigation" aria-label="navigation">
   <div class="navbar-brand">
-    { slots.brand && unwrapFragment(slots.brand()).flatMap(node => unwrapFragment([node])).map(renderNode) }
+    { slots.brand && unwrapFragment(slots.brand())
+    .flatMap(node => unwrapFragment([node]))
+    .map(node => renderNode(node)) }
     <a 
       role="button"
       class={classnames({
@@ -87,13 +89,17 @@ const render = () =>
   })}>
     { slots.start &&
       <div class="navbar-start">
-        { (unwrapFragment(slots.start())).flatMap(node => unwrapFragment([node])).map(renderNode) }
+        { (unwrapFragment(slots.start()))
+        .flatMap(node => unwrapFragment([node]))
+        .map(node => renderNode(node)) }
       </div>
     }
     {
       slots.end &&
       <div class="navbar-end">
-        { unwrapFragment(slots.end()).flatMap(node => unwrapFragment([node])).map(renderNode) }
+        { unwrapFragment(slots.end())
+        .flatMap(node => unwrapFragment([node]))
+        .map(node => renderNode(node, true)) }
       </div>
     }
   </div>

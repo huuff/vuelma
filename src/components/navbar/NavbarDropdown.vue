@@ -3,6 +3,7 @@
     'is-active': actualOpen,
     'has-dropdown-up': direction === 'up',
     'is-hoverable': hoverable,
+    'is-right': isRight,
   }">
   <a class="navbar-link" @click="actualOpen = !actualOpen">
     {{ triggerText }}
@@ -13,7 +14,6 @@
 
 <script setup lang="tsx">
 // TODO: arrowless
-// TODO: alignment
 import { useSlots, VNode, h, toRef } from 'vue';
 import DropdownItem, { DropdownItemProps } from '@/components/dropdown/DropdownItem.vue'
 import DropdownDivider from '../dropdown/DropdownDivider.vue';
@@ -27,8 +27,9 @@ const props = withDefaults(defineProps<{
   triggerText?: string;
   activeItem?: string;
   direction?: DropdownDirection;
-  open?: boolean
-  hoverable?: boolean
+  open?: boolean;
+  hoverable?: boolean;
+  isRight?: boolean;
 }>(), {
   open: undefined,
   direction: "down",
@@ -58,7 +59,7 @@ function renderNode(node: VNode): VNode {
           class: classnames({
             "navbar-item": true,
             "is-active": actualActiveItem.value === itemId,
-          }) + [ ` ${node.props?.class}`], // TODO: repeated here and in BaseNavbar, extract it to an util function?
+          }) + [ ` ${node.props?.class}`], // TODO: repeated here and in BaseNavbar, extract it to an util function? Also, it's adding undefined as a class
           onClick: () => actualActiveItem.value = itemId,
         },
         { default: () => itemProps.text }
