@@ -1,65 +1,80 @@
 <template>
-<nav 
-  :class="`navbar is-${color}`" 
-  role="navigation" 
-  aria-label="main navigation"
-  >
+<render></render>
+</template>
+
+<script setup lang="tsx">
+// TODO: mobile menu
+// TODO: dropdown
+// TODO: colors
+// TODO: Test it, but I can't because of https://github.com/vuejs/vue-cli/issues/6911
+import { useSlots, h, VNode, toRef, } from 'vue';
+import NavbarItem, { NavbarItemProps } from './NavbarItem.vue';
+import classnames from "classnames";
+import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
+import partial from "lodash/partial";
+import { unwrapFragment } from '@/util/unwrap-fragment';
+
+const props = defineProps<{
+  activeItem?: string;
+}>();
+
+const emit = defineEmits<{
+  (event: "update:activeItem", itemId?: string): void;
+}>();
+
+const actualActiveItem = useOptionalTwoWayBinding(undefined, toRef(props, "activeItem"), partial(emit, "update:activeItem"));
+
+function renderNode(node: VNode): VNode {
+  if (node.type === NavbarItem) {
+    const itemProps = node.props as NavbarItemProps;
+    const itemId = itemProps.itemId ?? itemProps.title;
+    // HACK: Why this compilation error? I've checked the overloads
+    // and it definitely exists.
+    // eslint-disable-next-line
+    // @ts-ignore
+    return h(itemProps.tag ?? 'a',
+      { ...itemProps,
+        class: classnames({
+          "navbar-item": true,
+          "is-active": actualActiveItem.value === itemId,
+        }) + [ ` ${node.props?.class}` ],
+        onClick: () => actualActiveItem.value = itemId,
+      },
+      itemProps.title
+    )
+  }
+  throw new Error("Children of a BaseNavbar must be NavbarItems");
+}
+
+const slots = useSlots();
+const render = () => 
+<nav class="navbar" role="navigation" aria-label="navigation">
   <div class="navbar-brand">
-    <slot name="brandItems"></slot>
+    { slots.brand && unwrapFragment(slots.brand()).map(renderNode) }
     <a 
-      role="button" 
+      role="button"
       class="navbar-burger"
-      :class="{ 'is-active': showMobile }"
       aria-label="menu"
       aria-expanded="false"
-      @click="showMobile = true"
     >
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
   </div>
-  <div 
-    class="navbar-menu"
-    :class="{ 'is-active': showMobile }"
-  >
-  <div v-if="$slots.start"
-    class="navbar-start"
-  >
-    <slot name="start"></slot>
-  </div>
-  <div v-if="$slots.end"
-    class="navbar-end"
-  >
-    <slot name="end"></slot>
-  </div>
+  
+  <div class="navbar-menu">
+    { slots.start &&
+      <div class="navbar-start">
+        { (unwrapFragment(slots.start())).map(renderNode) }
+      </div>
+    }
+    {
+      slots.end &&
+      <div class="navbar-end">
+        { unwrapFragment(slots.end()).map(renderNode) }
+      </div>
+    }
   </div>
 </nav>
-</template>
-
-<script setup lang="ts">
-import { ref, toRef } from 'vue';
-import { BulmaColor } from '@/types/bulma-color';
-import { provideAccessors } from '@/composables/injected-accessors';
-import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
-import { useCloseOnClickOutside } from '@/composables/close-on-click-outside';
-import partial from 'lodash/partial';
-
-const props = withDefaults(defineProps<{
-  active?: string;
-  color?: BulmaColor;
-}>(), {
-  color: "white",
-});
-
-const emit = defineEmits<{
-  (event: "update:active", id?: string): void;
-}>();
-
-const showMobile = ref(false);
-useCloseOnClickOutside(showMobile);
-
-const actualActive = useOptionalTwoWayBinding<string | undefined>(undefined, toRef(props, "active"), partial(emit, 'update:active'));
-
-provideAccessors('ActiveNavbarItem', actualActive);
 </script>

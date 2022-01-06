@@ -7,3 +7,4 @@
 * Alignment for those components that allow it?
 * Remove as many warnings as I can
 * Fix the display of the navbar example
+* I have to stop using `title` as a prop because it produces a popover :(

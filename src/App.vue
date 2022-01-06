@@ -1,18 +1,21 @@
 <template>
-<base-navbar class="is-fixed-top" :active="router.currentRoute.value.name?.toString()">
-  <template #brandItems>
-    <base-navbar-item itemId="Vuelma">
-      <router-link to="/" class="has-text-weight-bold is-size-4">Vuelma</router-link>
-    </base-navbar-item>
+<base-navbar class="is-fixed-top" :activeItem="router.currentRoute.value.name?.toString()">
+  <template #brand>
+    <navbar-item 
+      :tag="RouterLink"
+      :to="'/'"
+      class="has-text-weight-bold is-size-4"
+      title="Vuelma"
+      />
   </template>
   <template #end>
-  <base-navbar-item
+  <navbar-item
+    :tag="RouterLink"
     v-for="[path, name] in routes()"
-    :itemId="name"
+    :title="name"
     :key="path"
-  >
-    <router-link :to="path">{{ name }}</router-link>
-  </base-navbar-item>
+    :to="path"
+  />
   </template>
 </base-navbar>
 <main class="container mt-3">
@@ -21,9 +24,9 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
+import { useRouter, RouterLink } from 'vue-router';
 import BaseNavbar from '@/components/navbar/BaseNavbar.vue';
-import BaseNavbarItem from '@/components/navbar/BaseNavbarItem.vue';
+import NavbarItem from '@/components/navbar/NavbarItem.vue';
 
 const router = useRouter();
 
