@@ -17,7 +17,7 @@ export function unwrapFragment(node: VNode[]): VNode[] {
       // Probably the worst stuff I've done in my lifetime
       if (!Array.isArray(singleRootElement.children))
         throw new Error(errorMessage);
-      if ((singleRootElement.children as VNodeArrayChildren).some(el => !('type' in (el as any)))) {
+      if ((singleRootElement.children as VNodeArrayChildren).some(el => !('type' in (el as any)))) { // TODO: As a type assertion?
         throw new Error(errorMessage);
       }
       return unwrapFragment(singleRootElement.children as VNode[]);
