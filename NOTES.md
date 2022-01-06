@@ -7,6 +7,7 @@
   * Might use a scoped slot, receiving all the elements and passing the ones corresponding to this page by the slot attributes.
 * **BaseCard**
 * **BaseTabs**
+* **BaseNavigation**: I'd also test it
 
 ## Known issues
 * The Vue compiler goes crazy every time I use more than one two-way binding (as in `BaseDropdown`). I just disable it and go with my life because it works and the error message is absolutely nonsensical.
