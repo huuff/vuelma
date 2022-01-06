@@ -32,6 +32,20 @@
         <dropdown-item text="Second"/>
         <dropdown-item text="Third"/>
       </base-dropdown>
+
+      <br/>
+      <hr/>
+
+      <base-dropdown v-for="color in colorArray"
+        :triggerText="`Dropdown ${color}`"
+        :key="`Dropdown ${color}`"
+        :color="color"
+        class="mr-2 mb-2"
+      >
+        <dropdown-item text="First"/>
+        <dropdown-item text="Second"/>
+        <dropdown-item text="Third"/>
+      </base-dropdown>
     </div>
   </div>
 </div>
@@ -43,4 +57,5 @@ import DropdownItem from '@/components/dropdown/DropdownItem.vue';
 import DropdownDivider from '@/components/dropdown/DropdownDivider.vue';
 import SelectorDropdown from '@/components/dropdown/SelectorDropdown.vue';
 import { alignmentArray } from '@/types/alignment';
+import { colorArray } from '@/types/bulma-color';
 </script>

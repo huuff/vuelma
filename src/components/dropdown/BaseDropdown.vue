@@ -3,6 +3,9 @@
   <div class="dropdown-trigger">
     <button v-if="triggerText"
       class="button"
+      :class="{
+        [`is-${color}`]: color
+      }"
       aria-haspopup="true"
       :aria-controls="id"
       @click="actualOpen = !actualOpen"
@@ -28,7 +31,6 @@
 
 <script setup lang="tsx">
 // TODO: Test it, but I can't because of https://github.com/vuejs/vue-cli/issues/6911
-// TODO: Colors
 import { useSlots, toRef, computed, } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { useCloseOnClickOutside } from '@/composables/close-on-click-outside';
@@ -47,6 +49,7 @@ library.add(faAngleUp);
 import { Alignment } from '@/types/alignment';
 import { unwrapFragment } from '@/util/unwrap-fragment';
 import { DropdownItemData } from './dropdown-item-data';
+import {BulmaColor} from '@/types/bulma-color';
 
 // Just to have specific aria-controls
 const id = Math.random().toString();
@@ -60,6 +63,7 @@ const props = withDefaults(defineProps<{
   direction?: DropdownDirection;
   alignment?: Alignment;
   hoverable?: boolean;
+  color?: BulmaColor
 }>(), {
   open: undefined,
   direction: "down",
