@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="tsx">
-import { useSlots, computed, toRef, cloneVNode } from 'vue';
+import { useSlots, computed, toRef, cloneVNode, h } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import CardModal from './CardModal.vue';
 import partial from "lodash/partial";
@@ -73,6 +73,6 @@ const render = () => {
       ":closeable": toRef(props, "closeable")
     });
   else
-    return <div class="modal-content"> { slots.default && slots.default() } </div>
+    return h("div", { class: "modal-content" }, slots.default && slots.default())
 }
 </script>

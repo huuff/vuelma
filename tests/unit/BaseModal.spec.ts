@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils';
-import BaseModal from '@/components/BaseModal.vue';
+import BaseModal from '@/components/modal/BaseModal.vue';
+import CardModal from '@/components/modal/CardModal.vue';
 
 const DEFAULT_TEST_CONTENT = "Test content";
 
@@ -73,10 +74,16 @@ describe('BaseModal.vue', () => {
       const wrapper = mount(BaseModal, {
         props: { 
           show: true,
-          cardTitle,
+        },
+        global: {
+          components: {
+            "card-modal": CardModal,
+          },
         },
         slots: {
-          cardBody: "Test card body",
+          default: `
+            <card-modal title="${cardTitle}" />
+          `
         }
       });
 
@@ -89,8 +96,15 @@ describe('BaseModal.vue', () => {
           show: true,
           closeable: true,
         },
+        global: {
+          components: {
+            "card-modal": CardModal,
+          },
+        },
         slots: {
-          cardBody: "Test card body",
+          default: `
+            <card-modal>Test modal</card-modal> 
+          `
         }
       });
 
@@ -106,16 +120,5 @@ describe('BaseModal.vue', () => {
       });
     });
 
-    test("can't be a card and normal modal at the same time", () => {
-      expect(() =>  mount(BaseModal, {
-        props: {
-          show: true,
-        },
-        slots: {
-          cardBody: "Test card body",
-          default: "Test default content",
-        }
-      })).toThrow();
-    });
   });
 });
