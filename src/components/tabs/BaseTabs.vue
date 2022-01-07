@@ -3,13 +3,12 @@
 </template>
 
 <script setup lang="tsx">
-import { useSlots, VNode, toRef } from 'vue';
+import { useSlots, toRef } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
-import { FontAwesomeIconName } from '@/types/fontawesome-icon-name';
 import { iconAsRender } from '@/util/fontawesome-icon-render';
+import { Tab } from './tab';
 import BaseTab from './BaseTab.vue';
 import partial from "lodash/partial";
-import classnames from "classnames";
 
 const props = defineProps<{
   activeTabId?: string;
@@ -20,37 +19,6 @@ const emit = defineEmits<{
 }>();
 
 const actualActiveTabId = useOptionalTwoWayBinding(undefined, toRef(props, "activeTabId"), partial(emit, "update:activeTabId"));
-
-// TODO: This in another file?
-class Tab {
-  public readonly tabId: string;
-
-  constructor(
-    public readonly titleText: string,
-    public readonly icon: FontAwesomeIconName | undefined,
-    public readonly slot: VNode,
-    tabId?: string,
-  ) {
-    this.tabId = tabId ?? titleText;
-  }
-
-  public getClasses(): string[] {
-      console.log(`This id: ${this.tabId}, Current: ${actualActiveTabId.value}`)
-    if (this.tabId === actualActiveTabId.value) {
-      return ["is-active"]; 
-    } else {
-      return []
-    }
-  }
-
-  public setActive(): void {
-    actualActiveTabId.value = this.tabId;
-  }
-
-  public hasIcon(): boolean {
-    return this.icon !== undefined;
-  }
-}
 
 const slots = useSlots();
 
@@ -67,6 +35,7 @@ function slotToTabs(): Tab[] {
     child.props!.titleText,
     child.props!.icon,
     child,
+    actualActiveTabId,
     child.props!.tabId,
   ));
 }
@@ -76,6 +45,7 @@ const render = () => {
 
   const activeTab = tabs.find(tab => tab.tabId === actualActiveTabId.value);
 
+// TODO: As much of this as I can in template?
   return [
     <div class="tabs">
       <ul>
