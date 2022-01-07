@@ -17,6 +17,7 @@ import PanelTab, { PanelTabProps } from './PanelTab.vue';
 import PanelTabs from './PanelTabs.vue';
 import { getId } from '@/util/optional-id';
 import { iconAsRender } from "@/util/fontawesome-icon-render";
+import { BulmaColor } from '@/types/bulma-color';
 import partial from "lodash/partial";
 import classnames from "classnames";
 
@@ -24,6 +25,7 @@ const props = defineProps<{
   headingText?: string;
   activeItemId?: string;
   activeTabId?: string;
+  color?: BulmaColor;
 }>();
 
 const emit = defineEmits<{
@@ -66,7 +68,8 @@ function renderTabContents(node: VNode | undefined): VNode[] {
     return [];
 
   const tabSlot = (node.children as Slots).default;
-  const items = tabSlot && tabSlot();
+  const items = tabSlot && unwrapFragment(tabSlot());
+
 
   if (!Array.isArray(items) || items.some(el => el.type !== PanelBlock)) {
     throw new Error("The children of a PanelTab must be PanelBlocks!");
