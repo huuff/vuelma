@@ -8,6 +8,7 @@
 </template>
 
 <script setup lang="tsx">
+// TODO: Add other variants
 import { useSlots, toRef } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { iconAsRender } from '@/util/fontawesome-icon-render';
