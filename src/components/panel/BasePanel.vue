@@ -8,14 +8,13 @@
 </template>
 
 <script setup lang="tsx">
-// TODO: Label blocks
 import { useSlots, toRef, VNode, Slots, h } from "vue";
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { unwrapFragment } from "@/util/unwrap-fragment";
 import PanelBlock, { PanelBlockProps } from './PanelBlock.vue';
 import PanelTab, { PanelTabProps } from './PanelTab.vue';
 import PanelTabs from './PanelTabs.vue';
-import PanelBlockContent from './PanelBlockContent.vue';
+import PanelBlockContent, { PanelBlockContentProps } from './PanelBlockContent.vue';
 import { getId } from '@/util/optional-id';
 import { iconAsRender } from "@/util/fontawesome-icon-render";
 import { BulmaColor } from '@/types/bulma-color';
@@ -69,13 +68,16 @@ function renderBlockItem(node: VNode): VNode {
 
 function renderBlockContent(node: VNode): VNode {
   const contentSlot = (node.children as Slots).default;
+  const blockProps = (node.props ?? {}) as PanelBlockContentProps;
 
-  return (
-    <div { ...{props: node.props}}
-      class={classnames("panel-block", node.props?.class)}
-    > { contentSlot && contentSlot() }
-    </div>
-    )
+  return h(blockProps.tag ?? "div",
+    { ...node.props,
+      class: classnames("panel-block", node.props?.class)
+    },
+    {
+      default: () => contentSlot && contentSlot(),
+    }
+  )
 }
 
 function renderBlock(node: VNode): VNode {

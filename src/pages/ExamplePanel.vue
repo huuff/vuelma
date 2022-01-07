@@ -1,6 +1,5 @@
 <template>
 <div class="column is-5 mx-auto">
-<!--
   <base-panel headingText="Panel with tabs" v-model:activeTabId="activeTab">
     <panel-tabs>
       <panel-tab titleText="Tab 1">
@@ -67,7 +66,6 @@
   </base-panel>
 
   <hr class="my-5" />
--->
   <base-panel headingText="Repositories" activeTabId="All">
     <panel-block-content>
       <p class="control has-icons-left">
@@ -83,7 +81,20 @@
         <panel-block titleText="marksheet" icon="book" />
         <panel-block titleText="minireset.css" icon="book" />
         <panel-block titleText="jgthms.github.com" icon="book" />
+        <panel-block-content tag="label">
+          <input type="checkbox">
+          remember me
+        </panel-block-content>
+        <panel-block-content>
+          <button class="button is-link is-outlined is-fullwidth">
+            Reset all filters
+          </button>
+        </panel-block-content>
       </panel-tab>
+      <panel-tab titleText="Public" />
+      <panel-tab titleText="Private" />
+      <panel-tab titleText="Sources" />
+      <panel-tab titleText="Forks" />
     </panel-tabs>
   </base-panel>
 </div>
