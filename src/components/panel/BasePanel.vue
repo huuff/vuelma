@@ -15,6 +15,7 @@ import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding
 import { unwrapFragment } from "@/util/unwrap-fragment";
 import PanelBlock, { PanelBlockProps } from './PanelBlock.vue';
 import { getId } from '@/util/optional-id';
+import { iconAsRender } from "@/util/fontawesome-icon-render";
 import partial from "lodash/partial";
 import classnames from "classnames";
 
@@ -47,7 +48,13 @@ function renderBlock(node: VNode): VNode {
               "is-active": id === actualActiveItemId.value,
             })}
             onClick={() => actualActiveItemId.value = id}
-        > { blockProps.titleText }
+        > 
+          { 
+            blockProps.icon
+            ? iconAsRender(blockProps.icon, [ "panel-icon" ] )
+            : undefined
+          }
+          <span> { blockProps.titleText } </span>
         </a>
             
 }
