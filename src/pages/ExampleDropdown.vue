@@ -3,23 +3,23 @@
   <div class="hero-body">
     <div class="mx-auto">
       <base-dropdown triggerText="Click here" class="mr-2">
-        <dropdown-item text="First"/>
+        <dropdown-item titleText="First"/>
         <p>You can insert <strong>any type of content</strong> within the dropdown menu.</p>
-        <dropdown-item text="Third"/>
+        <dropdown-item titleText="Third"/>
         <dropdown-divider />
-        <dropdown-item text="Fourth"/>
+        <dropdown-item titleText="Fourth"/>
       </base-dropdown>
 
       <selector-dropdown triggerText="Select one" class="mr-2">
-        <dropdown-item text="First"/>
-        <dropdown-item text="Second"/>
-        <dropdown-item text="Third"/>
+        <dropdown-item titleText="First"/>
+        <dropdown-item titleText="Second"/>
+        <dropdown-item titleText="Third"/>
       </selector-dropdown>
 
       <base-dropdown triggerText="This one opens up" direction="up" class="mr-5" hoverable>
-        <dropdown-item text="First"/>
-        <dropdown-item text="Second"/>
-        <dropdown-item text="Third"/>
+        <dropdown-item titleText="First"/>
+        <dropdown-item titleText="Second"/>
+        <dropdown-item titleText="Third"/>
       </base-dropdown>
 
       <base-dropdown v-for="alignment in alignmentArray"
@@ -28,9 +28,9 @@
         :key="alignment"
         class="mr-2"
       >
-        <dropdown-item text="First"/>
-        <dropdown-item text="Second"/>
-        <dropdown-item text="Third"/>
+        <dropdown-item titleText="First"/>
+        <dropdown-item titleText="Second"/>
+        <dropdown-item titleText="Third"/>
       </base-dropdown>
 
       <br/>
@@ -42,9 +42,9 @@
         :color="color"
         class="mr-2 mb-2"
       >
-        <dropdown-item text="First"/>
-        <dropdown-item text="Second"/>
-        <dropdown-item text="Third"/>
+        <dropdown-item titleText="First"/>
+        <dropdown-item titleText="Second"/>
+        <dropdown-item titleText="Third"/>
       </base-dropdown>
     </div>
   </div>

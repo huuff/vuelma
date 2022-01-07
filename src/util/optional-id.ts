@@ -1,8 +1,8 @@
 export interface OptionalId {
-  text: string;
+  titleText: string;
   itemId?: string;
 }
 
 export function getId(obj: OptionalId): string {
-  return obj.itemId ?? obj.text;
+  return obj.itemId ?? obj.titleText;
 }

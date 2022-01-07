@@ -8,10 +8,10 @@ import { OptionalId } from '@/util/optional-id';
 
 export interface NavbarItemProps extends OptionalId {
   tag?: string | Component;
-  text: string;
+  titleText: string;
   itemId?: string;
 }
 
-const props =defineProps<NavbarItemProps>();
+const props = defineProps<NavbarItemProps>();
 
 </script>

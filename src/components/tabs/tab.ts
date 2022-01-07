@@ -15,7 +15,6 @@ export class Tab {
   }
 
   public getClasses(): string[] {
-      console.log(`This id: ${this.tabId}, Current: ${this.activeTabId.value}`)
     if (this.tabId === this.activeTabId.value) {
       return ["is-active"]; 
     } else {

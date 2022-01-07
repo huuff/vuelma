@@ -21,6 +21,6 @@ export function renderNavbarItem(
         }, node.props?.class),
         onClick: () => activeItem.value = getId(item),
       },
-      { default: () => item.text }
+      { default: () => item.titleText }
     );
 }

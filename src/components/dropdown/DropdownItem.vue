@@ -6,7 +6,7 @@
 import { OptionalId } from '@/util/optional-id';
 
 export interface DropdownItemProps extends OptionalId {
-  text: string;
+  titleText: string;
   itemId?: string;
 }
 

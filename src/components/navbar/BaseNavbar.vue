@@ -42,7 +42,6 @@
 // TODO: Test it, but I can't because of https://github.com/vuejs/vue-cli/issues/6911
 import { useSlots, VNode, toRef, cloneVNode } from 'vue';
 import NavbarItem, { NavbarItemProps } from './NavbarItem.vue';
-import classnames from "classnames";
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import partial from "lodash/partial";
 import { unwrapFragment } from '@/util/unwrap-fragment';

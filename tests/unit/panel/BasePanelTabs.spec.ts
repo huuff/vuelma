@@ -47,9 +47,7 @@ describe('BasePanelTabs.vue', () => {
   });
 
   test.skip("slots are shown as tabs", () => {
-    console.log(wrapper.html());
     const tabWrappers = wrapper.findAll('p');
-    console.log(JSON.stringify(tabWrappers));
 
     expect(tabWrappers[0].text()).toBe(firstBlockId);
     expect(tabWrappers[1].text()).toBe(secondBlockId);
