@@ -10,8 +10,8 @@ export class DropdownItemData {
   public readonly text: string;
 
   constructor(props: DropdownItemProps, private readonly activeItemId: WritableComputedRef<string | undefined>) {
-    this.text = props.text;
-    this.itemId = props.itemId ?? props.text;
+    this.text = props.titleText;
+    this.itemId = props.itemId ?? props.titleText;
   }
 
   isActive(): boolean {
