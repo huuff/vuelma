@@ -7,7 +7,6 @@
 
 <script setup lang="tsx">
 // TODO: Tabs
-// TODO: Icons
 // TODO: Content blocks
 // TODO: Label blocks
 import { useSlots, toRef, VNode } from "vue";
