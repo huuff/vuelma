@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="tsx">
-import { useSlots, toRef, VNode, Slots, h } from "vue";
+import { useSlots, toRef, VNode, Slots, h, onUpdated } from "vue";
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { unwrapFragment } from "@/util/unwrap-fragment";
 import PanelBlock, { PanelBlockProps } from './PanelBlock.vue';
@@ -33,7 +33,6 @@ const emit = defineEmits<{
   (event: "update:activeTabId", tabId?: string): void;
 }>();
 
-// TODO: Shouldn't the activeTab id be on PanelTabs?
 // eslint-disable-next-line
 // @ts-ignore
 const actualActiveItemId = useOptionalTwoWayBinding(undefined, toRef(props, "activeItemId"), partial(emit, "update:activeItemId"));
@@ -138,5 +137,10 @@ const renderContent = () => slots.default && unwrapFragment(slots.default()).map
     return renderTabs(node);
   else
     return renderBlock(node);
+});
+
+onUpdated(() => {
+  if (slots.default && unwrapFragment(slots.default()).filter(node => node.type === PanelTabs).length > 1)
+    throw new Error("A BasePanel can only have a maximum of 1 PanelTabs!")
 });
 </script>
