@@ -10,7 +10,7 @@
 <script setup lang="tsx">
 // TODO: Content blocks
 // TODO: Label blocks
-import { useSlots, toRef, VNode, Slots } from "vue";
+import { useSlots, toRef, VNode, Slots, h } from "vue";
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { unwrapFragment } from "@/util/unwrap-fragment";
 import PanelBlock, { PanelBlockProps } from './PanelBlock.vue';
@@ -46,22 +46,23 @@ function renderBlock(node: VNode): VNode {
   const blockProps = node.props as PanelBlockProps;
   const id = getId(blockProps);
 
-  // TODO: Custom tag! as in NavbarItem
-  return <a
-            class={classnames({
-              "panel-block": true,
-              "is-active": id === actualActiveItemId.value,
-            })}
-            onClick={() => actualActiveItemId.value = id}
-        > 
-          { 
-            blockProps.icon
-            ? iconAsRender(blockProps.icon, [ "panel-icon" ] )
-            : undefined
-          }
-          <span> { blockProps.titleText } </span>
-        </a>
-            
+  return h(blockProps.tag ?? "a",
+    { ...blockProps,
+      class: classnames({
+        "panel-block": true,
+        "is-active": id == actualActiveItemId.value
+      }, node.props?.class),
+      onClick: () => actualActiveItemId.value = id,
+    },
+    {
+      default: () => [
+        blockProps.icon
+        ? iconAsRender(blockProps.icon, [ "panel-icon" ])
+        : undefined,
+        h("span", {}, blockProps.titleText),
+      ],
+    }
+  ) 
 }
 
 function renderTabContents(node: VNode | undefined): VNode[] {

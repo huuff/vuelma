@@ -10,6 +10,7 @@ export interface PanelBlockProps extends OptionalId {
   titleText: string;
   itemId?: string;
   icon?: FontAwesomeIconName;
+  tag?: string;
 }
 
 const props = defineProps<PanelBlockProps>();
