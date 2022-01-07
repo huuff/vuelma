@@ -5,14 +5,14 @@
       :tag="RouterLink"
       :to="'/'"
       class="has-text-weight-bold is-size-4"
-      text="Vuelma"
+      titleText="Vuelma"
       />
   </template>
   <template #end>
   <navbar-item
     :tag="RouterLink"
     v-for="[path, name] in routes()"
-    :text="name"
+    :titleText="name"
     :key="path"
     :to="path"
   />
