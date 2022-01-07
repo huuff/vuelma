@@ -39,7 +39,6 @@
 
 <script setup lang="tsx">
 // TODO: other variants
-// TODO: Test it, but I can't because of https://github.com/vuejs/vue-cli/issues/6911
 import { useSlots, VNode, toRef, cloneVNode } from 'vue';
 import NavbarItem, { NavbarItemProps } from './NavbarItem.vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
