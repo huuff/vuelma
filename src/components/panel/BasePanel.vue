@@ -43,6 +43,7 @@ function renderBlock(node: VNode): VNode {
   const blockProps = node.props as PanelBlockProps;
   const id = getId(blockProps);
 
+  // TODO: Custom tag! as in NavbarItem
   return <a
             class={classnames({
               "panel-block": true,
