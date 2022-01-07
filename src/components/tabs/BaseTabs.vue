@@ -1,5 +1,10 @@
 <template>
-<render></render>
+<div class="tabs">
+  <ul>
+    <tab-titles/>
+  </ul>
+</div>
+<active-tab />
 </template>
 
 <script setup lang="tsx">
@@ -40,32 +45,23 @@ function slotToTabs(): Tab[] {
   ));
 }
 
-const render = () => {
+const tabTitles = () => {
   const tabs = slotToTabs();
+  return tabs.map(tab => 
+    <li class={tab.getClasses()}>
+      <a onClick={() => tab.setActive()}>
+        <span > {
+          !tab.hasIcon()
+          ? tab.titleText
+          : [
+            iconAsRender(tab.icon!, [ "is-small" ]),
+            <span> { tab.titleText } </span>
+          ]
+        } </span>
+      </a>
+    </li>
+  )
+}
 
-  const activeTab = tabs.find(tab => tab.tabId === actualActiveTabId.value);
-
-// TODO: As much of this as I can in template?
-  return [
-    <div class="tabs">
-      <ul>
-        { tabs.map(tab => 
-          <li class={tab.getClasses()}>
-            <a onClick={() => tab.setActive()}>
-              <span > {
-                !tab.hasIcon()
-                ? tab.titleText
-                : [
-                  iconAsRender(tab.icon!, [ "is-small" ]),
-                  <span> { tab.titleText } </span>
-                ]
-              } </span>
-            </a>
-          </li>
-        ) }
-      </ul>
-    </div>,
-    activeTab?.slot
-  ];
-};
+const activeTab = () => slotToTabs().find(tab => tab.tabId === actualActiveTabId.value)?.slot;
 </script>
