@@ -9,7 +9,7 @@ import { FontAwesomeIconName } from '@/types/fontawesome-icon-name';
 import { iconAsRender } from '@/util/fontawesome-icon-render';
 import BaseTab from './BaseTab.vue';
 import partial from "lodash/partial";
-
+import classnames from "classnames";
 
 const props = defineProps<{
   activeTabId?: string;
@@ -21,23 +21,25 @@ const emit = defineEmits<{
 
 const actualActiveTabId = useOptionalTwoWayBinding(undefined, toRef(props, "activeTabId"), partial(emit, "update:activeTabId"));
 
+// TODO: This in another file?
 class Tab {
   public readonly tabId: string;
 
   constructor(
     public readonly titleText: string,
     public readonly icon: FontAwesomeIconName | undefined,
-    public readonly slot: VNode<any, any, any>,
+    public readonly slot: VNode,
     tabId?: string,
   ) {
     this.tabId = tabId ?? titleText;
   }
 
-  public getClasses(): { class: string } | Record<string, never> {
+  public getClasses(): string[] {
+      console.log(`This id: ${this.tabId}, Current: ${actualActiveTabId.value}`)
     if (this.tabId === actualActiveTabId.value) {
-      return { class: "is-active"}; 
+      return ["is-active"]; 
     } else {
-      return {}
+      return []
     }
   }
 
@@ -78,9 +80,9 @@ const render = () => {
     <div class="tabs">
       <ul>
         { tabs.map(tab => 
-          <li class={tab.getClasses}>
+          <li class={tab.getClasses()}>
             <a onClick={() => tab.setActive()}>
-              <span> {
+              <span > {
                 !tab.hasIcon()
                 ? tab.titleText
                 : [
