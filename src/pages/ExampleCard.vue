@@ -1,16 +1,22 @@
 <template>
-  <div class="column is-3 is-3-desktop">
-    <base-card :titleText="'Title'" :icon="'angle-down'">
-      <template #default>
-        Content text
-      </template>
-      <template #footerItems>
-        <a href="#">item1</a>
-        <a href="#">item2</a>
-        <a href="#">item3</a>
-      </template>
-    </base-card>
+<main class="container">
+  <div class="hero is-fullheight">
+    <div class="hero-body">
+      <div class="column is-3-desktop mx-auto">
+        <base-card :titleText="'Title'" :icon="'angle-down'">
+          <template #default>
+            Content text
+          </template>
+          <template #footerItems>
+            <a href="#">item1</a>
+            <a href="#">item2</a>
+            <a href="#">item3</a>
+          </template>
+        </base-card>
+      </div>
+    </div>
   </div>
+</main>
 </template>
 
 <script setup lang="ts">
