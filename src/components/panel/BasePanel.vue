@@ -8,7 +8,6 @@
 </template>
 
 <script setup lang="tsx">
-// TODO: Content blocks
 // TODO: Label blocks
 import { useSlots, toRef, VNode, Slots, h } from "vue";
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
@@ -16,6 +15,7 @@ import { unwrapFragment } from "@/util/unwrap-fragment";
 import PanelBlock, { PanelBlockProps } from './PanelBlock.vue';
 import PanelTab, { PanelTabProps } from './PanelTab.vue';
 import PanelTabs from './PanelTabs.vue';
+import PanelBlockContent from './PanelBlockContent.vue';
 import { getId } from '@/util/optional-id';
 import { iconAsRender } from "@/util/fontawesome-icon-render";
 import { BulmaColor } from '@/types/bulma-color';
@@ -42,7 +42,8 @@ const actualActiveItemId = useOptionalTwoWayBinding(undefined, toRef(props, "act
 // @ts-ignore
 const actualActiveTabId = useOptionalTwoWayBinding(undefined, toRef(props, "activeTabId"), partial(emit, "update:activeTabId"));
 
-function renderBlock(node: VNode): VNode {
+// Normal block, just an anchor
+function renderBlockItem(node: VNode): VNode {
   const blockProps = node.props as PanelBlockProps;
   const id = getId(blockProps);
 
@@ -65,6 +66,27 @@ function renderBlock(node: VNode): VNode {
   ) 
 }
 
+function renderBlockContent(node: VNode): VNode {
+  const contentSlot = (node.children as Slots).default;
+
+  return (
+    <div { ...{props: node.props}}
+      class={classnames("panel-block", node.props?.class)}
+    > { contentSlot && contentSlot() }
+    </div>
+    )
+}
+
+function renderBlock(node: VNode): VNode {
+  if (node.type === PanelBlock)
+    return renderBlockItem(node);
+  else if (node.type === PanelBlockContent)
+    return renderBlockContent(node);
+  else {
+    throw new Error("The child of a PanelTab or a free child of a BasePanel must be a PanelBlock or a PanelBlockContent!");
+  }
+}
+
 function renderTabContents(node: VNode | undefined): VNode[] {
   if (!node)
     return [];
@@ -73,14 +95,17 @@ function renderTabContents(node: VNode | undefined): VNode[] {
   const items = tabSlot && unwrapFragment(tabSlot());
 
 
-  if (!Array.isArray(items) || items.some(el => el.type !== PanelBlock)) {
-    throw new Error("The children of a PanelTab must be PanelBlocks!");
+  if (!Array.isArray(items)) {
+    throw new Error("The children of a PanelTab must be PanelBlocks or PanelBlockContents!");
   }
 
   return items.map(renderBlock);
 }
 
 function renderTabs(node: VNode): VNode[] {
+  if (!node.children) {
+    return [];
+  }
   const tabsSlot = (node.children as Slots).default;
   const items = tabsSlot && tabsSlot(); 
   
@@ -108,9 +133,9 @@ function renderTabs(node: VNode): VNode[] {
 const slots = useSlots();
 
 const renderContent = () => slots.default && unwrapFragment(slots.default()).map(node => {
-  if (node.type === PanelBlock) 
-    return renderBlock(node);
-  else if (node.type === PanelTabs)
+  if (node.type === PanelTabs)
     return renderTabs(node);
+  else
+    return renderBlock(node);
 });
 </script>
