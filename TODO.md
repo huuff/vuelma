@@ -10,3 +10,4 @@
 * Test `BaseMenu`
 * Test `BaseDropdown`
 * Test `BasePanel`
+* Test `BaseTabs`
