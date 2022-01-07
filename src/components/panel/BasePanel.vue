@@ -6,13 +6,15 @@
 </template>
 
 <script setup lang="tsx">
-// TODO: Tabs
 // TODO: Content blocks
 // TODO: Label blocks
-import { useSlots, toRef, VNode } from "vue";
+// TODO: Colors
+import { useSlots, toRef, VNode, Slots } from "vue";
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { unwrapFragment } from "@/util/unwrap-fragment";
 import PanelBlock, { PanelBlockProps } from './PanelBlock.vue';
+import PanelTab, { PanelTabProps } from './PanelTab.vue';
+import PanelTabs from './PanelTabs.vue';
 import { getId } from '@/util/optional-id';
 import { iconAsRender } from "@/util/fontawesome-icon-render";
 import partial from "lodash/partial";
@@ -58,10 +60,51 @@ function renderBlock(node: VNode): VNode {
             
 }
 
+function renderTabContents(node: VNode | undefined): VNode[] {
+  if (!node)
+    return [];
+
+  const tabSlot = (node.children as Slots).default;
+  const items = tabSlot && tabSlot();
+
+  if (!Array.isArray(items) || items.some(el => el.type !== PanelBlock)) {
+    throw new Error("The children of a PanelTab must be PanelBlocks!");
+  }
+
+  return items.map(renderBlock);
+}
+
+function renderTabs(node: VNode): VNode[] {
+  const tabsSlot = (node.children as Slots).default;
+  const items = tabsSlot && tabsSlot(); 
+  
+  if (!Array.isArray(items) || items.some(el => el.type !== PanelTab)) {
+    throw new Error("The children of `PanelTabs` must be `PanelTab`!");
+  }
+
+  const itemsProps = items.map(item => item.props as PanelTabProps);
+  const activeTab = items.find(item => getId(item.props as PanelTabProps) === actualActiveTabId.value);
+
+  return [
+    <p class="panel-tabs">
+      { itemsProps.map(item => 
+        <a
+          class={classnames({"is-active": getId(item) === actualActiveTabId.value})}
+          onClick={() => actualActiveTabId.value = getId(item)}
+        > { item.titleText } </a>
+      )} 
+    </p>,
+    ...renderTabContents(activeTab),    
+  ];
+}
+
+
 const slots = useSlots();
 
 const renderContent = () => slots.default && unwrapFragment(slots.default()).map(node => {
   if (node.type === PanelBlock) 
     return renderBlock(node);
+  else if (node.type === PanelTabs)
+    return renderTabs(node);
 });
 </script>
