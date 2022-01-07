@@ -3,7 +3,6 @@
     'is-active': actualOpen,
     'has-dropdown-up': direction === 'up',
     'is-hoverable': hoverable,
-    'is-right': isRight,
   }">
   <a class="navbar-link" 
     :class="{ 'is-arrowless': arrowless }"
@@ -23,6 +22,7 @@ import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding
 import { useCloseOnClickOutside } from '@/composables/close-on-click-outside';
 import partial from "lodash/partial";
 import { renderNavbarItem } from './render-navbar-item';
+import classnames from 'classnames';
 
 const props = withDefaults(defineProps<{
   triggerText?: string;
@@ -64,7 +64,9 @@ function renderNode(node: VNode): VNode {
 
 const slot = useSlots();
 const render = () => 
-<div class="navbar-dropdown">
+<div 
+  class={classnames({ 'is-right': props.isRight}, 'navbar-dropdown')}
+  >
   { slot.default && slot.default().map(renderNode) }
 </div>
 

@@ -8,7 +8,7 @@
       :titleText="num"
       :key="num"
     />
-    <navbar-dropdown triggertitleText="Dropdown">
+    <navbar-dropdown triggerText="Dropdown">
       <dropdown-item titleText="First" />
       <dropdown-item titleText="Second" />
       <dropdown-divider />
@@ -22,6 +22,7 @@
   :key="`Navbar ${color}`"
   :color="color"
   class="mb-2"
+  style="z-index: 1;"
 >
   <template #brand>
     <navbar-item :titleText="`Navbar ${color}`" class="has-titleText-weight-bold is-size-5" />
