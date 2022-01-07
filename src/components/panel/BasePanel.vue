@@ -34,6 +34,7 @@ const emit = defineEmits<{
   (event: "update:activeTabId", tabId?: string): void;
 }>();
 
+// TODO: Shouldn't the activeTab id be on PanelTabs?
 // eslint-disable-next-line
 // @ts-ignore
 const actualActiveItemId = useOptionalTwoWayBinding(undefined, toRef(props, "activeItemId"), partial(emit, "update:activeItemId"));
@@ -129,9 +130,7 @@ function renderTabs(node: VNode): VNode[] {
   ];
 }
 
-
 const slots = useSlots();
-
 const renderContent = () => slots.default && unwrapFragment(slots.default()).map(node => {
   if (node.type === PanelTabs)
     return renderTabs(node);

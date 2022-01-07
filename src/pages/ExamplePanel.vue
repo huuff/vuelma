@@ -1,5 +1,6 @@
 <template>
 <div class="column is-5 mx-auto">
+<!--
   <base-panel headingText="Panel with tabs" v-model:activeTabId="activeTab">
     <panel-tabs>
       <panel-tab titleText="Tab 1">
@@ -66,8 +67,8 @@
   </base-panel>
 
   <hr class="my-5" />
-
-  <base-panel headingText="Repositories">
+-->
+  <base-panel headingText="Repositories" activeTabId="All">
     <panel-block-content>
       <p class="control has-icons-left">
         <input class="input" type="text" placeholder="Search">
@@ -77,7 +78,12 @@
       </p>
     </panel-block-content>
     <panel-tabs>
-
+      <panel-tab titleText="All">
+        <panel-block titleText="bulma" icon="book" />
+        <panel-block titleText="marksheet" icon="book" />
+        <panel-block titleText="minireset.css" icon="book" />
+        <panel-block titleText="jgthms.github.com" icon="book" />
+      </panel-tab>
     </panel-tabs>
   </base-panel>
 </div>
@@ -92,11 +98,12 @@ import PanelTab from "@/components/panel/PanelTab.vue";
 import PanelBlockContent from "@/components/panel/PanelBlockContent.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faChevronRight, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight, faSearch, faBook } from "@fortawesome/free-solid-svg-icons";
 import { colorArray } from "@/types/bulma-color";
 
 library.add(faChevronRight);
 library.add(faSearch);
+library.add(faBook);
 
 const activeTab = ref("Tab 1");
 
