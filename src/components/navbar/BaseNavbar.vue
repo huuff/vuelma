@@ -1,5 +1,40 @@
 <template>
-<render></render>
+<nav :class="{
+  'navbar': true,
+  [`is-${color}`]: color,
+}"
+  role="navigation"
+  aria-label="navigation"
+>
+  <div class="navbar-brand">
+    <render-items slotName="brand" />
+    <a 
+      role="button"
+      :class="{
+        'navbar-burger': true,
+        'is-active': actualMobileMenuOpen,
+      }"
+      aria-label="menu"
+      :aria-expanded="actualMobileMenuOpen"
+      @click="actualMobileMenuOpen = !actualMobileMenuOpen"
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div :class="{
+    'navbar-menu': true,
+    'is-active': actualMobileMenuOpen,
+  }">
+    <div class="navbar-start">
+      <render-items slotName="start" />
+    </div>
+    <div class="navbar-end">
+      <render-items slotName="end" />
+    </div>
+  </div>
+</nav>
 </template>
 
 <script setup lang="tsx">
@@ -49,54 +84,12 @@ function renderNode(node: VNode, isEnd = false): VNode {
 }
 
 const slots = useSlots();
-// TODO: Write most of it into the template and only the slots in the render?
-const render = () => 
-<nav 
-  class={classnames({
-    "navbar": true,
-    [`is-${props.color}`]: props.color,
-  })}
-  role="navigation" 
-  aria-label="navigation">
-  <div class="navbar-brand">
-    { slots.brand && unwrapFragment(slots.brand())
+type RenderProps = {
+  slotName: keyof typeof slots;
+}
+const renderItems = (props: RenderProps) => {
+  return slots[props.slotName] && unwrapFragment(slots[props.slotName]!())
     .flatMap(node => unwrapFragment([node]))
-    .map(node => renderNode(node)) }
-    <a 
-      role="button"
-      class={classnames({
-        "navbar-burger": true,
-        "is-active": actualMobileMenuOpen.value,
-      })}
-      aria-label="menu"
-      aria-expanded={ actualMobileMenuOpen.value ? "true" : "false"}
-      onClick={() => actualMobileMenuOpen.value = true}
-    >
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  
-  <div class={classnames({
-    "navbar-menu": true,
-    "is-active": actualMobileMenuOpen.value,
-  })}>
-    { slots.start &&
-      <div class="navbar-start">
-        { (unwrapFragment(slots.start()))
-        .flatMap(node => unwrapFragment([node]))
-        .map(node => renderNode(node)) }
-      </div>
-    }
-    {
-      slots.end &&
-      <div class="navbar-end">
-        { unwrapFragment(slots.end())
-        .flatMap(node => unwrapFragment([node]))
-        .map(node => renderNode(node, true)) }
-      </div>
-    }
-  </div>
-</nav>
+    .map(node => renderNode(node, props.slotName === 'end'));
+}
 </script>
