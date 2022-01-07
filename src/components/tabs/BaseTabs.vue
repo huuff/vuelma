@@ -1,5 +1,8 @@
 <template>
-<div class="tabs">
+<div class="tabs" :class="{
+  [`is-${tabStyle}`]: tabStyle,
+  [`is-${alignment}`]: alignment !== 'left',
+}">
   <ul>
     <tab-titles/>
   </ul>
@@ -8,17 +11,23 @@
 </template>
 
 <script setup lang="tsx">
-// TODO: Add other variants
 import { useSlots, toRef } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { iconAsRender } from '@/util/fontawesome-icon-render';
 import { Tab } from './tab';
 import BaseTab from './BaseTab.vue';
 import partial from "lodash/partial";
+import { Alignment } from '@/types/alignment';
 
-const props = defineProps<{
+export type TabStyle = "boxed" | "toggle" | "toggle-rounded";
+
+const props = withDefaults(defineProps<{
   activeTabId?: string;
-}>();
+  tabStyle?: TabStyle;
+  alignment?: Alignment;
+}>(), {
+  alignment: "left",
+});
 
 const emit = defineEmits<{
   (event: "update:activeTabId", tabId?: string): void;

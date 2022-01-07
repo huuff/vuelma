@@ -1,5 +1,5 @@
 <template>
-<base-tabs>
+<base-tabs tabStyle="boxed" alignment="centered">
   <base-tab titleText="Tab 1">
     Test content for tab 1
   </base-tab>
