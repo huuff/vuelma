@@ -1,5 +1,7 @@
 <template>
-<nav class="panel">
+<nav class="panel" :class="{
+  [`is-${color}`]: color,
+}">
   <p v-if="headingText" class="panel-heading"> {{ headingText }} </p>
   <render-content />
 </nav>
@@ -8,7 +10,6 @@
 <script setup lang="tsx">
 // TODO: Content blocks
 // TODO: Label blocks
-// TODO: Colors
 import { useSlots, toRef, VNode, Slots } from "vue";
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { unwrapFragment } from "@/util/unwrap-fragment";
