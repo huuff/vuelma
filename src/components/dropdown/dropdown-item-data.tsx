@@ -1,3 +1,4 @@
+import { VNode } from "vue";
 // eslint-disable-next-line
 // @ts-ignore
 import { DropdownItemProps } from './DropdownItem.vue';
@@ -22,12 +23,13 @@ export class DropdownItemData {
     this.activeItemId.value = this.itemId;
   }
 
-  render() {
+  render(node: VNode) {
     return <a 
+          {...{props: node.props}}
           class={classnames({
             "dropdown-item": true,
             "is-active": this.isActive(),
-          })}
+          }, node.props?.class)}
           onClick={() => this.setActive()}
         >{this.text}</a> 
   }

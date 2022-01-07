@@ -109,7 +109,7 @@ if (!!props.triggerText === !!slots.trigger) {
 
 const dropdownMenu = () => slots.default && unwrapFragment(slots.default()).map(el => {
     if (el.type === DropdownItem) 
-      return new DropdownItemData(el.props as DropdownItemProps, actualActiveItemId).render();
+      return new DropdownItemData(el.props as DropdownItemProps, actualActiveItemId).render(el);
     else if (el.type === DropdownDivider)
       return <hr class="dropdown-divider"/>;
     else
