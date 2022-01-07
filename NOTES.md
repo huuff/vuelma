@@ -9,6 +9,7 @@
 * **BaseTabs**
 * **BaseNavigation**: I'd also test it
 * **BaseMenu**: Also test it
+* **BasePanel**: Same
 
 ## Known issues
 * The Vue compiler goes crazy every time I use more than one two-way binding (as in `BaseDropdown`). I just disable it and go with my life because it works and the error message is absolutely nonsensical.
