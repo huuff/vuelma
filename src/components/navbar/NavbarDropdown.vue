@@ -13,8 +13,8 @@
 </div>
 </template>
 
-<script setup lang="tsx">
-import { useSlots, VNode, toRef } from 'vue';
+<script setup lang="ts">
+import { useSlots, VNode, toRef, h } from 'vue';
 import DropdownItem, { DropdownItemProps } from '@/components/dropdown/DropdownItem.vue'
 import DropdownDivider from '../dropdown/DropdownDivider.vue';
 import { DropdownDirection } from '@/components/dropdown/BaseDropdown.vue';
@@ -56,18 +56,21 @@ function renderNode(node: VNode): VNode {
     const itemProps = node.props as DropdownItemProps;
     return renderNavbarItem("a", node, actualActiveItem, itemProps);
   } else if (node.type === DropdownDivider) {
-    return <hr class="navbar-divider"/>
+    return h("hr", { class: "navbar-divider" });
   } else {
     throw new Error("Children of a NavbarDropdown must be DropdownItems or DropdownDividers!")
   }
 }
 
-const slot = useSlots();
-const render = () => 
-<div 
-  class={classnames({ 'is-right': props.isRight}, 'navbar-dropdown')}
-  >
-  { slot.default && slot.default().map(renderNode) }
-</div>
+const slots = useSlots();
+const render = () => h(
+  "div",
+  {
+    class: classnames({
+      "is-right": props.isRight
+    }, "navbar-dropdown"),
+  },
+  slots.default && slots.default().map(renderNode)
+)
 
 </script>
