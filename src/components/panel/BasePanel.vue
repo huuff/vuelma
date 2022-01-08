@@ -116,8 +116,10 @@ function renderTabs(node: VNode): VNode[] {
       "p",
       { class: "panel-tabs", },
       itemsProps.map(item => h(
-        "a", // TODO: Custom tag?
-        { 
+        // eslint-disable-next-line
+        // @ts-ignore
+        item.tag ?? "a",
+        { ...item,
           class: classnames({ "is-active": getId(item) === actualActiveTabId.value}),
           onClick: () => actualActiveTabId.value = getId(item),
         },

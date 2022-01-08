@@ -6,24 +6,24 @@
         <panel-block 
           v-for="i in range(3)" 
           icon="chevron-right" 
-          :titleText="`Block ${i}`"
-          :key="`Block ${i}`"
+          :titleText="`Block 1-${i}`"
+          :key="`Block 1-${i}`"
         />
       </panel-tab>
       <panel-tab titleText="Tab 2">
         <panel-block 
           v-for="i in range(8)" 
           icon="chevron-right" 
-          :titleText="`Block ${i}`"
-          :key="`Block ${i}`"
+          :titleText="`Block 2-${i}`"
+          :key="`Block 2-${i}`"
         />
       </panel-tab>
       <panel-tab titleText="Tab 3">
         <panel-block 
           v-for="i in range(5)" 
           icon="chevron-right" 
-          :titleText="`Block ${i}`"
-          :key="`Block ${i}`"
+          :titleText="`Block 3-${i}`"
+          :key="`Block 3-${i}`"
         />
       </panel-tab>
     </panel-tabs>
@@ -42,24 +42,24 @@
         <panel-block 
           v-for="i in range(3)" 
           icon="chevron-right" 
-          :titleText="`Block ${i}`"
-          :key="`Block ${i}`"
+          :titleText="`Block 1-${i}`"
+          :key="`Block 1-${i}`"
         />
       </panel-tab>
       <panel-tab titleText="Tab 2">
         <panel-block 
           v-for="i in range(8)" 
           icon="chevron-right" 
-          :titleText="`Block ${i}`"
-          :key="`Block ${i}`"
+          :titleText="`Block 2-${i}`"
+          :key="`Block 2-${i}`"
         />
       </panel-tab>
       <panel-tab titleText="Tab 3">
         <panel-block 
           v-for="i in range(5)" 
           icon="chevron-right" 
-          :titleText="`Block ${i}`"
-          :key="`Block ${i}`"
+          :titleText="`Block 3-${i}`"
+          :key="`Block 3-${i}`"
         />
       </panel-tab>
     </panel-tabs>
