@@ -1,6 +1,9 @@
 <template>
 <nav 
-  class="breadcrumb" 
+  :class="{
+    'breadcrumb': true,
+    [`is-${alignment}`]: alignment !== 'left',
+  }"
   aria-label="breadcrumbs"
 >
   <ul>
@@ -18,10 +21,14 @@ import partial from "lodash/partial";
 import {getId} from "@/util/optional-id";
 import classnames from "classnames";
 import { unwrapFragment } from "@/util/unwrap-fragment";
+import { Alignment } from "@/types/alignment";
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   activeItemId?: string;
-}>();
+  alignment?: Alignment;
+}>(), {
+  alignment: "left",
+});
 
 const emit = defineEmits<{
   (event: "update:activeItemId", itemId?: string): void;
@@ -45,6 +52,8 @@ const renderItems = () => slots.default && unwrapFragment(slots.default()).map(n
       })
     },
     {
+      // eslint-disable-next-line
+      // @ts-ignore
       default: () => [h(itemProps.tag ?? "a",
         {...itemProps,
           class: node.props?.class,

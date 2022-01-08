@@ -1,5 +1,7 @@
 <template>
-<base-navbar class="is-fixed-top" :activeItem="router.currentRoute.value.name?.toString()">
+<base-navbar 
+  class="is-fixed-top"
+  :activeItem="router.currentRoute.value.name?.toString()">
   <template #brand>
     <navbar-item 
       :tag="RouterLink"
@@ -18,7 +20,7 @@
   />
   </template>
 </base-navbar>
-<router-breadcrumb />
+<router-breadcrumb alignment="centered"/>
 <main class="mt-3">
   <router-view></router-view>
 </main>

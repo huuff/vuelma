@@ -13,3 +13,4 @@
 
 ## Known issues
 * The Vue compiler goes crazy every time I use more than one two-way binding (as in `BaseDropdown`). I just disable it and go with my life because it works and the error message is absolutely nonsensical.
+* `No overload matches this call` in any of my `itemProps.tag ?? "a"` (or similar). I've checked the overloads and these exist, so why does this appear?
