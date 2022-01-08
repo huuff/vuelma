@@ -1,7 +1,8 @@
 import { VNode, WritableComputedRef } from "vue";
 import { FontAwesomeIconName } from '@/types/fontawesome-icon-name';
+import {OptionalIcon} from "@/util/optional-icon";
 
-export class Tab {
+export class Tab implements OptionalIcon {
   public readonly tabId: string;
 
   constructor(

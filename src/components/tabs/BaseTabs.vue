@@ -10,14 +10,14 @@
 <active-tab />
 </template>
 
-<script setup lang="tsx">
-import { useSlots, toRef } from 'vue';
+<script setup lang="ts">
+import { useSlots, toRef, h } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
-import { iconAsRender } from '@/util/fontawesome-icon-render';
 import { Tab } from './tab';
 import BaseTab from './BaseTab.vue';
 import partial from "lodash/partial";
 import { Alignment } from '@/types/alignment';
+import { renderOptionalIcon } from '@/util/optional-icon';
 
 export type TabStyle = "boxed" | "toggle" | "toggle-rounded";
 
@@ -57,20 +57,18 @@ function slotToTabs(): Tab[] {
 
 const tabTitles = () => {
   const tabs = slotToTabs();
-  return tabs.map(tab => 
-    <li class={tab.getClasses()}>
-      <a onClick={() => tab.setActive()}>
-        <span > {
-          !tab.hasIcon()
-          ? tab.titleText
-          : [
-            iconAsRender(tab.icon!, [ "is-small" ]),
-            <span> { tab.titleText } </span>
-          ]
-        } </span>
-      </a>
-    </li>
-  )
+
+  return tabs.map(tab => h(
+    "li",
+    {
+      class: tab.getClasses().join(" "),
+    },
+    h(
+        "a", // TODO: Custom tags?
+        { onClick: () => tab.setActive() },
+        { default: () => renderOptionalIcon(tab, [ "is-small" ]) }
+    )
+  ));
 }
 
 const activeTab = () => slotToTabs().find(tab => tab.tabId === actualActiveTabId.value)?.slot;

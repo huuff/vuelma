@@ -6,8 +6,9 @@
 import { Component } from "vue";
 import { OptionalId } from '@/util/optional-id';
 import { FontAwesomeIconName } from '@/types/fontawesome-icon-name';
+import { OptionalIcon } from '@/util/optional-icon';
 
-export interface BreadcrumbItemProps extends OptionalId {
+export interface BreadcrumbItemProps extends OptionalId, OptionalIcon {
   tag?: string | Component;
   titleText: string;
   itemId?: string;

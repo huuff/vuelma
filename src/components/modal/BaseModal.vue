@@ -15,7 +15,7 @@
 </div>
 </template>
 
-<script setup lang="tsx">
+<script setup lang="ts">
 import { useSlots, computed, toRef, cloneVNode, h } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import CardModal from './CardModal.vue';

@@ -16,7 +16,7 @@ import PanelTab, { PanelTabProps } from './PanelTab.vue';
 import PanelTabs from './PanelTabs.vue';
 import PanelBlockContent, { PanelBlockContentProps } from './PanelBlockContent.vue';
 import { getId } from '@/util/optional-id';
-import { iconAsRender } from "@/util/fontawesome-icon-render";
+import { renderOptionalIcon } from "@/util/optional-icon";
 import { BulmaColor } from '@/types/bulma-color';
 import partial from "lodash/partial";
 import classnames from "classnames";
@@ -54,14 +54,7 @@ function renderBlockItem(node: VNode): VNode {
       }, node.props?.class),
       onClick: () => actualActiveItemId.value = id,
     },
-    {
-      default: () => [
-        blockProps.icon
-        ? iconAsRender(blockProps.icon, [ "panel-icon" ])
-        : undefined,
-        h("span", {}, blockProps.titleText),
-      ],
-    }
+    renderOptionalIcon(blockProps, [ "panel-icon" ])
   ) 
 }
 

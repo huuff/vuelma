@@ -22,7 +22,7 @@ import { getId } from "@/util/optional-id";
 import classnames from "classnames";
 import { unwrapFragment } from "@/util/unwrap-fragment";
 import { Alignment } from "@/types/alignment";
-import {iconAsRender} from "@/util/fontawesome-icon-render";
+import { renderOptionalIcon } from '@/util/optional-icon';
 
 export type BreadcrumbSeparator = "arrow" | "bullet" | "dot" | "succeeds";
 
@@ -64,13 +64,7 @@ const renderItems = () => slots.default && unwrapFragment(slots.default()).map(n
           onClick: () => actualActiveItemId.value = itemId,
           ...(isActive() ? { "aria-current": "page"} : {})
         },
-        { default: () => itemProps.icon
-          ?[
-            iconAsRender(itemProps.icon, [ "is-small" ]),
-            h("span", {}, itemProps.titleText)
-           ]
-          :[itemProps.titleText] 
-        },
+        { default: () => renderOptionalIcon(itemProps, [ "is-small" ]) }
       )],
     }
   )
