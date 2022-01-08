@@ -37,7 +37,7 @@
 </nav>
 </template>
 
-<script setup lang="tsx">
+<script setup lang="ts">
 import { useSlots, VNode, toRef, cloneVNode } from 'vue';
 import NavbarItem, { NavbarItemProps } from './NavbarItem.vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';

@@ -4,8 +4,8 @@
 </aside>
 </template>
 
-<script setup lang="tsx">
-import { useSlots, toRef, VNode, Slots} from 'vue';
+<script setup lang="ts">
+import { useSlots, toRef, VNode, Slots, h} from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { unwrapFragment } from '@/util/unwrap-fragment';
 import MenuList, { MenuListProps } from './MenuList.vue';
@@ -32,17 +32,20 @@ function renderItems(items: VNode[]): VNode[] {
 
   return items.map(item => {
     const itemProps = item.props as MenuItemProps;
+    const itemId = getId(itemProps);
 
-    return (
-      <li>
-        <a 
-          class={classnames({ 'is-active': getId(itemProps) === actualActiveItemId.value })}
-          onClick={() => actualActiveItemId.value = getId(itemProps)}
-        >
-          { itemProps.titleText } 
-        </a>
-      </li>
-    );
+    return h(
+      "li",
+      {},
+      h(
+        "a", // TODO: Custom tag?
+        { 
+          class: classnames({ "is-active": itemId === actualActiveItemId.value}),
+          onClick: () => actualActiveItemId.value = itemId,
+        },
+        itemProps.titleText
+      )
+    )
   });
 }
 
@@ -59,11 +62,18 @@ const renderLists = () => slots.default && unwrapFragment(slots.default()).map(n
   }
 
   const listProps = node.props as MenuListProps;
+
   return [
-    <p class="menu-label"> { listProps.label } </p>,
-    <ul class="menu-list">
-    { renderItems(unwrapFragment(items)) } 
-    </ul>
+    h(
+      "p",
+      { class: "menu-label" },
+      listProps.label
+    ),
+    h(
+      "ul",
+      { class: "menu-list" },
+      renderItems(unwrapFragment(items))
+    )
   ];
 });
 </script>
