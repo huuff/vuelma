@@ -7,7 +7,7 @@
           <breadcrumb-item titleText="First" />
           <breadcrumb-item titleText="Second" />
           <breadcrumb-item titleText="Third" />
-          <breadcrumb-item titleText="Fourth" />
+          <breadcrumb-item titleText="Fourth" icon="heart" />
         </base-breadcrumb>
       </div>
     </div>
@@ -18,4 +18,8 @@
 <script setup lang="ts">
 import BaseBreadcrumb from '@/components/breadcrumb/BaseBreadcrumb.vue'
 import BreadcrumbItem from '@/components/breadcrumb/BreadcrumbItem.vue';
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faHeart);
 </script>
