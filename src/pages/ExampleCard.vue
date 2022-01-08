@@ -1,6 +1,6 @@
 <template>
 <main class="container">
-  <div class="hero is-fullheight">
+  <div class="hero is-fullheight-with-navbar">
     <div class="hero-body">
       <div class="column is-3-desktop mx-auto">
         <base-card :titleText="'Title'" :icon="'angle-down'">

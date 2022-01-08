@@ -1,6 +1,6 @@
 <template>
 <main class="container">
-  <div class="hero is-fullheight">
+  <div class="hero is-fullheight-with-navbar">
     <div class="hero-body">
       <div class="mx-auto">
         <base-breadcrumb>
