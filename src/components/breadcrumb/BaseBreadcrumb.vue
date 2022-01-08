@@ -3,6 +3,7 @@
   :class="{
     'breadcrumb': true,
     [`is-${alignment}`]: alignment !== 'left',
+    [`has-${separator}-separator`]: separator,
   }"
   aria-label="breadcrumbs"
 >
@@ -13,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-// TODO: Separators
+// TODO: Icons
 import { toRef, useSlots, h } from "vue";
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import BreadcrumbItem, { BreadcrumbItemProps } from './BreadcrumbItem.vue';
@@ -23,9 +24,12 @@ import classnames from "classnames";
 import { unwrapFragment } from "@/util/unwrap-fragment";
 import { Alignment } from "@/types/alignment";
 
+export type BreadcrumbSeparator = "arrow" | "bullet" | "dot" | "succeeds";
+
 const props = withDefaults(defineProps<{
   activeItemId?: string;
   alignment?: Alignment;
+  separator?: BreadcrumbSeparator;
 }>(), {
   alignment: "left",
 });

@@ -20,7 +20,7 @@
   />
   </template>
 </base-navbar>
-<router-breadcrumb alignment="centered"/>
+<router-breadcrumb alignment="centered" separator="succeeds"/>
 <main class="mt-3">
   <router-view></router-view>
 </main>
