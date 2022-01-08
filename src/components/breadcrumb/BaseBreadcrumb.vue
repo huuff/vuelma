@@ -1,32 +1,59 @@
 <template>
 <nav 
-  class="breadcrumb"
+  class="breadcrumb" 
   aria-label="breadcrumbs"
-  :class="separator ? `has-${separator}-separator` : null"
 >
   <ul>
-    <slot></slot> 
+    <render-items />
   </ul>
 </nav>
 </template>
 
 <script setup lang="ts">
-import { toRef } from 'vue';
+// TODO: Router breadcrumb
+// TODO: Separators
+import { toRef, useSlots, h } from "vue";
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
-import { BreadcrumbSeparator } from '@/types/breadcrumb-separator';
-import { provideAccessors } from '@/composables/injected-accessors';
+import BreadcrumbItem, { BreadcrumbItemProps } from './BreadcrumbItem.vue';
 import partial from "lodash/partial";
+import {getId} from "@/util/optional-id";
+import classnames from "classnames";
 
 const props = defineProps<{
-  active?: string;
-  separator?: BreadcrumbSeparator;
+  activeItemId?: string;
 }>();
 
 const emit = defineEmits<{
-  (event: "update:active", itemId?: string): void;
+  (event: "update:activeItemId", itemId?: string): void;
 }>();
 
-const actualActive = useOptionalTwoWayBinding(undefined, toRef(props, "active"), partial(emit, "update:active"));
+const actualActiveItemId = useOptionalTwoWayBinding(undefined, toRef(props, "activeItemId"), partial(emit, "update:activeItemId"));
 
-provideAccessors('ActiveBreadcrumbItem', actualActive);
+const slots = useSlots();
+const renderItems = () => slots.default && slots.default().map(node => {
+  if (node.type !== BreadcrumbItem) {
+    throw new Error("The children of a BaseBreadcrumb must be BreadcrumbItems!");
+  }
+  const itemProps = node.props as BreadcrumbItemProps;
+  const itemId = getId(itemProps);
+
+  const isActive = () => actualActiveItemId.value === itemId;
+  return h("li",
+    {
+      class: classnames({
+        "is-active": isActive(),
+      })
+    },
+    {
+      default: () => [h(itemProps.tag ?? "a",
+        {...itemProps,
+          class: node.props?.class,
+          onClick: () => actualActiveItemId.value = itemId,
+          ...(isActive() ? { "aria-current": "page"} : {})
+        },
+        { default: () => [itemProps.titleText] },
+      )],
+    }
+  )
+})
 </script>

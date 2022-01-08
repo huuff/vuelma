@@ -24,6 +24,7 @@ export class DropdownItemData {
   }
 
   render(node: VNode) {
+    // TODO: Custom tag?
     return <a 
           {...{props: node.props}}
           class={classnames({
