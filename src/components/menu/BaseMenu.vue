@@ -5,6 +5,7 @@
 </template>
 
 <script setup lang="ts">
+// TODO: Stacked?
 import { useSlots, toRef, VNode, Slots, h} from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { unwrapFragment } from '@/util/unwrap-fragment';
@@ -38,9 +39,11 @@ function renderItems(items: VNode[]): VNode[] {
       "li",
       {},
       h(
-        "a", // TODO: Custom tag?
-        { 
-          class: classnames({ "is-active": itemId === actualActiveItemId.value}),
+        // eslint-disable-next-line
+        // @ts-ignore
+        itemProps.tag ?? "a", 
+        { ...itemProps,
+          class: classnames({ "is-active": itemId === actualActiveItemId.value}, item.props?.class),
           onClick: () => actualActiveItemId.value = itemId,
         },
         itemProps.titleText
