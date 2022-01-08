@@ -1,4 +1,4 @@
-import { VNode } from "vue";
+import { VNode, h, Component } from "vue";
 // eslint-disable-next-line
 // @ts-ignore
 import { DropdownItemProps } from './DropdownItem.vue';
@@ -9,10 +9,12 @@ import classnames from 'classnames';
 export class DropdownItemData {
   public readonly itemId: string;
   public readonly text: string;
+  public readonly tag: string | Component;
 
   constructor(props: DropdownItemProps, private readonly activeItemId: WritableComputedRef<string | undefined>) {
     this.text = props.titleText;
     this.itemId = props.itemId ?? props.titleText;
+    this.tag = props.tag ?? "a";
   }
 
   isActive(): boolean {
@@ -24,15 +26,18 @@ export class DropdownItemData {
   }
 
   render(node: VNode) {
-    // TODO: Custom tag?
-    return <a 
-          {...{props: node.props}}
-          class={classnames({
-            "dropdown-item": true,
-            "is-active": this.isActive(),
-          }, node.props?.class)}
-          onClick={() => this.setActive()}
-        >{this.text}</a> 
+  // eslint-disable-next-line
+  // @ts-ignore
+    return h(this.tag,
+      {...node.props,
+        class: classnames({
+          "dropdown-item": true,
+          "is-active": this.isActive(),
+        }, node.props?.class),
+        onClick: () => this.setActive(),
+      },
+      { default: () => this.text }
+    );
   }
 }
 

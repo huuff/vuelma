@@ -18,7 +18,7 @@ import { toRef, useSlots, h } from "vue";
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import BreadcrumbItem, { BreadcrumbItemProps } from './BreadcrumbItem.vue';
 import partial from "lodash/partial";
-import {getId} from "@/util/optional-id";
+import { getId } from "@/util/optional-id";
 import classnames from "classnames";
 import { unwrapFragment } from "@/util/unwrap-fragment";
 import { Alignment } from "@/types/alignment";
