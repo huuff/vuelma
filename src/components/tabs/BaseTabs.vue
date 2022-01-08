@@ -14,7 +14,7 @@
 import { useSlots, toRef, h } from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { Tab } from './tab';
-import BaseTab from './BaseTab.vue';
+import BaseTab, { BaseTabProps } from './BaseTab.vue';
 import partial from "lodash/partial";
 import { Alignment } from '@/types/alignment';
 import { renderOptionalIcon } from '@/util/optional-icon';
@@ -46,13 +46,17 @@ function slotToTabs(): Tab[] {
     }
   }
 
-  return children.map(child => new Tab(
-    child.props!.titleText,
-    child.props!.icon,
-    child,
-    actualActiveTabId,
-    child.props!.tabId,
-  ));
+  return children.map(child => {
+    const tabProps = child.props as BaseTabProps;
+
+    return new Tab(
+      tabProps.titleText,
+      tabProps.icon,
+      child,
+      actualActiveTabId,
+      tabProps.tabId,
+    )
+  });
 }
 
 const tabTitles = () => {
@@ -64,7 +68,9 @@ const tabTitles = () => {
       class: tab.getClasses().join(" "),
     },
     h(
-        "a", // TODO: Custom tags?
+        // eslint-disable-next-line
+        // @ts-ignore
+        tab.tag ?? "a",
         { onClick: () => tab.setActive() },
         { default: () => renderOptionalIcon(tab, [ "is-small" ]) }
     )

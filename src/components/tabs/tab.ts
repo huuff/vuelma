@@ -1,4 +1,4 @@
-import { VNode, WritableComputedRef } from "vue";
+import { Component, VNode, WritableComputedRef } from "vue";
 import { FontAwesomeIconName } from '@/types/fontawesome-icon-name';
 import {OptionalIcon} from "@/util/optional-icon";
 
@@ -10,6 +10,7 @@ export class Tab implements OptionalIcon {
     public readonly icon: FontAwesomeIconName | undefined,
     public readonly slot: VNode,
     private readonly activeTabId: WritableComputedRef<string | undefined>,
+    public readonly tag: string | Component,
     tabId?: string,
   ) {
     this.tabId = tabId ?? titleText;
