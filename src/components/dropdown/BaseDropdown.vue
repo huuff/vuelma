@@ -29,8 +29,8 @@
 </div>
 </template>
 
-<script setup lang="tsx">
-import { useSlots, toRef, computed, } from 'vue';
+<script setup lang="ts">
+import { useSlots, toRef, computed, h} from 'vue';
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { useCloseOnClickOutside } from '@/composables/close-on-click-outside';
 
@@ -66,7 +66,7 @@ const props = withDefaults(defineProps<{
 }>(), {
   open: undefined,
   direction: "down",
-  alignment: "center",
+  alignment: "centered",
 });
 
 const emit = defineEmits<{
@@ -111,8 +111,8 @@ const dropdownMenu = () => slots.default && unwrapFragment(slots.default()).map(
     if (el.type === DropdownItem) 
       return new DropdownItemData(el.props as DropdownItemProps, actualActiveItemId).render(el);
     else if (el.type === DropdownDivider)
-      return <hr class="dropdown-divider"/>;
+      return h("hr", { class: "dropdown-divider"});
     else
-      return <div class="dropdown-item"> { el } </div>
+      return h("div", { class: "dropdown-item"}, el);
   });
 </script>
