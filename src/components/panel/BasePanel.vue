@@ -7,7 +7,7 @@
 </nav>
 </template>
 
-<script setup lang="tsx">
+<script setup lang="ts">
 import { useSlots, toRef, VNode, Slots, h, onUpdated } from "vue";
 import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
 import { unwrapFragment } from "@/util/unwrap-fragment";
@@ -112,15 +112,19 @@ function renderTabs(node: VNode): VNode[] {
   const activeTab = items.find(item => getId(item.props as PanelTabProps) === actualActiveTabId.value);
 
   return [
-    <p class="panel-tabs">
-      { itemsProps.map(item => 
-        <a
-          class={classnames({"is-active": getId(item) === actualActiveTabId.value})}
-          onClick={() => actualActiveTabId.value = getId(item)}
-        > { item.titleText } </a>
-      )} 
-    </p>,
-    ...renderTabContents(activeTab),    
+    h(
+      "p",
+      { class: "panel-tabs", },
+      itemsProps.map(item => h(
+        "a", // TODO: Custom tag?
+        { 
+          class: classnames({ "is-active": getId(item) === actualActiveTabId.value}),
+          onClick: () => actualActiveTabId.value = getId(item),
+        },
+        item.titleText
+      ))
+    ),
+    ...renderTabContents(activeTab)
   ];
 }
 
