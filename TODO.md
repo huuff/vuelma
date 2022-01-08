@@ -1,5 +1,4 @@
 # Tasks
-* Use my `BaseBreadcrumb` to show the path in all parts of the example!
 * Visual regression tests?
 * Remove as many warnings as I can
 * A `RouterNavbar`?

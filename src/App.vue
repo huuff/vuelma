@@ -18,6 +18,7 @@
   />
   </template>
 </base-navbar>
+<router-breadcrumb />
 <main class="mt-3">
   <router-view></router-view>
 </main>
@@ -27,6 +28,7 @@
 import { useRouter, RouterLink } from 'vue-router';
 import BaseNavbar from '@/components/navbar/BaseNavbar.vue';
 import NavbarItem from '@/components/navbar/NavbarItem.vue';
+import RouterBreadcrumb from '@/components/breadcrumb/RouterBreadcrumb.vue';
 
 const router = useRouter();
 

@@ -3,10 +3,11 @@
 </template>
 
 <script setup lang="ts">
+import { Component } from "vue";
 import { OptionalId } from '@/util/optional-id';
 
 export interface BreadcrumbItemProps extends OptionalId {
-  tag?: string;
+  tag?: string | Component;
   titleText: string;
   itemId?: string;
 }
