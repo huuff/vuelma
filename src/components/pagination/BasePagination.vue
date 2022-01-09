@@ -1,84 +1,70 @@
 <template>
-<nav class="pagination" role="navigation" aria-label="pagination">
-  <button
-    type="button"
+<nav class="pagination" role="pagination" aria-label="pagination">
+  <button 
+    class="pagination-previous" 
     :disabled="actualCurrentPage === 1"
     @click="actualCurrentPage--"
-    class="pagination-previous button" 
-    aria-label="previous page"
-    ><font-awesome-icon icon="angle-left"/>
+    aria-label="previous"
+    >
+     <font-awesome-icon icon="angle-left" aria-hidden="true"/> 
   </button>
-  <button
-    @click="actualCurrentPage++"
+  <button 
+    class="pagination-next" 
     :disabled="actualCurrentPage === pageNumber"
-    type="button"
-    class="pagination-next button "
-    aria-label="next page"
-  >
-    <font-awesome-icon icon="angle-right"/>
+    @click="actualCurrentPage++"
+    aria-label="next"
+    >
+     <font-awesome-icon icon="angle-right" aria-hidden="true"/> 
   </button>
-  <template v-if="pageNumber > 0">
-    <ul class="pagination-list">
-      <base-pagination-link 
-        v-if="!backwardReachesFirst"
-        :pageNumber="1" 
-      />
 
-      <li v-if="!backwardReachesFirst && !showBackward.includes(2)">
-        <span class="pagination-ellipsis">&hellip;</span>
-      </li>
-      
-      <base-pagination-link v-for="page in showBackward"
-        :pageNumber="page"
-        :key="`page-${page}`"
-      />
+  <ul class="pagination-list">
+    <pagination-link v-if="!backwardReachesFirst && actualCurrentPage !== 1" 
+    :page="1" />
 
-      <base-pagination-link
-        :pageNumber="actualCurrentPage"
-      />
+    <li v-if="isThereAGapToFirst">
+      <a class="pagination-ellipsis">&hellip;</a>  
+    </li>
 
-      <base-pagination-link v-for="page in showForward"
-        :pageNumber="page"
-        :key="`page-${page}`"
-      />
+    <pagination-link 
+      v-for="page in showBackward" 
+      :key="`page ${page}`"
+      :page="page"
+    />
 
-      <li v-if="!forwardReachesLast && !showForward.includes(pageNumber - 1)">
-        <span class="pagination-ellipsis">&hellip;</span>
-      </li>
+    <pagination-link :page="actualCurrentPage" />
 
-      <base-pagination-link 
-        v-if="!forwardReachesLast"
-        :pageNumber="pageNumber"
-      />
-    </ul>
-  </template>
+    <pagination-link 
+      v-for="page in showForward" 
+      :key="`page ${page}`"
+      :page="page"
+    />
+
+    <li v-if="isThereAGapToLast">
+      <a class="pagination-ellipsis">&hellip;</a>  
+    </li>
+    <pagination-link v-if="!forwardReachesLast && actualCurrentPage !== pageNumber"
+    :page="pageNumber" />
+  </ul>
 </nav>
 </template>
 
 <script setup lang="ts">
-// XXX: Pretty shitty logic in here but I'm no mathematician
+// TODO: For ellipses, if the ellided element is only 1, show it instead of the ellipsis?
+import { toRef, computed, h } from "vue"
+import { useOptionalTwoWayBinding } from "@/composables/optional-two-way-binding";
 
-// XXX
-// The only reason I'm using injected-accessors here is because
-// there are five base-pagination-links and I didn't want
-// to pass the currentPage and an event listener to set it
-// for each one. It's a good enough reason for me, but I'm
-// this comment around for the future.
-import { computed, toRef } from 'vue';
-import { provideAccessors } from '@/composables/injected-accessors'
-import BasePaginationLink from '@/components/pagination/BasePaginationLink.vue';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import partial from 'lodash/partial';
-import { useOptionalTwoWayBinding } from '@/composables/optional-two-way-binding';
+import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import classnames from "classnames";
 
-library.add(faAngleLeft);
-library.add(faAngleRight);
+library.add(faAngleRight, faAngleLeft)
+
+import partial from "lodash/partial";
 
 const props = withDefaults(defineProps<{
-  pageNumber: number;
   currentPage?: number;
+  pageNumber: number;
   showAround?: number;
 }>(), {
   showAround: 2,
@@ -86,43 +72,64 @@ const props = withDefaults(defineProps<{
 });
 
 const emit = defineEmits<{
-  (event: 'update:currentPage', page: number): void
+  (event: "update:currentPage", newCurrentPage: number): void;
 }>();
 
-const actualCurrentPage = useOptionalTwoWayBinding(1, toRef(props, 'currentPage'), partial(emit, "update:currentPage"))
-
-provideAccessors("CurrentPage", actualCurrentPage);
+const actualCurrentPage = useOptionalTwoWayBinding(1, toRef(props, "currentPage"), partial(emit, "update:currentPage"));
 
 const showBackward = computed(() => {
   const first = Math.max(1, actualCurrentPage.value - props.showAround);
-  const pagesToShow: number[] = [];
 
-  for (let page = first; page < actualCurrentPage.value; page++)
-    pagesToShow.push(page);
-  
-  return pagesToShow;
+  const show: number[] = [];
+
+  for (let i = first; i < actualCurrentPage.value; i++) {
+    show.push(i);
+  }
+
+  return show;
 });
 
 const showForward = computed(() => {
   const last = Math.min(props.pageNumber, actualCurrentPage.value + props.showAround);
-  const pagesToShow: number[] = [];
 
-  for (let page = actualCurrentPage.value + 1; page <= last; page++)
-    pagesToShow.push(page);
+  const show: number[] = [];
 
-  return pagesToShow;
+  for (let i = actualCurrentPage.value + 1; i <= last; i++) {
+    show.push(i);
+  }
+
+  return show;
 });
 
-const backwardReachesFirst = computed(() => {
-  return showBackward.value.includes(1) || showBackward.value.length === 0;
-});
+const backwardReachesFirst = computed(() => showBackward.value.includes(1));
 
-const forwardReachesLast = computed(() => {
-  return showForward.value.includes(props.pageNumber) || showForward.value.length === 0;
-});
+const forwardReachesLast = computed(() => showForward.value.includes(props.pageNumber));
 
-if (actualCurrentPage.value < 1 || actualCurrentPage.value > props.pageNumber) {
-  throw new Error(`Current page can't be over the pageNumber or under 1, current value: ${actualCurrentPage.value}`)
-}
+const isThereAGapToFirst = computed(() => showBackward.value.length > 0 && showBackward.value[0] > 2)
+
+const isThereAGapToLast = computed(() => showForward.value.length > 0 && showForward.value[showForward.value.length-1] < props.pageNumber - 1 )
+
+type PaginationLinkProps = {
+  page: number;
+};
+const paginationLink = (props: PaginationLinkProps) => {
+  const isCurrent = actualCurrentPage.value === props.page;
+  return h(
+    "li",
+    {},
+    h(
+      "a",
+      {
+        class: classnames({
+          "pagination-link": true,
+          "is-current": isCurrent,
+        }),
+        onClick: () => actualCurrentPage.value = props.page,
+        "aria-label": `Goto page ${props.page}`,
+        ...(isCurrent ? { "aria-current" : true} : {})
+      },
+      props.page
+    ),
+)};
 
 </script>
