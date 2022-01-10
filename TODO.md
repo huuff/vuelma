@@ -2,6 +2,7 @@
 * Visual regression tests?
 * Remove as many warnings as I can
 * A `RouterNavbar`?
+* My `CardModal` is wrong. It should be a wrapper component around `BaseModal`, just like `SelectorDropdown` works.
 * Try to rehash pagination into some sort of superpowerful scoped slot
 * Recreate all of Bulma's official site examples? (In different pages)
 
@@ -11,7 +12,7 @@
 * Test breadcrumb
 * Test dropdown
 * Test menu
-* Test modal
+* Test card modal
 * Test navbar
 * Test pagination
 * Test panel
