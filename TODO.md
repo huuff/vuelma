@@ -7,7 +7,6 @@
 
 ## Things I can't do until [this issue](https://github.com/vuejs/vue-cli/issues/6911) gets solved
 * Update: Now I can! Since I removed all TSX
-* Test card
 * Test message
 * Test breadcrumb
 * Test dropdown

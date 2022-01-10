@@ -46,7 +46,7 @@ if (slots.footer && slots.footerItems) {
   throw new Error('The card component cannot be used with both a footer and footerItems!');
 }
 
-if (slots.header && (slots.titleText || slots.icon)) {
+if (slots.header && (props.titleText || slots.icon)) {
   throw new Error('The card component cannot be used with both a header and a titleText or an icon!');
 }
 </script>
