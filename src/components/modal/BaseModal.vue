@@ -70,7 +70,7 @@ const render = () => {
   if (isCard())
     return slots.default && cloneVNode(slots.default()[0], {
       onClose: () => actualShow.value = false,
-      ":closeable": toRef(props, "closeable")
+      closeable: props.closeable,
     });
   else
     return h("div", { class: "modal-content" }, slots.default && slots.default())
