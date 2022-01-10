@@ -13,4 +13,3 @@
 * Test navbar
 * Test pagination
 * Test panel
-* Test tabs
