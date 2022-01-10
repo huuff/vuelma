@@ -1,14 +1,9 @@
 import { mount, VueWrapper } from "@vue/test-utils";
 import BaseModal from "@/components/modal/BaseModal.vue";
-import { getFirstEmission } from "./get-first-emission";
+import { emittedHide } from "../util";
 
 function isShown(wrapper: VueWrapper): boolean {
   return wrapper.element.classList.contains("is-active");
-}
-
-function emitsClose(wrapper: VueWrapper): boolean {
-  return Object.keys(wrapper.emitted()).includes("update:show")
-    && getFirstEmission(wrapper, "update:show") === false;
 }
 
 describe("BaseModal.vue", () => {
@@ -48,7 +43,7 @@ describe("BaseModal.vue", () => {
     });
 
     test("an event to update show to false is thrown", () => {
-      expect(emitsClose(wrapper)).toBeTrue();
+      expect(emittedHide(wrapper)).toBeTrue();
     });
   });
 
@@ -73,7 +68,7 @@ describe("BaseModal.vue", () => {
     });
 
     await wrapper.get(".modal-background").trigger("click");
-    expect(emitsClose(wrapper)).toBeTrue();
+    expect(emittedHide(wrapper)).toBeTrue();
   });
 
   test("when not backdropCloseable, it cannot be closed by clicking on the backdrop", async () => {
@@ -86,6 +81,6 @@ describe("BaseModal.vue", () => {
     });
 
     await wrapper.get(".modal-background").trigger("click");
-    expect(emitsClose(wrapper)).toBeFalse();
+    expect(emittedHide(wrapper)).toBeFalse();
   });
 });

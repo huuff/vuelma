@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 import BaseMessage from "@/components/BaseMessage.vue";
-import { getFirstEmission } from "./get-first-emission";
+import { getFirstEmission } from "./util";
 
 describe("BaseMessage.vue", () => {
   test("title appears in header", () => {
