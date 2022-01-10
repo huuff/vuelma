@@ -1,36 +1,24 @@
-import { mount } from '@vue/test-utils';
-import ClassedSlot from '@/components/slots/ClassedSlot.js';
+import { mount } from "@vue/test-utils";
+import ClassedSlot from '@/components/slots/ClassedSlot';
 
-describe('ClassedSlot.js', () => {
-  test('every child has the given class', () => {
-      const childrenClass = 'test';
-      const wrapper  = mount(ClassedSlot, {
-        props: { childrenClass },
-        slots: {
-          default: `
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-          `,
-        },
-      });
-
-      for (const elem of wrapper.findAll('a')) {
-        expect(elem.classes()).toContain(childrenClass);
-      }
-  });
-
-  test('it works with only one child too', () => {
-    const childrenClass = 'test';
-    const wrapper  = mount(ClassedSlot, {
+describe("ClassedSlot.js", () => {
+  test("the class gets added to all children", () => {
+    const childrenClass = "testclass";
+    const wrapper = mount(ClassedSlot, {
       props: { childrenClass },
       slots: {
         default: `
-          <a href="#">1</a>
+          <p>Element 1</p>
+          <p>Element 2</p>
+          <p>Element 3</p>
         `,
       },
-    });
+    })
 
-    expect(wrapper.find('a').element.classList).toContain(childrenClass);
+    const nodes = wrapper.findAll("p");
+    expect(nodes.length).toBe(3);
+    for (const node of nodes) {
+      expect(node.element.classList).toContain(childrenClass);
+    }
   });
 });
