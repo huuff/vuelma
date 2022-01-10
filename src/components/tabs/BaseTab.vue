@@ -11,7 +11,7 @@ export interface BaseTabProps extends OptionalId {
   titleText: string;
   tabId?: string;
   icon?: FontAwesomeIconName
-  tab?: string | Component;
+  tag?: string | Component;
 }
 
 const props = defineProps<BaseTabProps>();

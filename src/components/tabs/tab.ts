@@ -10,7 +10,7 @@ export class Tab implements OptionalIcon {
     public readonly icon: FontAwesomeIconName | undefined,
     public readonly slot: VNode,
     private readonly activeTabId: WritableComputedRef<string | undefined>,
-    public readonly tag: string | Component,
+    public readonly tag: string | Component | undefined,
     tabId?: string,
   ) {
     this.tabId = tabId ?? titleText;

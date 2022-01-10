@@ -54,6 +54,7 @@ function slotToTabs(): Tab[] {
       tabProps.icon,
       child,
       actualActiveTabId,
+      tabProps.tag,
       tabProps.tabId,
     )
   });
