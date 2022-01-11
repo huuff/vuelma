@@ -7,6 +7,10 @@
           <menu-list label="First Menu">
             <menu-item titleText="Elem 1" />
             <menu-item titleText="Elem 2" />
+            <menu-list label="Stacked Menu">
+              <menu-item titleText="Stacked Elem 1" />
+              <menu-item titleText="Stacked Elem 2" />
+            </menu-list>
           </menu-list>
           <menu-list label="Second Menu">
             <menu-item titleText="Elem 3" />
