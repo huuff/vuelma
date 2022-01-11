@@ -2,6 +2,11 @@ import { DOMWrapper, mount, VueWrapper } from "@vue/test-utils";
 import BaseTabs from "@/components/tabs/BaseTabs.vue";
 import BaseTab from "@/components/tabs/BaseTab.vue";
 import { getFirstEmission } from "./util";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faHeart);
 
 const firstTabTitle = "FirstTitle";
 const secondTabTitle = "SecondTitle";
@@ -12,7 +17,7 @@ const secondTabContents = "<div>Second tab</div>";
 const thirdTabContents = "<span>Third tab</span>";
 
 const defaultSlot = `
-          <base-tab titleText="${firstTabTitle}">
+          <base-tab titleText="${firstTabTitle}" icon="heart">
               ${firstTabContents}
           </base-tab>
           <base-tab titleText="${secondTabTitle}">
@@ -27,7 +32,7 @@ const defaultSlot = `
 function buildWrapper(props: Record<string, any> = {}): VueWrapper {
   return mount(BaseTabs, {
     props,
-    global: { components: {BaseTab} },
+    global: { components: { BaseTab, FontAwesomeIcon } },
     slots: { default: defaultSlot },
   });
 }
@@ -51,6 +56,13 @@ describe("BaseTabs.vue", () => {
     const wrapper = buildWrapper();
 
     expect(wrapper.findAll("li").length).toBe(3);
+  });
+
+  test("the icon is shown", () => {
+    const wrapper = buildWrapper();
+
+    // The first tab is the one with the icon
+    expect(findTabByText(wrapper, firstTabTitle).getComponent(FontAwesomeIcon).props().icon).toBe("heart");
   });
 
   test("only the active tab has the is-active class", () => {
