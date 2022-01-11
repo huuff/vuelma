@@ -15,3 +15,6 @@
 ## Known issues
 * The Vue compiler goes crazy every time I use more than one two-way binding (as in `BaseDropdown`). I just disable it and go with my life because it works and the error message is absolutely nonsensical.
 * `No overload matches this call` in any of my `itemProps.tag ?? "a"` (or similar). I've checked the overloads and these exist, so why does this appear?
+* There's no way to share props between components, so my components that are basically "decorators" repeat all of the props. Check for example `BaseDropdown` and `SelectorDropdown`
+  * There's mixins... but these are only for the options API aren't they?
+  * Can't use a props type from another file... there's an issue about it somewhere but I haven't found it again. Maybe this feature will come at some point.
