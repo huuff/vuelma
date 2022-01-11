@@ -1,5 +1,5 @@
 <template>
-<base-breadcrumb :activeItemId="pathParts[pathParts.length-1]">
+<base-breadcrumb :activeItemId="currentRoute">
   <breadcrumb-item
     v-for="part in pathParts" 
     :tag="RouterLink"
@@ -13,7 +13,6 @@
 </template>
 
 <script setup lang="ts">
-// TODO: Get active better? mustn't be always the last one
 import { computed } from 'vue';
 import { useRouter, RouteRecordNormalized } from 'vue-router';
 import BaseBreadcrumb from '@/components/breadcrumb/BaseBreadcrumb.vue';
@@ -52,5 +51,10 @@ function routeFromPath(path: string): RouteRecordNormalized {
 function routeFromPart(part: string): RouteRecordNormalized {
   return routeFromPath(buildPathTo(part));
 }
+
+const currentRoute = computed(() => {
+  const pathArray = router.currentRoute.value.path.split("/");
+  return pathArray[pathArray.length - 1];
+});
 </script>
 
