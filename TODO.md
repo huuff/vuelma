@@ -7,8 +7,8 @@
 
 ## Things I can't do until [this issue](https://github.com/vuejs/vue-cli/issues/6911) gets solved
 * Update: Now I can! Since I removed all TSX
+* Test icons! (TODO: Write down whose components icons I have not tested)
 * Test breadcrumb
 * Test menu
 * Test navbar
 * Test pagination
-* Test panel

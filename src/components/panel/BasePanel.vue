@@ -21,12 +21,14 @@ import { BulmaColor } from '@/types/bulma-color';
 import partial from "lodash/partial";
 import classnames from "classnames";
 
-const props = defineProps<{
+export interface BasePanelProps {
   headingText?: string;
   activeItemId?: string;
   activeTabId?: string;
   color?: BulmaColor;
-}>();
+}
+
+const props = defineProps<BasePanelProps>();
 
 const emit = defineEmits<{
   (event: "update:activeItemId", itemId?: string): void;
