@@ -1,25 +1,5 @@
 <template>
-<base-navbar 
-  class="is-fixed-top"
-  :activeItem="router.currentRoute.value.name?.toString()">
-  <template #brand>
-    <navbar-item 
-      :tag="RouterLink"
-      :to="'/'"
-      class="has-text-weight-bold is-size-4"
-      titleText="Vuelma"
-      />
-  </template>
-  <template #end>
-  <navbar-item
-    :tag="RouterLink"
-    v-for="[path, name] in routes()"
-    :titleText="name"
-    :key="path"
-    :to="path"
-  />
-  </template>
-</base-navbar>
+<router-navbar class="is-fixed-top"/>
 <router-breadcrumb alignment="centered" separator="succeeds"/>
 <main class="mt-3">
   <router-view></router-view>
@@ -27,16 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter, RouterLink } from 'vue-router';
-import BaseNavbar from '@/components/navbar/BaseNavbar.vue';
-import NavbarItem from '@/components/navbar/NavbarItem.vue';
+import RouterNavbar from "@/components/navbar/RouterNavbar.vue";
 import RouterBreadcrumb from '@/components/breadcrumb/RouterBreadcrumb.vue';
 
-const router = useRouter();
-
-function routes(): [string, string][] {
-  return router.getRoutes()
-    .filter(route => route.name)
-    .map(route => [route.path, route.name!.toString()]);
-}
 </script>
