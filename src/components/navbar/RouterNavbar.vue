@@ -1,5 +1,5 @@
 <template>
-<base-navbar :activeItemId="router.currentRoute.value.name">
+<base-navbar :activeItem="router.currentRoute.value.name!.toString()">
   <template #brand>
     <navbar-item
       :tag="RouterLink"
@@ -31,4 +31,5 @@ const router = useRouter();
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const rootRoute = computed(() => router.getRoutes().find(r => r.path === "/")!);
 const routesWithoutRoot = computed(() => router.getRoutes().filter(r => r.path !== "/"));
+console.log(`Current route: ${JSON.stringify(router.currentRoute.value)}`)
 </script>

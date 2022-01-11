@@ -49,7 +49,7 @@ function findItemByText(wrapper: VueWrapper, text: string): DOMWrapper<Element> 
   return wrapper.findAll(".breadcrumb li").find(it => it.text() === text)!;
 }
 
-describe("RouterFunction.vue", () => {
+describe("RouterBreadcrumb.vue", () => {
   test("routes appear as RouterLinks", () => {
     const wrapper = buildWrapper();
 
