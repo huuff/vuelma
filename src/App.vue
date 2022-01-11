@@ -9,5 +9,4 @@
 <script setup lang="ts">
 import RouterNavbar from "@/components/navbar/RouterNavbar.vue";
 import RouterBreadcrumb from '@/components/breadcrumb/RouterBreadcrumb.vue';
-
 </script>

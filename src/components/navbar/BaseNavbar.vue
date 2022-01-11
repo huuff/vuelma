@@ -84,6 +84,7 @@ const slots = useSlots();
 type RenderProps = {
   slotName: keyof typeof slots;
 }
+
 const renderItems = (props: RenderProps) => {
   return slots[props.slotName] && unwrapFragment(slots[props.slotName]!())
     .flatMap(node => unwrapFragment([node]))
