@@ -7,7 +7,6 @@
 </template>
 
 <script setup lang="ts">
-// TODO: For some reason, it starts out with a different number of pages
 import { toRef, computed } from "vue";
 import BasePagination from "./BasePagination.vue";
 import { useOptionalTwoWayBinding } from "@/composables/optional-two-way-binding";
@@ -33,7 +32,8 @@ const actualCurrentPage = useOptionalTwoWayBinding(1, toRef(props, "currentPage"
 const pageNumber = computed(() => Math.floor(props.items.length / props.itemsPerPage));
 
 const itemsToShow = computed(() => {
-  const start = pageNumber.value * props.itemsPerPage;
-  return props.items.slice(start, start + props.itemsPerPage);
+  const start = (actualCurrentPage.value-1) * props.itemsPerPage;
+  const itemsToShow = props.items.slice(start, start + props.itemsPerPage);
+  return itemsToShow;
 });
 </script>

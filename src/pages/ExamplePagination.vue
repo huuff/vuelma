@@ -5,14 +5,14 @@
         <label 
           for="pageNumber"
           class="label"
-        >Number of pages</label>
+        >Items per page</label>
       </div>
     <div class="column is-half">
-        <!-- TODO: Use this to put a number of elements -->
         <input
           type="number"
           class="input is-half"
           id="pageNumber"
+          v-model="elementsPerPage"
         />
       </div>
     </div>
@@ -36,24 +36,24 @@
   <div class="mt-5 column is-6 mx-auto">
     <paginated-slot
         :items="allItems"
-        v-model:currentPage="currentPage"
         :showAround="showAround"
+        :itemsPerPage="elementsPerPage"
         v-slot="{ items }"
       >
-      <ul>
-        <li v-for="item in items" :key="JSON.stringify(item)">{{item }}</li>
+      <ul class="has-text-centered has-background-light">
+        <li v-for="item in items" :key="JSON.stringify(item)">Item {{ item }}</li>
       </ul>
     </paginated-slot>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, } from 'vue';
 
 import PaginatedSlot from "@/components/pagination/PaginatedSlot.vue";
-// TODO: Show this fine
 
-const currentPage = ref(5);
-const allItems = [1, 2, 3, 4, 5, 6, 7 ];
+const elementsPerPage = ref(10);
 const showAround = ref(2);
+
+const allItems = Array.from(Array(100).keys());
 </script>
