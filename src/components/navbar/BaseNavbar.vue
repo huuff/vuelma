@@ -86,7 +86,7 @@ type RenderProps = {
 }
 
 const renderItems = (props: RenderProps) => {
-  return slots[props.slotName] && unwrapFragment(slots[props.slotName]!())
+  return slots[props.slotName] && unwrapFragment(slots[props.slotName]())
     .flatMap(node => unwrapFragment([node]))
     .map(node => renderNode(node, props.slotName === 'end'));
 }

@@ -15,6 +15,7 @@ export interface BreadcrumbItemProps extends OptionalId, OptionalIcon {
   icon?: FontAwesomeIconName;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps<BreadcrumbItemProps>();
 
 </script>

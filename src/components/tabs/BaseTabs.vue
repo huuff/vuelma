@@ -21,6 +21,7 @@ import { renderOptionalIcon } from '@/util/optional-icon';
 
 export type TabStyle = "boxed" | "toggle" | "toggle-rounded";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = withDefaults(defineProps<{
   activeTabId?: string;
   tabStyle?: TabStyle;
@@ -38,7 +39,7 @@ const actualActiveTabId = useOptionalTwoWayBinding(undefined, toRef(props, "acti
 const slots = useSlots();
 
 function slotToTabs(): Tab[] {
-  const children = slots.default!();
+  const children = (slots.default && slots.default()) ?? [];
 
   for (const child of children) {
     if (child.type !== BaseTab) {

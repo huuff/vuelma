@@ -9,5 +9,6 @@ export type PanelBlockContentProps = {
   tag?: 'div' | 'label';
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps<PanelBlockContentProps>();
 </script>

@@ -12,5 +12,6 @@ export interface MenuItemProps extends OptionalId {
   tag?: string | Component;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps<MenuItemProps>();
 </script>

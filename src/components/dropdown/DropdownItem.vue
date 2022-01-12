@@ -12,6 +12,7 @@ export interface DropdownItemProps extends OptionalId {
   tag?: string | Component;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps<DropdownItemProps>();
 
 </script>

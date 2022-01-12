@@ -15,5 +15,6 @@ export interface PanelBlockProps extends OptionalId, OptionalIcon {
   tag?: string | Component;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps<PanelBlockProps>();
 </script>

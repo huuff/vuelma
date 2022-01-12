@@ -12,6 +12,7 @@ export interface NavbarItemProps extends OptionalId {
   itemId?: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps<NavbarItemProps>();
 
 </script>
