@@ -49,7 +49,6 @@
 </template>
 
 <script setup lang="ts">
-// TODO: For ellipses, if the ellided element is only 1, show it instead of the ellipsis?
 import { toRef, computed, h } from "vue"
 import { useOptionalTwoWayBinding } from "@/composables/optional-two-way-binding";
 
