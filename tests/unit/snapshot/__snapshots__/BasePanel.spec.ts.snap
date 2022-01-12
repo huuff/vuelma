@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BasePanel.vue snapshot 1`] = `
+<nav
+  class="panel is-warning"
+>
+  <p
+    class="panel-heading"
+  >
+    Heading text
+  </p>
+  
+  <a
+    class="panel-block is-active"
+    titletext="Item 1"
+  >
+    <span>
+      Item 1
+    </span>
+  </a>
+  
+  <p
+    class="panel-tabs"
+  >
+    <a
+      class="is-active"
+      titletext="Tab 1"
+    >
+      Tab 1
+    </a>
+    <a
+      class=""
+      titletext="Tab 2"
+    >
+      Tab 2
+    </a>
+  </p>
+  <a
+    class="panel-block"
+    titletext="Item 2"
+  >
+    <span>
+      Item 2
+    </span>
+  </a>
+  <a
+    class="panel-block"
+    titletext="Item 3"
+  >
+    <span>
+      Item 3
+    </span>
+  </a>
+  <a
+    class="panel-block"
+    titletext="Item 4"
+  >
+    <span>
+      Item 4
+    </span>
+  </a>
+  
+  
+</nav>
+`;

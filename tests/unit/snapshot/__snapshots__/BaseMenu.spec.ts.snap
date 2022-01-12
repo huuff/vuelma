@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BaseMenu.vue snapshot 1`] = `
+<aside
+  class="menu"
+>
+  
+  
+  <p
+    class="menu-label"
+  >
+    List
+  </p>
+  <ul
+    class="menu-list"
+  >
+    <li>
+      <a
+        class="is-active"
+        titletext="Item 1"
+      >
+        Item 1
+      </a>
+    </li>
+    <li>
+      <a
+        class=""
+        titletext="Item 2"
+      >
+        Item 2
+      </a>
+    </li>
+    <li>
+      <p
+        class="menu-label"
+      >
+        Stacked
+      </p>
+      <ul
+        class="menu-list"
+      >
+        <li>
+          <a
+            class=""
+            titletext="Item 3"
+          >
+            Item 3
+          </a>
+        </li>
+        <li>
+          <a
+            class=""
+            titletext="Item 4"
+          >
+            Item 4
+          </a>
+        </li>
+        <li>
+          <a
+            class=""
+            titletext="Item 5"
+          >
+            Item 5
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  
+  
+</aside>
+`;

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BaseModal.vue snapshot 1`] = `
+<div
+  class="modal is-active"
+>
+  <div
+    class="modal-background"
+  />
+  <div
+    class="modal-content"
+  >
+    <p>
+      Modal contents!
+    </p>
+  </div>
+  <button
+    aria-label="close"
+    class="modal-close is-large"
+  />
+</div>
+`;

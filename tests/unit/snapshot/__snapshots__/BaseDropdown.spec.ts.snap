@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BaseDropdown.vue snapshot 1`] = `
+<div
+  class="dropdown is-active"
+>
+  <div
+    class="dropdown-trigger"
+  >
+    <button
+      aria-controls="1"
+      aria-haspopup="true"
+      class="button is-warning"
+    >
+      
+      <span>
+        Click here
+      </span>
+      <span
+        class="icon is-small"
+      >
+        <font-awesome-icon-stub
+          border="false"
+          fixedwidth="false"
+          icon="angle-down"
+          inverse="false"
+          listitem="false"
+          pulse="false"
+          spin="false"
+          swapopacity="false"
+          symbol="false"
+        />
+      </span>
+      
+    </button>
+  </div>
+  <div
+    class="dropdown-menu"
+    id="id"
+  >
+    <div
+      class="dropdown-content"
+    >
+      
+      <a
+        class="dropdown-item is-active"
+        titletext="Item 1"
+      >
+        Item 1
+      </a>
+      <div
+        class="dropdown-item"
+      >
+        <div>
+          Dropdown content
+        </div>
+      </div>
+      <hr
+        class="dropdown-divider"
+      />
+      <a
+        class="dropdown-item"
+        titletext="Item 2"
+      >
+        Item 2
+      </a>
+      
+    </div>
+  </div>
+</div>
+`;

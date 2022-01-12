@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BaseTabs.vue snapshot 1`] = `
+<div
+  data-v-app=""
+>
+  
+  <div
+    class="tabs"
+  >
+    <ul>
+      
+      <li
+        class="is-active"
+      >
+        <a>
+          <span>
+            Tab 1
+          </span>
+        </a>
+      </li>
+      <li
+        class=""
+      >
+        <a>
+          <span>
+            Tab 2
+          </span>
+        </a>
+      </li>
+      <li
+        class=""
+      >
+        <a>
+          <span>
+            Tab 3
+          </span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+  
+  <p>
+    Tab 1 contents
+  </p>
+  
+  
+</div>
+`;

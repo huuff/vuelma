@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BaseNavbar.vue snapshot 1`] = `
+<nav
+  aria-label="navigation"
+  class="navbar is-warning"
+  role="navigation"
+>
+  <div
+    class="navbar-brand"
+  >
+    
+    <a
+      class="navbar-item"
+      titletext="Brand"
+    >
+      Brand
+    </a>
+    
+    <a
+      aria-expanded="false"
+      aria-label="menu"
+      class="navbar-burger"
+      role="button"
+    >
+      <span
+        aria-hidden="true"
+      />
+      <span
+        aria-hidden="true"
+      />
+      <span
+        aria-hidden="true"
+      />
+    </a>
+  </div>
+  <div
+    class="navbar-menu"
+  >
+    <div
+      class="navbar-start"
+    >
+      <!---->
+    </div>
+    <div
+      class="navbar-end"
+    >
+      
+      <a
+        class="navbar-item is-active"
+        titletext="Item 1"
+      >
+        Item 1
+      </a>
+      <div
+        class="navbar-item has-dropdown"
+      >
+        <a
+          class="navbar-link"
+        />
+        <div
+          class="is-right navbar-dropdown"
+        >
+          <a
+            class="navbar-item"
+            titletext="Item 2"
+          >
+            Item 2
+          </a>
+          <hr
+            class="navbar-divider"
+          />
+          <a
+            class="navbar-item"
+            titletext="Item 3"
+          >
+            Item 3
+          </a>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</nav>
+`;

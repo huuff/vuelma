@@ -6,4 +6,5 @@ module.exports = {
       tsconfig: './tsconfig.json',
     },
   },
+  snapshotSerializers: [ "jest-serializer-vue" ],
 }

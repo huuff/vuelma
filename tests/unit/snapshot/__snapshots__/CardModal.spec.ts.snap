@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardModal.vue snapshot 1`] = `
+<div
+  class="modal is-active"
+>
+  <div
+    class="modal-background"
+  />
+  <div
+    class="modal-card"
+  >
+    <header
+      class="modal-card-head"
+    >
+      
+      
+      <p
+        class="modal-card-title"
+      >
+        Card Modal Title
+      </p>
+      <button
+        aria-label="close"
+        class="delete"
+        type="button"
+      />
+    </header>
+    <section
+      class="modal-card-body"
+    >
+      
+      <p>
+        Card modal body
+      </p>
+      
+    </section>
+    <footer
+      class="modal-card-foot"
+    >
+      
+      <p>
+        Card modal footer
+      </p>
+      
+    </footer>
+  </div>
+  <!--v-if-->
+</div>
+`;

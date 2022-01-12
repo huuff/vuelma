@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BaseCard.vue snapshot 1`] = `
+<div
+  class="card"
+>
+  <header
+    class="card-header"
+  >
+    
+    <p
+      class="card-header-title"
+    >
+      Card Title
+    </p>
+    <div
+      class="card-header-icon"
+    >
+      <span
+        class="icon"
+      >
+        <font-awesome-icon-stub
+          aria-hidden=""
+          icon="heart"
+        />
+      </span>
+    </div>
+    
+  </header>
+  <div
+    class="card-image"
+  >
+    <figure
+      class="image"
+    >
+      <img
+        src="testimg"
+      />
+    </figure>
+  </div>
+  <div
+    class="card-content"
+  >
+    
+    <p>
+      Content of the card body
+    </p>
+    
+  </div>
+  <footer
+    class="card-footer"
+  >
+    
+    
+    
+    
+    <a
+      class="card-footer-item"
+    >
+      Footer item 1
+    </a>
+    <a
+      class="card-footer-item"
+    >
+      Footer item 2
+    </a>
+    <a
+      class="card-footer-item"
+    >
+      Footer item 3
+    </a>
+    
+    
+  </footer>
+</div>
+`;

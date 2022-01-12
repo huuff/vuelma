@@ -58,7 +58,6 @@ describe("BaseBreadcrumb.vue", () => {
     const activeItemId = firstItem;
     const wrapper = buildWrapper( { activeItemId });
 
-    console.log(wrapper.html());
     expect(findItemByText(wrapper, activeItemId).element.classList).toContain("is-active");
   });
 

@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BasePagination.vue snapshot 1`] = `
+<nav
+  aria-label="pagination"
+  class="pagination"
+  role="pagination"
+>
+  <button
+    aria-label="previous"
+    class="pagination-previous"
+  >
+    <svg
+      aria-hidden="true"
+      class="svg-inline--fa fa-angle-left fa-w-8"
+      data-icon="angle-left"
+      data-prefix="fas"
+      focusable="false"
+      role="img"
+      viewBox="0 0 256 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        class=""
+        d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"
+        fill="currentColor"
+      />
+    </svg>
+  </button>
+  <button
+    aria-label="next"
+    class="pagination-next"
+  >
+    <svg
+      aria-hidden="true"
+      class="svg-inline--fa fa-angle-right fa-w-8"
+      data-icon="angle-right"
+      data-prefix="fas"
+      focusable="false"
+      role="img"
+      viewBox="0 0 256 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        class=""
+        d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"
+        fill="currentColor"
+      />
+    </svg>
+  </button>
+  <ul
+    class="pagination-list"
+  >
+    <li>
+      <a
+        aria-label="Goto page 1"
+        class="pagination-link"
+      >
+        1
+      </a>
+    </li>
+    <li>
+      <a
+        class="pagination-ellipsis"
+      >
+        …
+      </a>
+    </li>
+    
+    <li>
+      <a
+        aria-label="Goto page 3"
+        class="pagination-link"
+      >
+        3
+      </a>
+    </li>
+    <li>
+      <a
+        aria-label="Goto page 4"
+        class="pagination-link"
+      >
+        4
+      </a>
+    </li>
+    
+    <li>
+      <a
+        aria-current="true"
+        aria-label="Goto page 5"
+        class="pagination-link is-current"
+      >
+        5
+      </a>
+    </li>
+    
+    <li>
+      <a
+        aria-label="Goto page 6"
+        class="pagination-link"
+      >
+        6
+      </a>
+    </li>
+    <li>
+      <a
+        aria-label="Goto page 7"
+        class="pagination-link"
+      >
+        7
+      </a>
+    </li>
+    
+    <li>
+      <a
+        class="pagination-ellipsis"
+      >
+        …
+      </a>
+    </li>
+    <li>
+      <a
+        aria-label="Goto page 10"
+        class="pagination-link"
+      >
+        10
+      </a>
+    </li>
+  </ul>
+</nav>
+`;

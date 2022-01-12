@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BaseMessage.vue snapshot 1`] = `
+<article
+  class="message is-info"
+>
+  <header
+    class="message-header"
+  >
+    <p>
+      Message title
+    </p>
+    
+    
+    <button
+      aria-label="delete"
+      class="delete"
+    />
+  </header>
+  <div
+    class="message-body"
+  >
+    
+    <p>
+      Message contents!
+    </p>
+    
+  </div>
+</article>
+`;

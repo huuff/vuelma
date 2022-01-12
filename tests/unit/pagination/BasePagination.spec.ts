@@ -123,7 +123,6 @@ describe("BasePagination.vue", () => {
     const targetPage = 2;
     await findPageByNumber(wrapper, targetPage).trigger("click");
     await wrapper.vm.$forceUpdate();
-    console.log(wrapper.html());
     expect(findPageByNumber(wrapper, targetPage).element.classList).toContain("is-current")
   });
 
