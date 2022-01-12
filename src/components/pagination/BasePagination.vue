@@ -104,9 +104,19 @@ const backwardReachesFirst = computed(() => showBackward.value.includes(1));
 
 const forwardReachesLast = computed(() => showForward.value.includes(props.pageNumber));
 
-const isThereAGapToFirst = computed(() => showBackward.value.length > 0 && showBackward.value[0] > 2)
+const isThereAGapToFirst = computed(() => {
+    if (props.showAround === 0)  
+      return actualCurrentPage.value !== 1;
+    else 
+      return showBackward.value.length > 0 && showBackward.value[0] > 2
+});
 
-const isThereAGapToLast = computed(() => showForward.value.length > 0 && showForward.value[showForward.value.length-1] < props.pageNumber - 1 )
+const isThereAGapToLast = computed(() => {
+  if (props.showAround === 0)
+    return actualCurrentPage.value !== props.pageNumber;
+  else
+    return showForward.value.length > 0 && showForward.value[showForward.value.length-1] < props.pageNumber - 1 
+})
 
 type PaginationLinkProps = {
   page: number;
